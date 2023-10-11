@@ -16,6 +16,12 @@ Berisi daftar buku-buku yang diambil dari dataset. Setiap data buku pada dataset
 | Member (Login)  | Guest |
 | ------------- | ------------- |
 | Dapat melihat daftar buku-buku beserta ratingnya.  | Dapat melihat daftar buku-buku tapi tidak dapat melihat rating yang telah diberikan pada buku tersebut.  |
+### 2. Book Tracker & Planner (Bulan Athaillah Permata Wijaya)
+Buku yang sedang dipinjam dapat di-_track progressnya_ dengan menandai sudah sejauh mana buku dibaca. Selain itu, pengguna dapat mengelompokkan buku-buku yang ingin dibaca ke dalam _book planner_ sesuai dengan preferensinya.
+#### Peran Role Pengguna
+| Member (Login)  | Guest |
+| ------------- | ------------- |
+| Dapat melakukan _tracking progress_ buku bacaan yang dipinjam dan dapat menggunakan fitur _book planner_. | Dapat melakukan _tracking progress_ disaat berkunjung saja serta tidak dapat menggunakan fitur _book planner_. |
 
 ## ℹ Sumber Dataset Katalog Buku ℹ
 Sumber dataset buku = https://github.com/uchidalab/book-dataset/blob/master/Task2/book32-listing.csv
