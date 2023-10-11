@@ -13,9 +13,9 @@
 ### 1. Book List (Muhammad Mariozulfandy)
 Berisi daftar buku-buku yang diambil dari dataset. Setiap data buku pada dataset yang digunakan akan ditampilkan beserta rating yang diperoleh pada modul Forum Review. Daftar buku-buku juga akan dapat dibagi berdasarkan kategori dan terdapat fitur search bar untuk mencari buku tertentu.
 #### Peran Role Pengguna
-| Member (Login)  | Guest |
-| ------------- | ------------- |
-| Dapat melihat daftar buku-buku beserta ratingnya.  | Dapat melihat daftar buku-buku tapi tidak dapat melihat rating yang telah diberikan pada buku tersebut.  |
+| Member (Login)  | Employee  | Guest |
+| ------------- | ------------- | ------------- |
+| Dapat melihat daftar buku-buku beserta ratingnya.  | Dapat menambahkan buku baru.  | Dapat melihat daftar buku-buku tapi tidak dapat melihat rating yang telah diberikan pada buku tersebut.  |
 ### 2. Book Tracker & Planner (Bulan Athaillah Permata Wijaya)
 Buku yang sedang dipinjam dapat di-_track progressnya_ dengan menandai sudah sejauh mana buku dibaca. Selain itu, pengguna dapat mengelompokkan buku-buku yang ingin dibaca ke dalam _book planner_ sesuai dengan preferensinya.
 #### Peran Role Pengguna
@@ -45,3 +45,4 @@ https://drive.google.com/drive/folders/1hx7s5vcN59ihvJnt7NNN-X0zln6Abdbr?usp=sha
 ## 👱‍♂️ Role Pengguna Aplikasi 👩
 ### 1. Seluruh Pelanggan Cafe (Guest)
 ### 2. Pelanggan Cafe yang Mendaftar pada Aplikasi (Member)
+### 3. Pengelola Cafe (Employee)
