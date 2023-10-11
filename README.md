@@ -32,6 +32,13 @@ Pengguna dapat me-review buku yang sudah dipinjam dan membagikan pengalaman saat
 | ------------- | ------------- |
 | Member dapat menulis review dari buku yang dipinjam dan menceritakan pengalaman user, lalu review akan di simpan ke dalam sistem. | User hanya bisa mengirim feedback secara anonim, jika ingin menulis review dan membagikan pengalamannya maka akan di-direct ke sign up page. |
 
+### 4. Order & Borrow (Alexander Audric Johansyah)
+Pengguna dapat memesan berbagai jenis makanan dan minuman yang tersedia di menu cafe Read & Brew. Setelah pengguna, memesan makanan dan minuman, pengguna dapat meminjam buku yang tersedia pada katalog buku.
+
+| Member (Login)  | Employee | Guest |
+| ------------- | ------------- | ------------- |
+| Member dapat memesan makanan dan meminjam buku | Employee dapat menambahkan item di menu cafe | Guest dapat memesan makanan dan meminjam buku
+
 ## ℹ Sumber Dataset Katalog Buku ℹ
 Sumber dataset buku = https://github.com/uchidalab/book-dataset/blob/master/Task2/book32-listing.csv
 
