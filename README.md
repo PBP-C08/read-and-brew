@@ -22,6 +22,12 @@ Buku yang sedang dipinjam dapat di-_track progressnya_ dengan menandai sudah sej
 | Member (Login)  | Guest |
 | ------------- | ------------- |
 | Dapat melakukan _tracking progress_ buku bacaan yang dipinjam dan dapat menggunakan fitur _book planner_. | Dapat melakukan _tracking progress_ disaat berkunjung saja serta tidak dapat menggunakan fitur _book planner_. |
+### 3. Forum Review (Fikri Dhiya Ramadhana)
+Pengguna dapat me-review buku yang sudah dipinjam dan membagikan pengalaman saat menggunakan aplikasi Read&Brew. Digunakan sistem rating untuk setiap pengalaman user. 
+#### Peran Role Pengguna
+| Member (Login)  | Guest |
+| ------------- | ------------- |
+| Member dapat menulis review dari buku yang dipinjam dan menceritakan pengalaman user, lalu review akan di simpan ke dalam sistem. | User hanya bisa mengirim feedback secara anonim, jika ingin menulis review dan membagikan pengalamannya maka akan di-direct ke sign up page. |
 
 ## ℹ Sumber Dataset Katalog Buku ℹ
 Sumber dataset buku = https://github.com/uchidalab/book-dataset/blob/master/Task2/book32-listing.csv
