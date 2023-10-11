@@ -13,7 +13,7 @@
 ### 1. Book List (Muhammad Mariozulfandy)
 Berisi daftar buku-buku yang diambil dari dataset. Setiap data buku pada dataset yang digunakan akan ditampilkan beserta rating yang diperoleh pada modul Forum Review. Daftar buku-buku juga akan dapat dibagi berdasarkan kategori dan terdapat fitur search bar untuk mencari buku tertentu.
 #### Peran Role Pengguna
-| Guest  | Member (Login) |
+| Member (Login)  | Guest |
 | ------------- | ------------- |
 | Dapat melihat daftar buku-buku beserta ratingnya.  | Dapat melihat daftar buku-buku tapi tidak dapat melihat rating yang telah diberikan pada buku tersebut.  |
 
