@@ -8,6 +8,9 @@
 * [Bulan Athaillah Permata Wijaya](https://github.com/bulanath) - 2206032135
 
 ## ⏪ Latar Belakang Aplikasi ⏪
+Berdasarkan studi tahun 2020, UNESCO menyatakan bahwa minat baca masyarakat Indonesia berada di angka yang sangat memprihatinkan, yakni hanya sebesar 0,001%. Dari data tersebut berarti bahwa di antara 1.000 masyarakat Indonesia, hanya ada satu orang yang rajin membaca. Selanjutnya, hasil data Asesmen Nasional (AN) tahun 2021 juga menunjukkan bahwa Indonesia mengalami darurat literasi karena 1 dari 2 peserta didik masih belum mencapai kompetensi minimum literasi.
+
+Sebagai salah satu cara untuk mengatasi masalah di atas, kami memutuskan untuk membuat aplikasi **Read & Brew**. **Read & Brew** merupakan sebuah aplikasi yang memadukan kegemaran akan buku dengan kenyamanan sebuah kafe. Kami memiilih kafe sebagai sarana untuk meningkatkan tingkat literasi karena adanya peningkatan yang signifikan terkait dengan tingkat pengunjung kafe di kalangan anak muda. Kami memiliki harapan bahwa kafe tidak hanya bisa menjadi tempat untuk bersantai, tetapi juga menjadi sarana untuk meningkatkan literasi dari kalangan muda yang mayoritasnya masih memiliki tingkat literasi yang rendah.
 
 ## 💡 Daftar Modul Aplikasi 💡
 ### 1. Book List (Muhammad Mariozulfandy)
@@ -35,6 +38,9 @@ Pengguna dapat memesan berbagai jenis makanan dan minuman yang tersedia di menu 
 | Member (Login)  | Employee | Guest |
 | ------------- | ------------- | ------------- |
 | Member dapat memesan makanan dan meminjam buku | Employee dapat menambahkan item di menu cafe | Guest dapat memesan makanan dan meminjam buku
+
+### 5. Book Request (Patrick Samuel Evans Simanjuntak)
+Pengguna dapat meminta pengelola kafe untuk menambahkan buku-buku yang dirasa menarik dan dibutuhkan oleh pengguna. Pengguna dapat melakukan *request* dengan cara mengisi *form* yang masing-masing *request*-nya akan ditampilkan pada suatu tabel yang dapat dilihat oleh setiap pengguna. Pengguna lain dapat melihat dan memberikan *like* pada *request* yang ada. Pengelola kafe dapat menyetujui *request* yang ada dan menambahkan buku tersebut ke *database*.
 
 ## ℹ Sumber Dataset Katalog Buku ℹ
 Sumber dataset buku = https://github.com/uchidalab/book-dataset/blob/master/Task2/book32-listing.csv
