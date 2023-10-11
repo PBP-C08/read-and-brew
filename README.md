@@ -41,6 +41,9 @@ Pengguna dapat memesan berbagai jenis makanan dan minuman yang tersedia di menu 
 
 ### 5. Book Request (Patrick Samuel Evans Simanjuntak)
 Pengguna dapat meminta pengelola kafe untuk menambahkan buku-buku yang dirasa menarik dan dibutuhkan oleh pengguna. Pengguna dapat melakukan *request* dengan cara mengisi *form* yang masing-masing *request*-nya akan ditampilkan pada suatu tabel yang dapat dilihat oleh setiap pengguna. Pengguna lain dapat melihat dan memberikan *like* pada *request* yang ada. Pengelola kafe dapat menyetujui *request* yang ada dan menambahkan buku tersebut ke *database*.
+| Member (Login)  | Employee | Guest |
+| ------------- | ------------- | ------------- |
+| Member membuat *request* buku | Employee dapat menyetujui *request* buku | Guest tidak bisa mengakses halaman *book request*.
 
 ## ℹ Sumber Dataset Katalog Buku ℹ
 Sumber dataset buku = https://github.com/uchidalab/book-dataset/blob/master/Task2/book32-listing.csv
