@@ -23,11 +23,10 @@
             <div class="alert alert-danger">
                 <ul>
                     {% for message in messages %}
-                        <li>{{ message }}</li>
+                        <li class="text-lg text-red-500">{{ message }}</li>
                     {% endfor %}
                 </ul>
             </div>
-            <br>
         {% endif %}
 
         {% if form.errors or form.non_field_errors %}
@@ -39,8 +38,11 @@
                 {{ form.non_field_errors }}
             </div>
         {% endif %}
+        <a class="text-lg">Don't have an account yet?</a>
+        <a class="underline text-lg text-blue-700" href="{% url 'main:signup' %}">Sign up</a>
+        <br>
 
-        <button class="py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
+        <button class="my-2 py-4 px-8 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
     </form>
 </div>
 {% endblock %}

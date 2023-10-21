@@ -1,0 +1,1058 @@
+[
+  {
+    "pk": 1,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51kslCMKhaL.jpg",
+      "Judul": "Hand Job: A Catalog of Type",
+      "Penulis": "Michael Perry",
+      "Kategori": "Arts & Photography",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 2,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51tEMiHhx5L.jpg",
+      "Judul": "Jacob A. Riis: Revealing New York's Other Half: A Complete Catalogue of His Photographs",
+      "Penulis": "Bonnie Yochelson",
+      "Kategori": "Arts & Photography",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 3,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/510wamY-XHL.jpg",
+      "Judul": "Dynamic Wrinkles and Drapery: Solutions for Drawing the Clothed Figure",
+      "Penulis": "Burne Hogarth",
+      "Kategori": "Arts & Photography",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 4,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/41KAVHE17XL.jpg",
+      "Judul": "Baryshnikov: In Black and White",
+      "Penulis": "Mikhail Baryshnikov",
+      "Kategori": "Biographies & Memoirs",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 5,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51EF2a1b8sL.jpg",
+      "Judul": "The Bundy Murders: A Comprehensive History",
+      "Penulis": "Kevin M. Sullivan",
+      "Kategori": "Biographies & Memoirs",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 6,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51BVuNO4EdL.jpg",
+      "Judul": "H  l  ne's World:  H  l  ne Desportes of Seventeent",
+      "Penulis": "Susan McNelley",
+      "Kategori": "Biographies & Memoirs",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 7,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/516RdL6JYzL.jpg",
+      "Judul": "Kiss, Bow, Or Shake Hands: The Bestselling Guide to Doing Business in More Than 60 Countries",
+      "Penulis": "Terri Morrison",
+      "Kategori": "Business & Money",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 8,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/41ly4jYDbZL.jpg",
+      "Judul": "Service Agreements for SMB Consultants - A Quick Start Guide for Managed Services",
+      "Penulis": "Karl W. Palachuk",
+      "Kategori": "Business & Money",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 9,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51KbijNKCfL.jpg",
+      "Judul": "Managing Innovation: Integrating Technological, Market and Organizational Change",
+      "Penulis": "Joe Tidd",
+      "Kategori": "Business & Money",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 10,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51mMSdKuEhL.jpg",
+      "Judul": "Masterpieces 2016 Engagement Book",
+      "Penulis": "Metropolitan Museum Of Art",
+      "Kategori": "Calendars",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 11,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/61ow4ZYtOOL.jpg",
+      "Judul": "Norway 2016 Square 12x12",
+      "Penulis": "Browntrout Publishers",
+      "Kategori": "Calendars",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 12,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51os5lPhHQL.jpg",
+      "Judul": "Kirigami Fold & Cut-a-day 2013 Day-to-Day Calendar",
+      "Penulis": "Jeff Cole",
+      "Kategori": "Calendars",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 13,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/510VWpCcjWL.jpg",
+      "Judul": "Statues of Easter Island (Ancient Wonders)",
+      "Penulis": "Elizabeth Raum",
+      "Kategori": "Children's Books",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 14,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51IvgpZGvgL.jpg",
+      "Judul": "Big Board First 100 Machines",
+      "Penulis": "Roger Priddy",
+      "Kategori": "Children's Books",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 15,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/71303XEY58L.gif",
+      "Judul": "The Fantastic Book of Gymnastics",
+      "Penulis": "Lloyd Readhead",
+      "Kategori": "Children's Books",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 16,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/61aJAB8km1L.jpg",
+      "Judul": "Rite of Baptism for Children (Bilingual Edition) (Roman Ritual) (Multilingual Edition)",
+      "Penulis": "Catholic Church",
+      "Kategori": "Christian Books & Bibles",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 17,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51Gr7jtx8fL.jpg",
+      "Judul": "From Baptist Preacher to Mormon Teacher",
+      "Penulis": "Wain Myers",
+      "Kategori": "Christian Books & Bibles",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 18,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51%2BFeXmfC2L.jpg",
+      "Judul": "Breaking the Threefold Demonic Cord: How to Discern and Defeat the Lies of Jezebel, Athaliah and Delilah",
+      "Penulis": "Sandie Freed",
+      "Kategori": "Christian Books & Bibles",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 19,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51evV86UpzL.jpg",
+      "Judul": "Phoenix Wright: Ace Attorney 5",
+      "Penulis": "Kenji Kuroda",
+      "Kategori": "Comics & Graphic Novels",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 20,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51-6KquNs6L.jpg",
+      "Judul": "Pinocchio: The Making of the Disney Epic",
+      "Penulis": "J.B. Kaufman",
+      "Kategori": "Comics & Graphic Novels",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 21,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51-Bpt96MqL.jpg",
+      "Judul": "Edgar Allan Poe's Spirits of the Dead",
+      "Penulis": "Richard Corben",
+      "Kategori": "Comics & Graphic Novels",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 22,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51bAkWqj1cL.jpg",
+      "Judul": "Systems Analysis and Design in a Changing World, 6th Edition",
+      "Penulis": "John W. Satzinger",
+      "Kategori": "Computers & Technology",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 23,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51A8l%2BoirrL.jpg",
+      "Judul": "Raspberry Pi Cookbook for Python Programmers",
+      "Penulis": "Tim Cox",
+      "Kategori": "Computers & Technology",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 24,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51R055XpjWL.jpg",
+      "Judul": "OpenLayers 3 Beginner s Guide",
+      "Penulis": "Thomas Gratier",
+      "Kategori": "Computers & Technology",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 25,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51AZx7zAZsL.jpg",
+      "Judul": "The Texas Food Bible: From Legendary Dishes to New Classics",
+      "Penulis": "Dean Fearing",
+      "Kategori": "Cookbooks, Food & Wine",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 26,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51SzgyI4RHL.jpg",
+      "Judul": "Authentic Thanksgiving Italian Cooking At Its Best",
+      "Penulis": "Marshella Goodsworth",
+      "Kategori": "Cookbooks, Food & Wine",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 27,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/41sRy-MGRgL.jpg",
+      "Judul": "Argentinian Street Food: Empanadas, Helados & Dulce de Leche",
+      "Penulis": "Gaston Stivelmaher",
+      "Kategori": "Cookbooks, Food & Wine",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 28,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/61mGSIboqFL.jpg",
+      "Judul": "Steampunk Your Wardrobe: Easy Projects to Add Victorian Flair to Everyday Fashions",
+      "Penulis": "Calista Taylor",
+      "Kategori": "Crafts, Hobbies & Home",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 29,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/61LPMrygsSL.jpg",
+      "Judul": "New Ceramic Surface Design: Learn to Inlay, Stamp, Stencil, Draw, and Paint on Clay",
+      "Penulis": "Molly Hatch",
+      "Kategori": "Crafts, Hobbies & Home",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 30,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51KzTL1KqYL.jpg",
+      "Judul": "Ferrari (First Gear)",
+      "Penulis": "Larry Edsall",
+      "Kategori": "Crafts, Hobbies & Home",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 31,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51SS28JVV6L.jpg",
+      "Judul": "How to Price Landscape & Irrigation Projects (Greenback Series)",
+      "Penulis": "James R. Huston",
+      "Kategori": "Education & Teaching",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 32,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51HCw-DuieL.jpg",
+      "Judul": "Mathematical Mindsets: Unleashing Students' Potential through Creative Math, Inspiring Messages and Innovative Teaching",
+      "Penulis": "Jo Boaler",
+      "Kategori": "Education & Teaching",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 33,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51K%2BuWlmYSL.jpg",
+      "Judul": "Home, School, and Community Collaboration: Culturally Responsive Family Engagement",
+      "Penulis": "Kathy Beth Grant",
+      "Kategori": "Education & Teaching",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 34,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51bNHo1AKuL.jpg",
+      "Judul": "Fundamentals of Astrodynamics (Dover Books on Aeronautical Engineering)",
+      "Penulis": "Roger  R. Bate",
+      "Kategori": "Engineering & Transportation",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 35,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51jUByoubwL.jpg",
+      "Judul": "Structural Analysis (9th Edition)",
+      "Penulis": "Russell C. Hibbeler",
+      "Kategori": "Engineering & Transportation",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 36,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51dVLmTczXL.jpg",
+      "Judul": "Wired for War: The Robotics Revolution and Conflict in the 21st Century",
+      "Penulis": "P. W. Singer",
+      "Kategori": "Engineering & Transportation",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 37,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51ksYlo8DrL.jpg",
+      "Judul": "The Life of Astolphe De Custine",
+      "Penulis": "Anka Muhlstein",
+      "Kategori": "Gay & Lesbian",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 38,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51BpwQwHdHL.jpg",
+      "Judul": "The Homo Handbook: Getting in Touch with Your Inner Homo: A Survival Guide for Lesbians and Gay Men (1996 Lambda Literary Award Best Humor Book)",
+      "Penulis": "Judy Carter",
+      "Kategori": "Gay & Lesbian",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 39,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51RBZTVhZ0L.jpg",
+      "Judul": "The Protector",
+      "Penulis": "N.L. Gassert",
+      "Kategori": "Gay & Lesbian",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 40,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51eGWUzbqjL.jpg",
+      "Judul": "What's So Yummy?: All About Eating Well and Feeling Good (Let's Talk about You and Me)",
+      "Penulis": "Robie Harris",
+      "Kategori": "Health, Fitness & Dieting",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 41,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/510HO8OxEPL.jpg",
+      "Judul": "Whole: Rethinking the Science of Nutrition",
+      "Penulis": "T. Colin Campbell",
+      "Kategori": "Health, Fitness & Dieting",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 42,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/41uBjcYfuAL.jpg",
+      "Judul": "The Weight, Hypnotherapy and You Weight Reduction Program: An NLP and Hypnotherapy Practitioner's Manual [With CDROM]",
+      "Penulis": "Judith E. Pearson",
+      "Kategori": "Health, Fitness & Dieting",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 43,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51IHgG6cOcL.jpg",
+      "Judul": "Invading Guatemala: Spanish, Nahua, and Maya Accounts of the Conquest Wars",
+      "Penulis": "Matthew Restall",
+      "Kategori": "History",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 44,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51Q89gki-iL.jpg",
+      "Judul": "Black Magic: Religion and the African American Conjuring Tradition",
+      "Penulis": "Yvonne P. Chireau",
+      "Kategori": "History",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 45,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51Gg3u4n1HL.jpg",
+      "Judul": "Kuwait By the First Photographers",
+      "Penulis": "William Facey",
+      "Kategori": "History",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 46,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51flWdGppgL.jpg",
+      "Judul": "Total Recall: My Unbelievably True Life Story",
+      "Penulis": "Arnold Schwarzenegger",
+      "Kategori": "Humor & Entertainment",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 47,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/515yB-cPKjL.jpg",
+      "Judul": "The Pocket Guide to Sayc",
+      "Penulis": "Ned Downey",
+      "Kategori": "Humor & Entertainment",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 48,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51J3WQFst%2BL.jpg",
+      "Judul": "Rural Wit and Wisdom: Time-Honored Values from the Heartland",
+      "Penulis": "Jerry Apps",
+      "Kategori": "Humor & Entertainment",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 49,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/41Lql2%2BuKpL.jpg",
+      "Judul": "The Passport in America: The History of a Document",
+      "Penulis": "Craig Robertson",
+      "Kategori": "Law",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 50,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51WaFLbHXeL.jpg",
+      "Judul": "Aquinas in the Courtroom: Lawyers, Judges, and Judicial Conduct",
+      "Penulis": "Charles Nemeth",
+      "Kategori": "Law",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 51,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51iEwtmdtbL.jpg",
+      "Judul": "Death by Government",
+      "Penulis": "R. J. Rummel",
+      "Kategori": "Law",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 52,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51XKHAC0G2L.jpg",
+      "Judul": "Higher Forces",
+      "Penulis": "William Griffith",
+      "Kategori": "Literature & Fiction",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 53,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/41M%2B4wnTqFL.jpg",
+      "Judul": "Grief Lessons: Four Plays by Euripides (New York Review Books Classics)",
+      "Penulis": "Euripides",
+      "Kategori": "Literature & Fiction",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 54,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51cX2y5gkLL.jpg",
+      "Judul": "Prodigal: New and Selected Poems, 1976 to 2014",
+      "Penulis": "Linda Gregerson",
+      "Kategori": "Literature & Fiction",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 55,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/419SCPWBEML.jpg",
+      "Judul": "The Caregiving Dilemma: Work in an American Nursing Home",
+      "Penulis": "Nancy Foner",
+      "Kategori": "Medical Books",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 56,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51msalb23bL.jpg",
+      "Judul": "Clinical Pharmacology, 11e",
+      "Penulis": "Peter N. Bennett MD FRCP DPMSA",
+      "Kategori": "Medical Books",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 57,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51%2BfPT%2BP%2BVL.jpg",
+      "Judul": "Wound Care Essentials: Practice Principles",
+      "Penulis": "Sharon Baranoski MSN  RN  CWOCN  APN  FAAN",
+      "Kategori": "Medical Books",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 58,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51n-jrX71pL.jpg",
+      "Judul": "Mona Lisa Overdrive",
+      "Penulis": "William Gibson",
+      "Kategori": "Mystery, Thriller & Suspense",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 59,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/41vJXE%2B4RQL.jpg",
+      "Judul": "A is for Alibi (Kinsey Millhone Alphabet Mysteries, No. 1)",
+      "Penulis": "Sue Grafton",
+      "Kategori": "Mystery, Thriller & Suspense",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 60,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51o74RiwH9L.jpg",
+      "Judul": "Free to Trade: A Novel of Suspense",
+      "Penulis": "Michael Ridpath",
+      "Kategori": "Mystery, Thriller & Suspense",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 61,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/41uZtpAXq8L.jpg",
+      "Judul": "The Suicide Index: Putting My Father's Death in Order",
+      "Penulis": "Joan Wickersham",
+      "Kategori": "Parenting & Relationships",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 62,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51iKL%2BQuwTL.jpg",
+      "Judul": "Playful Preparedness: Prepare Your Children-For Life! 26 Games for Teaching Situational Awareness and the Survival Mindset to Children of All Ages",
+      "Penulis": "Tim Young",
+      "Kategori": "Parenting & Relationships",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 63,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/41Mj0VfToBL.jpg",
+      "Judul": "I Love You to the Moon and Back",
+      "Penulis": "Andrews McMeel Publishing LLC",
+      "Kategori": "Parenting & Relationships",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 64,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/41lz22fodhL.jpg",
+      "Judul": "The Billionaire Who Wasn't: How Chuck Feeney Secretly Made and Gave Away a Fortune",
+      "Penulis": "Conor O'Clery",
+      "Kategori": "Politics & Social Sciences",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 65,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/41Oaovdw8PL.jpg",
+      "Judul": "The Complete Works of Aristotle: The Revised Oxford Translation, Vol. 2 (Bollingen Series LXXI-2)",
+      "Penulis": "Aristotle",
+      "Kategori": "Politics & Social Sciences",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 66,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/61iBriEG8YL.jpg",
+      "Judul": "Introduction to Logic and Critical Thinking",
+      "Penulis": "Merrilee H. Salmon",
+      "Kategori": "Politics & Social Sciences",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 67,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/61vLs0LfUYL.jpg",
+      "Judul": "The Old Farmer's Almanac Everyday Cookbook",
+      "Penulis": "Old Farmer E  Es A",
+      "Kategori": "Reference",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 68,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/41nyRFYO%2BIL.jpg",
+      "Judul": "Introduction to Sanskrit, Part 1",
+      "Penulis": "Thomas Egenes",
+      "Kategori": "Reference",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 69,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/61sRuqUpZlL.jpg",
+      "Judul": "Simon & Schuster Handbook for Writers (9th Edition)",
+      "Penulis": "Lynn Q. Troyka",
+      "Kategori": "Reference",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 70,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/419E5EEoWML.jpg",
+      "Judul": "Motherhood in Islam",
+      "Penulis": "Aliah Schleifer",
+      "Kategori": "Religion & Spirituality",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 71,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/41dFY14YmbL.jpg",
+      "Judul": "Polishing the Mirror: How to Live from Your Spiritual Heart",
+      "Penulis": "Ram Dass",
+      "Kategori": "Religion & Spirituality",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 72,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51oZOFs876L.jpg",
+      "Judul": "From the Shahs to Los Angeles: Three Generations of Iranian Jewish Women between Religion and Culture",
+      "Penulis": "Saba Soomekh",
+      "Kategori": "Religion & Spirituality",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 73,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51C8PoGIOeL.jpg",
+      "Judul": "Vagabonds of Gor (Gorean Saga)",
+      "Penulis": "John Norman",
+      "Kategori": "Romance",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 74,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51CBRiTM0SL.jpg",
+      "Judul": "The Adventures of Julian Robinson (Victorian Library)",
+      "Penulis": "Publishing Grove",
+      "Kategori": "Romance",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 75,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51SgHDOF15L.jpg",
+      "Judul": "The Status of All Things: A Novel",
+      "Penulis": "Liz Fenton",
+      "Kategori": "Romance",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 76,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/41z-5KBvYhL.jpg",
+      "Judul": "The Deniable Darwin and Other Essays",
+      "Penulis": "David Berlinski Ph.D.",
+      "Kategori": "Science & Math",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 77,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/41-4uCozpwL.jpg",
+      "Judul": "Gas Migration: Events Preceding Earthquakes (Petroleum Engineering S)",
+      "Penulis": "Leonid F. Khilyuk Ph.D. Ph.D.",
+      "Kategori": "Science & Math",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 78,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51qb9d98CVL.jpg",
+      "Judul": "Hands-On Math Projects With Real-Life Applications: Grades 6-12",
+      "Penulis": "Judith A. Muschla",
+      "Kategori": "Science & Math",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 79,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/41kjLDuR3DL.jpg",
+      "Judul": "Kingsley",
+      "Penulis": "Carolyn O'Neal",
+      "Kategori": "Science Fiction & Fantasy",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 80,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/510kn8EEGdL.jpg",
+      "Judul": "World of Trouble: The Last Policeman Book III (The Last Policeman Trilogy)",
+      "Penulis": "Ben Winters",
+      "Kategori": "Science Fiction & Fantasy",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 81,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51t22qOt7OL.jpg",
+      "Judul": "The Last American Vampire",
+      "Penulis": "Seth Grahame-Smith",
+      "Kategori": "Science Fiction & Fantasy",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 82,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51jcecGtm5L.jpg",
+      "Judul": "Keeping the Love You Find: A Personal Guide",
+      "Penulis": "Ph.D. Harville Hendrix",
+      "Kategori": "Self-Help",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 83,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51yB8dqW7WL.jpg",
+      "Judul": "The Better Brain Book: The Best Tool for Improving Memory and Sharpness and Preventing Aging of the Brain",
+      "Penulis": "David Perlmutter",
+      "Kategori": "Self-Help",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 84,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/41SwaeogMoL.jpg",
+      "Judul": "Slowing Down to the Speed of Life: How to Create a More Peaceful, Simpler Life from the Inside Out",
+      "Penulis": "Richard Carlson",
+      "Kategori": "Self-Help",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 85,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51-QdiaJ3qL.jpg",
+      "Judul": "Climbing California's Fourteeners: 183 Routes to the Fifteen Highest Peaks",
+      "Penulis": "Stephen Porcella",
+      "Kategori": "Sports & Outdoors",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 86,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51LvwMnFXeL.jpg",
+      "Judul": "Roller Derby: The History and All-Girl Revival of the Greatest Sport on Wheels",
+      "Penulis": "Catherine Mabe",
+      "Kategori": "Sports & Outdoors",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 87,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51j6U02Dk-L.jpg",
+      "Judul": "The O'ahu Snorkelers and Shore Divers Guide",
+      "Penulis": "Francisco B. de Carvalho",
+      "Kategori": "Sports & Outdoors",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 88,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/21FX43J2SRL.jpg",
+      "Judul": "The Voices of AIDS",
+      "Penulis": "Michael Thomas Ford",
+      "Kategori": "Teen & Young Adult",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 89,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/5117%2BYhkB4L.jpg",
+      "Judul": "Modern World History: Patterns of Interaction",
+      "Penulis": "HOLT MCDOUGAL",
+      "Kategori": "Teen & Young Adult",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 90,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51%2BjqoB7CaL.jpg",
+      "Judul": "The Scholar, the Sphinx and the Fang of Fenrir (The Scholar and the Sphinx)",
+      "Penulis": "A.R. Cook",
+      "Kategori": "Teen & Young Adult",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 91,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/41-HhFnKNLL.jpg",
+      "Judul": "California Bar Exam Outlines - 2015: Outlines for the non-MBE subjects tested on the California bar examination",
+      "Penulis": "AmeriBar Bar Review",
+      "Kategori": "Test Preparation",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 92,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51URmEL5ZaL.jpg",
+      "Judul": "Criminal Law (Quick Study Law)",
+      "Penulis": "Inc. BarCharts",
+      "Kategori": "Test Preparation",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 93,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51UZwfTcsUL.jpg",
+      "Judul": "Barron's IELTS Practice Exams with Audio CDs, 2nd Edition: International English Language Testing System",
+      "Penulis": "Dr. Lin Lougheed",
+      "Kategori": "Test Preparation",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 94,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51213NMJgeL.jpg",
+      "Judul": "Living Among Cannibals",
+      "Penulis": "Tom Harrisson",
+      "Kategori": "Travel",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 95,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51WFZp57ksL.jpg",
+      "Judul": "Isle of Wight, Cowes, Newport, Ryde, Sandown, Shanklin, Yarmouth & Ventnor (OS Explorer Map)",
+      "Penulis": "Ordnance Survey",
+      "Kategori": "Travel",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 96,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/41KbQrvD7cL.jpg",
+      "Judul": "Insight Guides: New Zealand",
+      "Penulis": "Insight Guides",
+      "Kategori": "Travel",
+      "Rating": 0
+    }
+  }
+]
