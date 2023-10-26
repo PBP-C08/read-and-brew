@@ -10,3 +10,9 @@ class OrderMemberForm(ModelForm):
     class Meta:
         model = OrderMember
         fields = ["food_name", "food_price", "amount"]
+
+
+class BorrowBookForm(ModelForm):
+    class Meta:
+        model = BorrowedBook
+        fields = ["user", "book", "borrowed"]

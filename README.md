@@ -37,7 +37,7 @@ Pengguna dapat memesan berbagai jenis makanan dan minuman yang tersedia di menu 
 
 | Member (Login)  | Employee | Guest |
 | ------------- | ------------- | ------------- |
-| Member dapat memesan makanan dan meminjam buku | Employee dapat menambahkan item di menu cafe | Guest hanya dapat memesan makanan
+| Member dapat memesan makanan dan meminjam buku | Employee dapat memeriksa *inventory* dalam cafe | Guest hanya dapat memesan makanan
 
 ### 5. Book Request (Patrick Samuel Evans Simanjuntak)
 Pengguna dapat meminta pengelola kafe untuk menambahkan buku-buku yang dirasa menarik dan dibutuhkan oleh pengguna. 

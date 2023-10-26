@@ -17,11 +17,16 @@
             <div class="nav-links">
                 <a href="" class="text-xl font-semibold">Read and Brew's Menu</a>
                 <a href="{% url 'main:show_main' %}" class="text-xl font-semibold hover:text-gray-500">Home</a>
-                {% if user.is_authenticated %}      
-                    <a href="{% url 'ordernborrow:food_menu_member' %}" class="text-xl font-semibold hover:text-gray-500">Food</a>
-                    <a href="{% url 'ordernborrow:drinks_menu_member' %}" class="text-xl font-semibold hover:text-gray-500">Drinks</a>
-                    <a href="{% url 'ordernborrow:secret_menu_view' %}" class="text-xl font-semibold hover:text-gray-500">Secret Menu</a>
-                    <a href="{% url 'ordernborrow:show_order_member' %}" class="text-xl font-semibold hover:text-gray-500">Order Summary</a>
+                {% if user.is_authenticated %}    
+                    {% if user.profile.status == 'M' %}
+                        <a href="{% url 'ordernborrow:food_menu_member' %}" class="text-xl font-semibold hover:text-gray-500">Food</a>
+                        <a href="{% url 'ordernborrow:drinks_menu_member' %}" class="text-xl font-semibold hover:text-gray-500">Drinks</a>
+                        <a href="{% url 'ordernborrow:secret_menu_view' %}" class="text-xl font-semibold hover:text-gray-500">Secret Menu</a>
+                        <a href="{% url 'ordernborrow:show_books' %}" class="text-xl font-semibold hover:text-gray-500">Books</a>
+                        <a href="{% url 'ordernborrow:show_order_member' %}" class="text-xl font-semibold hover:text-gray-500">Order Summary</a>
+                    {% else %}
+                        <a href="{% url 'ordernborrow:supplies_and_equipment_view' %}" class="text-xl font-semibold hover:text-gray-500">Supplies & Equipment</a>
+                    {% endif %}
                 {% else %}
                     <a href="{% url 'ordernborrow:food_menu' %}" class="text-xl font-semibold hover:text-gray-500">Food</a>
                     <a href="{% url 'ordernborrow:drinks_menu' %}" class="text-xl font-semibold hover:text-gray-500">Drinks</a>
