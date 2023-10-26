@@ -1,0 +1,24 @@
+{% extends "menu.html" %}
+{% block title %}Order & Borrow{% endblock %}
+{% block content %}
+
+<!-- card untuk display supplies and equipment -->
+<div class="container mx-auto">
+    <h1 class="text-4xl font-semibold mb-6 text-center">Supplies and Equipment</h1>
+    <div class="row">
+        {% for item, details in supplies_and_equipment.items %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title h4 font-weight-bold">{{ item }}</h5>
+                        <p class="card-text italic">{{ details.description }}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item larger-text">Amount: {{ details.amount }}</li>
+                    </ul>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
