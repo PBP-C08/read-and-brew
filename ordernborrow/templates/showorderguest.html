@@ -27,7 +27,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="editModalLabel">Edit Order</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="color: black;">&#x2715</button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="color: black;" onclick="clearEditForm()">&#x2715</button>
             </div>
             <div class="modal-body">
                 <form id="editOrderForm">
@@ -39,7 +39,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" style="background-color: #dc3545; color: #fff;" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" style="background-color: #dc3545; color: #fff;" data-bs-dismiss="modal" onclick="clearEditForm()">Close</button>
                 <button type="button" class="btn btn-success" style="background-color:#3A833A; color: #fff;" data-bs-dismiss="modal" id="confirmChanges">Save Changes</button>
             </div>
         </div>
@@ -133,7 +133,7 @@
 
     // buat & refresh order tabel
    async function loadOrders() {
-        $.get("{% url 'main:get_product_json' %}", function(data) {
+        $.get("{% url 'ordernborrow:get_product_json' %}", function(data) {
             var orders = JSON.parse(data);
             var ordersContainer = $('#orders-container');
             var checkoutButton = $('#checkoutButton');
@@ -177,7 +177,7 @@
     
     // Function to delete the order
     async function deleteOrder(orderID) {
-        fetch(`{% url 'main:delete_order_ajax' 0 %}`.replace('0', orderID), {
+        fetch(`{% url 'ordernborrow:delete_order_ajax' 0 %}`.replace('0', orderID), {
             method: "POST"
         })
         .then((response) => {
@@ -212,7 +212,7 @@
         var amount = $('#editAmount').val();
         $.ajax({
             type: "POST",
-            url: "{% url 'main:edit_order_ajax' 0 %}".replace('0', orderID),
+            url: "{% url 'ordernborrow:edit_order_ajax' 0 %}".replace('0', orderID),
             data: {
                 amount: amount,
                 csrfmiddlewaretoken: "{{ csrf_token }}"
@@ -225,6 +225,7 @@
                 showAlert("Error updating order.");
             }
         });
+        document.getElementById("editOrderForm").reset()
     }
 
     // Function to show edit modal
@@ -254,7 +255,7 @@
 
     // Function to show the payment modal
     async function showPaymentModal() {
-        $.get("{% url 'main:get_product_json' %}", function(data) {
+        $.get("{% url 'ordernborrow:get_product_json' %}", function(data) {
             var orders = JSON.parse(data);
             var totalAmount = calculateTotalAmount(orders);
             $('#totalAmount').text("$" + totalAmount);
@@ -266,7 +267,7 @@
 
     // Function to delete all orders
     async function deleteAllOrders() {
-        fetch("{% url 'main:delete_allorder_ajax' %}", {
+        fetch("{% url 'ordernborrow:delete_allorder_ajax' %}", {
             method: "POST"
         })
         .then((response) => {
@@ -287,6 +288,9 @@
         deleteAllOrders();
     });
 
+    async function clearEditForm() {
+        document.getElementById('editOrderForm').reset();
+    }
 
 </script>
 {% endblock %}

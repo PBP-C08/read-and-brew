@@ -1,0 +1,119 @@
+{% extends 'menu.html' %}
+{% block title %}Order & Borrow{% endblock %}
+{% block content %}
+<!-- forms order modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Order</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="color: black;" onclick="clearOrderForm()">&#x2715</button>
+            </div>
+            <div class="modal-body">
+                <form id="orderform">
+                    {% csrf_token %}
+                    <input type="hidden" id="food_name" name="food_name">
+                    <input type="hidden" id="food_price" name="food_price">
+                    <div class="mb-3">
+                        <label for="amount" class="col-form-label">Amount:</label>
+                        <input type="number" class="form-control" id="amount" name="amount" min="1">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" style="background-color: #dc3545; color: #fff;" data-bs-dismiss="modal" onclick="clearOrderForm()">Close</button>
+                <button type="button" class="btn btn-success" style="background-color:#3A833A; color: #fff;" data-bs-dismiss="modal" onclick="placeOrder()">Place Order</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- alert modal -->
+<div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="alertModalLabel">Alert</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="color: black;">&#x2715</button>
+            </div>
+            <div class="modal-body">
+                <p id="alertMessage">This is the alert message.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="background-color:#20809d; color: white;">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- card untuk display menu makanan -->
+<div class="container mx-auto">
+    <h1 class="text-4xl font-semibold mb-6 text-center">Food</h1>
+    <div class="row">
+        {% for item, details in food.items %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title h4 font-weight-bold">{{ item }}</h5>
+                        <p class="card-text italic">{{ details.description }}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item larger-text">Price: ${{ details.price }}</li>
+                    </ul>
+                    <button class="btn btn-success order-food" data-food-name="{{ item }}" data-food-price="{{ details.price }}" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="fillOrderFields(this)" {% if details.ordered %}disabled{% endif %}>
+                        {% if details.ordered %}Ordered{% else %}Order{% endif %}
+                    </button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    // fungsi untuk ubah alert message
+    async function showAlert(message) {
+        $("#alertMessage").text(message);
+        $('#alertModal').modal('show');
+    }
+
+    // fungsi untuk autofill nama makanan dan harga makanan di forms
+    async function fillOrderFields(button) {
+        var foodName = $(button).data('food-name');
+        var foodPrice = $(button).data('food-price');
+        $('#food_name').val(foodName);
+        $('#food_price').val(foodPrice);
+    }
+
+    // fungsi untuk ambil data dari forms (order makanan)
+    async function placeOrder() {
+        var amount = $('#amount').val();
+        var foodName = $('#food_name').val();
+        var foodPrice = $('#food_price').val();
+
+        $.ajax({
+            type: "POST",
+            url: "{% url 'ordernborrow:order_food_ajax_member' %}",
+            data: {
+                food_name: foodName,
+                food_price: foodPrice,
+                amount: amount,
+                csrfmiddlewaretoken: "{{ csrf_token }}"
+            },
+            success: function(data) {
+                // Update text di button dan disable
+                $('.order-food[data-food-name="' + foodName + '"]').text('Ordered').prop('disabled', true);
+                showAlert("Order placed successfully! Please check your orders in Order Summary!");
+            },
+            error: function(error) {
+                showAlert("Error placing order.");
+            }
+        });
+        document.getElementById("orderform").reset()
+    }
+
+    function clearOrderForm() {
+        document.getElementById('orderform').reset();
+    }
+</script>
+{% endblock %}
