@@ -1,4 +1,4 @@
-{% extends "menu.html" %}
+{% extends 'menu.html' %}
 {% block title %}Order & Borrow{% endblock %}
 {% block content %}
 <!-- forms order modal -->
@@ -7,7 +7,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Order</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="color: black;">&#x2715</button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="color: black;" onclick="clearOrderForm()">&#x2715</button>
             </div>
             <div class="modal-body">
                 <form id="orderform">
@@ -21,7 +21,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" style="background-color: #dc3545; color: #fff;" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" style="background-color: #dc3545; color: #fff;" data-bs-dismiss="modal" onclick="clearOrderForm()">Close</button>
                 <button type="button" class="btn btn-success" style="background-color:#3A833A; color: #fff;" data-bs-dismiss="modal" onclick="placeOrder()">Place Order</button>
 
             </div>
@@ -47,11 +47,11 @@
     </div>
 </div>
 
-<!-- card untuk display menu minuman -->
+<!-- card untuk display menu makanan -->
 <div class="container mx-auto">
-    <h1 class="text-4xl font-semibold mb-6 text-center">Drinks</h1>
+    <h1 class="text-4xl font-semibold mb-6 text-center">Food</h1>
     <div class="row">
-        {% for item, details in drinks.items %}
+        {% for item, details in food.items %}
             <div class="col-md-4">
                 <div class="card mb-4">
                     <div class="card-body">
@@ -61,7 +61,7 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item larger-text">Price: ${{ details.price }}</li>
                     </ul>
-                    <button class="btn btn-success" data-food-name="{{ item }}" data-food-price="{{ details.price }}" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="fillOrderFields(this)" {% if details.ordered %}disabled{% endif %}>
+                    <button class="btn btn-success order-food" data-food-name="{{ item }}" data-food-price="{{ details.price }}" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="fillOrderFields(this)" {% if details.ordered %}disabled{% endif %}>
                         {% if details.ordered %}Ordered{% else %}Order{% endif %}
                     </button>
                 </div>
@@ -76,7 +76,7 @@
         $("#alertMessage").text(message);
         $('#alertModal').modal('show');
     }
-    
+
     // fungsi untuk autofill nama makanan dan harga makanan di forms
     async function fillOrderFields(button) {
         var foodName = $(button).data('food-name');
@@ -85,7 +85,7 @@
         $('#food_price').val(foodPrice);
     }
 
-    // fungsi untuk ambil data dari forms (order minuman)
+    // fungsi untuk ambil data dari forms (order makanan)
     async function placeOrder() {
         var amount = $('#amount').val();
         var foodName = $('#food_name').val();
@@ -93,7 +93,7 @@
 
         $.ajax({
             type: "POST",
-            url: "{% url 'main:order_food_ajax' %}",
+            url: "{% url 'ordernborrow:order_food_ajax' %}",
             data: {
                 food_name: foodName,
                 food_price: foodPrice,
@@ -109,6 +109,11 @@
                 showAlert("Error placing order.");
             }
         });
+        document.getElementById("orderform").reset()
+    }
+
+    function clearOrderForm() {
+        document.getElementById('orderform').reset();
     }
 </script>
 {% endblock %}
