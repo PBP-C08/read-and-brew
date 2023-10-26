@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from ordernborrow.models import Order, OrderMember
+from ordernborrow.models import *
+from booklist.models import Buku
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
@@ -22,6 +23,15 @@ def show_json_member(request):
 
 def show_json_by_id_member(request, id):
     data = OrderMember.objects.filter(pk=id)
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+
+def show_json_borrowedbooks(request):
+    data = BorrowedBook.objects.all()
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+def show_json_by_id_borrowedbooks(request, id):
+    data = BorrowedBook.objects.filter(pk=id)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
 # for guest (no login)
@@ -439,6 +449,122 @@ def secret_menu_view(request):
 
     return render(request, 'secretmenu.html', content)
 
+# for employee (login)
+def supplies_and_equipment_view(request):
+    content = {
+        "supplies_and_equipment" : {
+            "Coffee Beans": {
+                "description": "Freshly roasted coffee beans for the perfect brew.",
+                "amount": 50
+            },
+            "Espresso Machine": {
+                "description": "High-quality espresso machine for your coffee needs.",
+                "amount": 5
+            },
+            "Milk Frother": {
+                "description": "Efficient milk frother to create creamy lattes and cappuccinos.",
+                "amount": 10
+            },
+            "Coffee Cups": {
+                "description": "Disposable coffee cups for takeout orders.",
+                "amount": 200
+            },
+            "Coffee Filters": {
+                "description": "Coffee filters for your drip coffee maker.",
+                "amount": 1000
+            },
+            "Tea Bags": {
+                "description": "Assorted tea bags for a variety of flavors.",
+                "amount": 100
+            },
+            "Coffee Grinder": {
+                "description": "Professional coffee grinder for fresh coffee grounds.",
+                "amount": 8
+            },
+            "Syrup Dispenser": {
+                "description": "Dispenser for flavored syrups for your beverages.",
+                "amount": 15
+            },
+            "Coffee Stirrers": {
+                "description": "Wooden coffee stirrers for stirring hot beverages.",
+                "amount": 500
+            },
+            "Sugar Packets": {
+                "description": "Individual sugar packets for sweetening drinks.",
+                "amount": 300
+            },
+            "Hot Water Kettle": {
+                "description": "Electric kettle for boiling water quickly.",
+                "amount": 6
+            },
+            "Espresso Cups": {
+                "description": "Espresso shot cups for serving espresso shots.",
+                "amount": 50
+            },
+            "Lids for Cups": {
+                "description": "Plastic lids for coffee cups to prevent spills.",
+                "amount": 400
+            },
+            "Napkins": {
+                "description": "Paper napkins for customers to use.",
+                "amount": 1000
+            },
+            "Coffee Spoons": {
+                "description": "Small coffee spoons for stirring hot drinks.",
+                "amount": 600
+            },
+            "Coffee Creamer": {
+                "description": "Dairy and non-dairy creamer options for coffee.",
+                "amount": 40
+            },
+            "Cocoa Powder": {
+                "description": "High-quality cocoa powder for making hot chocolate.",
+                "amount": 20
+            },
+            "Disposable Stirrers": {
+                "description": "Disposable stirrers for hot and cold drinks.",
+                "amount": 500
+            },
+            "Tea Infusers": {
+                "description": "Tea infusers for loose leaf tea brewing.",
+                "amount": 30
+            },
+            "Lemon Slices": {
+                "description": "Slices of fresh lemon for garnishing drinks.",
+                "amount": 100
+            },
+            "Honey Packets": {
+                "description": "Individual honey packets for sweetening tea and coffee.",
+                "amount": 150
+            },
+            "Ice Scoops": {
+                "description": "Ice scoops for adding ice to cold beverages.",
+                "amount": 25
+            },
+            "Straws": {
+                "description": "Plastic straws for cold drinks.",
+                "amount": 1000
+            },
+            "Whipped Cream Dispenser": {
+                "description": "Dispenser for whipped cream toppings.",
+                "amount": 5
+            },
+            "Sugar Cubes": {
+                "description": "Individual sugar cubes for coffee and tea.",
+                "amount": 200
+            },
+            "Drink Napkins": {
+                "description": "Small drink napkins for beverage service.",
+                "amount": 800
+            },
+            "Reusable Coffee Filters": {
+                "description": "Eco-friendly reusable coffee filters for sustainable brewing.",
+                "amount": 30
+            }
+        }
+    }
+
+    return render(request, 'showsuppliesemployee.html', content)
 
 # for guest (no login)
 @csrf_exempt
@@ -571,3 +697,21 @@ def get_product_json(request):
 def get_product_json_member(request):
     order_item = OrderMember.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize('json', order_item))
+
+# for employee (login)
+def show_menu_employee(request):
+    orders = OrderMember.objects.filter(user = request.user)
+
+    context = {
+        'orders': orders
+    }
+
+    return render(request, "showsuppliesemployee.html", context)
+
+# redirect ke borrow book page
+def show_books(request):
+    data = Buku.objects.all()
+    books = {
+        'booklist': data
+    }
+    return render(request, "borrowbook.html", books)

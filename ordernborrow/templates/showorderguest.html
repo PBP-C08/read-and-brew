@@ -8,7 +8,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="confirmationModalLabel">Confirm Deletion</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="color: black;">&#x2715</button>
             </div>
             <div class="modal-body">
                 <p>Are you sure you want to delete this order?</p>
@@ -58,7 +58,7 @@
                 <p id="alertMessage">This is the alert message.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" style="background-color:#20809d; color: white;">OK</button>
+                <button type="button" id="donePayment" class="btn btn-primary" data-bs-dismiss="modal" style="background-color:#20809d; color: white;">OK</button>
             </div>
         </div>
     </div>
@@ -144,13 +144,14 @@
             } else {
                 checkoutButton.show(); 
                 var table = '<table>';
-                table += '<tr><th style="text-align: center; vertical-align: middle;">No.</th><th style="text-align: center; vertical-align: middle;">Food Name</th><th style="text-align: center; vertical-align: middle;">Food Price</th><th style="text-align: center; vertical-align: middle;">Amount</th><th style="text-align: center; vertical-align: middle;">Edit</th><th style="text-align: center; vertical-align: middle;">Delete</th><th style="text-align: center; vertical-align: middle;">Total Price</th></tr>';
+                table += '<tr><th style="text-align: center; vertical-align: middle;">No.</th><th style="text-align: center; vertical-align: middle;">Food Name</th><th style="text-align: center; vertical-align: middle;">Food Price</th><th style="text-align: center; vertical-align: middle;">Amount</th><th style="text-align: center; vertical-align: middle;">Date Ordered</th><th style="text-align: center; vertical-align: middle;">Edit</th><th style="text-align: center; vertical-align: middle;">Delete</th><th style="text-align: center; vertical-align: middle;">Total Price</th></tr>';
                 var totalPrice = 0; 
                 
                 for (var i = 0; i < orders.length; i++) {
                     var order = orders[i];
                     var foodPrice = parseFloat(order.fields.food_price);
                     var amount = parseFloat(order.fields.amount);
+                    var date = formatOrderDate(orders[i].fields.order_date);
                     var totalRowPrice = foodPrice * amount; 
                     totalPrice += totalRowPrice; 
                     table += '<tr>';
@@ -158,6 +159,7 @@
                     table += '<td>' + order.fields.food_name + '</td>';
                     table += '<td style="text-align: center; vertical-align: middle;">$' + foodPrice + '</td>';
                     table += '<td style="text-align: center; vertical-align: middle;">' + amount + '</td>';
+                    table += '<td style="text-align: center; vertical-align: middle;">' + date + '</td>';
                     table += '<td style="text-align: center; vertical-align: middle;"><button class="btn btn-primary" onclick="showEditModal('+ order.pk +')">Edit</button></td>';
                     table += '<td style="text-align: center; vertical-align: middle;"><button class="btn btn-danger" onclick="showConfirmationModal('+ order.pk +')">Delete</button></td>';
                     table += '<td style="text-align: center; vertical-align: middle;">$' + totalRowPrice.toFixed(2) + '</td>';
@@ -165,7 +167,7 @@
                 }
                 
                 table += '<tr>';
-                table += '<td colspan="6" style="text-align: center; vertical-align: middle;"><strong>Final Price:</strong></td>';
+                table += '<td colspan="7" style="text-align: center; vertical-align: middle;"><strong>Final Price:</strong></td>';
                 table += '<td style="text-align: center; vertical-align: middle;"><strong>$' + totalPrice.toFixed(2) + '</strong></td>';
                 table += '</tr>';
                 
@@ -242,7 +244,7 @@
     }
 
     // Function to calculate the total amount
-    function calculateTotalAmount(orders) {
+    async function calculateTotalAmount(orders) {
         var totalAmount = 0;
         for (var i = 0; i < orders.length; i++) {
             var order = orders[i];
@@ -254,11 +256,13 @@
     }
 
     // Function to show the payment modal
-    async function showPaymentModal() {
+    function showPaymentModal() {
         $.get("{% url 'ordernborrow:get_product_json' %}", function(data) {
             var orders = JSON.parse(data);
             var totalAmount = calculateTotalAmount(orders);
-            $('#totalAmount').text("$" + totalAmount);
+            totalAmount.then(function(value) {
+                $('#totalAmount').text("$" + value);
+            });
 
             const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
             paymentModal.show();
@@ -292,5 +296,10 @@
         document.getElementById('editOrderForm').reset();
     }
 
+    // Function to format date
+    function formatOrderDate(isoDate) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        return new Date(isoDate).toLocaleDateString(undefined, options);
+    }
 </script>
 {% endblock %}
