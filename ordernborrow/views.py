@@ -8,34 +8,6 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 
-def show_json(request):
-    data = Order.objects.all()
-    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
-
-def show_json_by_id(request, id):
-    data = Order.objects.filter(pk=id)
-    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
-
-def show_json_member(request):
-    data = OrderMember.objects.all()
-    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
-
-def show_json_by_id_member(request, id):
-    data = OrderMember.objects.filter(pk=id)
-    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
-
-def show_json_borrowedbooks(request):
-    data = BorrowedBook.objects.all()
-    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
-
-def show_json_by_id_borrowedbooks(request, id):
-    data = BorrowedBook.objects.filter(pk=id)
-    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
-
-def show_json_borrowedhistory(request):
-    data = BorrowedHistory.objects.all()
-    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
-
 # For Guest (no login)
 def food_view(request):
     content = {
@@ -679,7 +651,7 @@ def delete_allorder_ajax(request):
 # For Member (login)
 @csrf_exempt
 def delete_allorder_ajax_member(request):
-    order = OrderMember.objects.all()
+    order = OrderMember.objects.filter(user = request.user)
     if request.method == 'POST':
         order.delete()
         return HttpResponseRedirect(reverse('ordernborrow:show_order_member'))
@@ -747,6 +719,16 @@ def get_product_json(request):
 def get_product_json_member(request):
     order_item = OrderMember.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize('json', order_item))
+
+# For Member (login)
+def show_json_borrowedbooks(request):
+    data = BorrowedBook.objects.all()
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+# For Member (login)
+def show_json_borrowedhistory(request):
+    data = BorrowedHistory.objects.all()
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
 # For Member (login)
 def show_books(request):
