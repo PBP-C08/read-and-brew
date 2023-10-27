@@ -8,7 +8,6 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
 
-# Create your views here.
 def show_json(request):
     data = Order.objects.all()
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
@@ -25,7 +24,6 @@ def show_json_by_id_member(request, id):
     data = OrderMember.objects.filter(pk=id)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
-
 def show_json_borrowedbooks(request):
     data = BorrowedBook.objects.all()
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
@@ -34,7 +32,11 @@ def show_json_by_id_borrowedbooks(request, id):
     data = BorrowedBook.objects.filter(pk=id)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
-# for guest (no login)
+def show_json_borrowedhistory(request):
+    data = BorrowedHistory.objects.all()
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+# For Guest (no login)
 def food_view(request):
     content = {
         "food":{
@@ -121,8 +123,8 @@ def food_view(request):
     }
 
     return render(request, 'foodmenu.html', content)
-\
-# for member (login)
+
+# For Member (login)
 def food_view_member(request):
     content = {
         "food":{
@@ -210,7 +212,7 @@ def food_view_member(request):
 
     return render(request, 'foodmenumember.html', content)
 
-# for guest (no login)
+# For Guest (no login)
 def drinks_view(request):
     content = {
         "drinks": {
@@ -294,7 +296,7 @@ def drinks_view(request):
 
     return render(request, 'drinkmenu.html', content)
 
-# for member (login)
+# For Member (login)
 def drinks_view_member(request):
     content = {
         "drinks": {
@@ -378,7 +380,7 @@ def drinks_view_member(request):
 
     return render(request, 'drinkmenumember.html', content)
 
-# for member (login)
+# For Member (login)
 def secret_menu_view(request):
     content = {
         "secret_food": {
@@ -449,7 +451,7 @@ def secret_menu_view(request):
 
     return render(request, 'secretmenu.html', content)
 
-# for employee (login)
+# For Employee (login)
 def supplies_and_equipment_view(request):
     content = {
         "supplies_and_equipment" : {
@@ -566,7 +568,7 @@ def supplies_and_equipment_view(request):
 
     return render(request, 'showsuppliesemployee.html', content)
 
-# for guest (no login)
+# For Guest (no login)
 @csrf_exempt
 def order_food_ajax(request):
     if request.method == 'POST':
@@ -581,7 +583,7 @@ def order_food_ajax(request):
 
     return HttpResponseNotFound()
 
-# for member (login)
+# For Member (login)
 @csrf_exempt
 def order_food_ajax_member(request):
     if request.method == 'POST':
@@ -596,7 +598,44 @@ def order_food_ajax_member(request):
         return HttpResponse(b"CREATED", status=201)
     return HttpResponseNotFound()
 
-# for guest (no login)
+# For Member (login)
+@csrf_exempt
+def borrow_book_member(request):
+    if request.method == 'POST':
+        id = request.POST.get("book")
+        user = request.user
+        book = Buku.objects.get(pk= id)
+
+        new_order = BorrowedBook(user=user, book=book, borrowed=True)
+        new_order.save()
+
+        return HttpResponse(b"CREATED", status=201)
+    return HttpResponseNotFound()
+
+# For Member (login)
+@csrf_exempt
+def create_borrowed_history(request):
+    if request.method == 'POST':
+        book_id = request.POST.get("book")
+        user = request.user
+        book = Buku.objects.get(pk=book_id)
+        
+        # Check if the user has already borrowed a book with the same title
+        existing_entry = BorrowedHistory.objects.filter(user=user, book__Judul=book.Judul).first()
+        
+        if existing_entry:
+            # If an entry exists, update it
+            existing_entry.book = book
+            existing_entry.save()
+        else:
+            # If no entry exists, create a new one
+            new_order = BorrowedHistory(user=user, book=book)
+            new_order.save()
+
+        return HttpResponse(b"CREATED", status=201)
+    return HttpResponseNotFound()
+
+# For Guest (no login)
 @csrf_exempt
 def delete_order_ajax(request, id):
     order = Order.objects.get(pk = id)
@@ -606,7 +645,7 @@ def delete_order_ajax(request, id):
     
     return HttpResponseNotFound()
 
-# for member (login)
+# For Member (login)
 @csrf_exempt
 def delete_order_ajax_member(request, id):
     order = OrderMember.objects.get(pk = id)
@@ -616,7 +655,18 @@ def delete_order_ajax_member(request, id):
     
     return HttpResponseNotFound()
 
-# for guest (no login)
+# For Member (login)
+@csrf_exempt
+def return_book_member(request, id):
+    book = Buku.objects.get(pk = id)
+    borrowed = BorrowedBook.objects.filter(book=book)
+    if request.method == 'POST':
+        borrowed.delete()
+        return HttpResponseRedirect(reverse('ordernborrow:show_order_member'))
+    
+    return HttpResponseNotFound()
+
+# For Guest (no login)
 @csrf_exempt
 def delete_allorder_ajax(request):
     order = Order.objects.all()
@@ -626,7 +676,7 @@ def delete_allorder_ajax(request):
     
     return HttpResponseNotFound()
 
-# for member(login)
+# For Member (login)
 @csrf_exempt
 def delete_allorder_ajax_member(request):
     order = OrderMember.objects.all()
@@ -636,7 +686,7 @@ def delete_allorder_ajax_member(request):
     
     return HttpResponseNotFound()
 
-# for guest (no login)
+# For Guest (no login)
 @csrf_exempt
 def edit_order_ajax(request, id):
     if request.method == 'POST':
@@ -652,7 +702,7 @@ def edit_order_ajax(request, id):
     
     return JsonResponse({"error": "Invalid request method"}, status=405)
 
-# for member (login)
+# For Member (login)
 @csrf_exempt
 def edit_order_ajax_member(request, id):
     if request.method == 'POST':
@@ -668,7 +718,7 @@ def edit_order_ajax_member(request, id):
     
     return JsonResponse({"error": "Invalid request method"}, status=405)
 
-# for guest (no login)
+# For Guest (no login)
 def show_order_guest(request):
     orders = Order.objects.all()
 
@@ -678,7 +728,7 @@ def show_order_guest(request):
 
     return render(request, "showorderguest.html", context)
 
-# for member (login)
+# For Member (login)
 def show_order_member(request):
     orders = OrderMember.objects.filter(user = request.user)
 
@@ -688,30 +738,36 @@ def show_order_member(request):
 
     return render(request, "showordermember.html", context)
 
-# for guest (no login)
+# For Guest (no login)
 def get_product_json(request):
     order_item = Order.objects.all()
     return HttpResponse(serializers.serialize('json', order_item))
 
-# for member (login)
+# For Member (login)
 def get_product_json_member(request):
     order_item = OrderMember.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize('json', order_item))
 
-# for employee (login)
-def show_menu_employee(request):
-    orders = OrderMember.objects.filter(user = request.user)
-
-    context = {
-        'orders': orders
-    }
-
-    return render(request, "showsuppliesemployee.html", context)
-
-# redirect ke borrow book page
+# For Member (login)
 def show_books(request):
     data = Buku.objects.all()
     books = {
         'booklist': data
     }
     return render(request, "borrowbook.html", books)
+
+# For Member (login)
+def show_borrowed_books(request):
+    current_user_id = request.user.id
+    content = {
+        'current_user_id': current_user_id,
+    }
+    return render(request, "returnbook.html", content)
+
+# For Member (login)
+def show_borrowed_history(request):
+    current_user_id = request.user.id
+    content = {
+        'current_user_id': current_user_id,
+    }
+    return render(request, "borrowedhistory.html", content)

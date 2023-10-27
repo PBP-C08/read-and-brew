@@ -2,7 +2,7 @@
 {% block title %}Order & Borrow{% endblock %}
 
 {% block content %}
-<!-- delete confirmation modal -->
+<!-- Delete confirmation modal -->
 <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -21,7 +21,7 @@
     </div>
 </div>
 
-<!-- edit order modal -->
+<!-- Edit order modal -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -46,7 +46,7 @@
     </div>
 </div>
 
-<!-- alert modal -->
+<!-- Alert modal -->
 <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -64,7 +64,7 @@
     </div>
 </div>
 
-<!-- payment modal -->
+<!-- Payment modal -->
 <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -73,7 +73,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <!-- TODO tambahin sesuatu -->
                 <p>Total Amount: <span id="totalAmount"></span></p>
             </div>
             <div class="modal-footer">
@@ -86,7 +85,7 @@
 
 <div class="container text-center">
     <div id="orders-container">
-        <!-- Orders di tabel sini-->
+        <!-- Orders displayed in a table here-->
     </div>
     
     <button class="btn btn-success" id="checkoutButton" onclick="showPaymentModal()">Checkout</button>
@@ -121,25 +120,26 @@
 </style>
 
 <script>
+    
      $(document).ready(function() {
         loadOrders();
     });
     
-    // fungsi untuk ubah message alert modal
+    // Function to display an alert modal and change its message.
     async function showAlert(message) {
         $("#alertMessage").text(message);
         $('#alertModal').modal('show');
     }
 
-    // buat & refresh order tabel
-   async function loadOrders() {
+    // Function to display orders in table
+    async function loadOrders() {
         $.get("{% url 'ordernborrow:get_product_json' %}", function(data) {
             var orders = JSON.parse(data);
             var ordersContainer = $('#orders-container');
             var checkoutButton = $('#checkoutButton');
     
             if (orders.length === 0) {
-                ordersContainer.html("<p>No orders available.</p>");
+                ordersContainer.html("<p>You haven't ordered anything yet.</p>");
                 checkoutButton.hide(); 
             } else {
                 checkoutButton.show(); 
