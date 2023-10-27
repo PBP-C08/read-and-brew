@@ -2,7 +2,7 @@
 {% block title %}Order & Borrow{% endblock %}
 
 {% block content %}
-<!-- delete confirmation modal -->
+<!-- Delete confirmation modal -->
 <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -21,7 +21,7 @@
     </div>
 </div>
 
-<!-- edit order modal -->
+<!-- Edit order modal -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -46,7 +46,7 @@
     </div>
 </div>
 
-<!-- alert modal -->
+<!-- Alert modal -->
 <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -64,7 +64,7 @@
     </div>
 </div>
 
-<!-- payment modal -->
+<!-- Payment modal -->
 <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -73,7 +73,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="color: black;" onclick="clearEditForm()">&#x2715</button>
             </div>
             <div class="modal-body">
-                <!-- TODO tambahin sesuatu -->
                 <p>Total Amount: <span id="totalAmount"></span></p>
             </div>
             <div class="modal-footer">
@@ -84,7 +83,7 @@
     </div>
 </div>
 
-<!-- book borrowing modal -->
+<!-- Book borrowing modal -->
 <div class="modal fade" id="borrowBookModal" tabindex="-1" aria-labelledby="borrowBookModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -105,7 +104,7 @@
 
 <div class="container text-center">
     <div id="orders-container">
-        <!-- Orders di tabel sini-->
+        <!-- Orders displayed in a table here-->
     </div>
     
     <button class="btn btn-success" id="checkoutButton" onclick="showPaymentModal()">Checkout</button>
@@ -140,25 +139,26 @@
 </style>
 
 <script>
+    
      $(document).ready(function() {
         loadOrders();
     });
     
-    // fungsi untuk ubah message alert modal
+    // Function to display an alert modal and change its message.
     async function showAlert(message) {
         $("#alertMessage").text(message);
         $('#alertModal').modal('show');
     }
 
-    // buat & refresh order tabel
-   async function loadOrders() {
+    // Function to display order in table
+    async function loadOrders() {
         $.get("{% url 'ordernborrow:get_product_json_member' %}", function(data) {
             var orders = JSON.parse(data);
             var ordersContainer = $('#orders-container');
             var checkoutButton = $('#checkoutButton');
     
             if (orders.length === 0) {
-                ordersContainer.html("<p>No orders available.</p>");
+                ordersContainer.html("<p>You haven't ordered anything yet.</p>");
                 checkoutButton.hide(); 
             } else {
                 checkoutButton.show(); 
@@ -196,7 +196,7 @@
         });
     }
     
-    // Function to delete the order
+    // Function to delete an order
     async function deleteOrder(orderID) {
         fetch(`{% url 'ordernborrow:delete_order_ajax_member' 0 %}`.replace('0', orderID), {
             method: "POST"
@@ -315,19 +315,18 @@
         document.getElementById('editOrderForm').reset();
     }
 
-    // function to show borrow book pop up
+    // Function to show book borrowing modal
     async function showBorrowBookModal() {
         const borrowBookModal = new bootstrap.Modal(document.getElementById('borrowBookModal'));
         borrowBookModal.show();
     }
 
-    // function to format date
+    // Function to format date
     function formatOrderDate(isoDate) {
         const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
         return new Date(isoDate).toLocaleDateString(undefined, options);
     }
-    
-    // add event listener to button, redirect to borrow book page
+
     document.getElementById("borrowBooksBtn").addEventListener("click", function() {
         window.location.href = "{% url 'ordernborrow:show_books' %}";
     });

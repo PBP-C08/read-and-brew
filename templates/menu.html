@@ -23,6 +23,8 @@
                         <a href="{% url 'ordernborrow:drinks_menu_member' %}" class="text-xl font-semibold hover:text-gray-500">Drinks</a>
                         <a href="{% url 'ordernborrow:secret_menu_view' %}" class="text-xl font-semibold hover:text-gray-500">Secret Menu</a>
                         <a href="{% url 'ordernborrow:show_books' %}" class="text-xl font-semibold hover:text-gray-500">Books</a>
+                        <a href="{% url 'ordernborrow:show_borrowed_books' %}" class="text-xl font-semibold hover:text-gray-500">Borrowed</a>
+                        <a href="{% url 'ordernborrow:show_borrowed_history' %}" class="text-xl font-semibold hover:text-gray-500">History</a>
                         <a href="{% url 'ordernborrow:show_order_member' %}" class="text-xl font-semibold hover:text-gray-500">Order Summary</a>
                     {% else %}
                         <a href="{% url 'ordernborrow:supplies_and_equipment_view' %}" class="text-xl font-semibold hover:text-gray-500">Supplies & Equipment</a>

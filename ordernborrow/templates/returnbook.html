@@ -19,7 +19,7 @@
     </div>
 </div>
 
-<!-- Borrow confirmation modal -->
+<!-- Return confirmation modal -->
 <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -28,19 +28,19 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="color: black;">&#x2715</button>
             </div>
             <div class="modal-body">
-                <p>Are you sure you want to borrow this book?</p>
+                <p>Are you sure you want to return this book?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color: #6c757d; color: #fff;">Cancel</button>
-                <button type="button" class="btn btn-success" id="confirmBorrow" data-bs-dismiss="modal" style="background-color:#3A833A; color: #fff;" onclick="borrowBook()">Borrow</button>
+                <button type="button" class="btn btn-success" id="confirmBorrow" data-bs-dismiss="modal" style="background-color: #dc3545; color: #fff;" onclick="returnBook()">Return</button>
             </div>
         </div>
     </div>
 </div>
 
-<input type="hidden" id="book" name="book"> 
+<input type="hidden" id="book" name="book">
 <div class="row row-cols-1 row-cols-md-3 row-cols-sm-2 row-cols-xs-1 g-4">
-    <!-- Display all books that can be borrowed -->
+    <!-- Display books borrowed by user in cards -->
 </div>
 
 <script>
@@ -61,31 +61,32 @@
         $('#alertModal').modal('show');
     }
 
-    // Function to display all books that can be borrowed
+    // Function to display books borrowed by user in cards
     async function refreshBooks() {
         document.querySelector(".row").innerHTML = "";
         const books = await getBooks();
         const borrowedBooks = await getBorrowedBooks();
+        const currentUserId = "{{ current_user_id }}";
 
-        const availableBooks = books.filter((item) => {
+        const userBorrowedBooks = books.filter((item, index) => {
             const bookId = item.pk;
-            return !borrowedBooks.some(book => book.fields.book == bookId);
+            return borrowedBooks.some(book => book.fields.book == bookId && book.fields.user == currentUserId);
         });
 
-        if (availableBooks.length === 0) {
+        if (userBorrowedBooks.length === 0) {
             const noBooksMessage = `
                 <div class="col-md-12 text-center">
-                    <p>No books available to borrow at the moment.</p>
+                    <p>You haven't borrowed any books yet.</p>
                 </div>`;
             const row = document.querySelector(".row");
             row.innerHTML += noBooksMessage;
-        } 
-        else {
+        }
+        else{
             books.forEach((item, index) => {
                 const bookId = item.pk;
-                const isBorrowed = borrowedBooks.some(book => book.fields.book == bookId);
+                const isBorrowed = borrowedBooks.some(book => book.fields.book == bookId && book.fields.user == currentUserId);
 
-                if (!isBorrowed) {
+                if (isBorrowed) {
                     const bookCard = `
                     <div class="col-md-4 d-flex align-items-center justify-content-center">
                         <div class="card" style="width: 400px;">
@@ -98,21 +99,21 @@
                                     <li class="list-group-item larger-text">Rating: ${item.fields.Rating}</li>
                                 </ul>
                                 <div class="d-grid">
-                                    <button class="btn btn-success borrow-button" data-book="${bookId}" onclick="showConfirmationModal(this)" id="borrowButton">
-                                        Borrow
+                                    <button class="btn btn-danger" onclick="showConfirmationModal(this)" data-book="${bookId}">
+                                        Return
                                     </button>
                                 </div>
                             </div>
                         </div>
                     </div>`;
-        
+
                     const row = document.querySelector(".row");
                     row.innerHTML += bookCard;
                 }
             });
         }
     }
-    refreshBooks();
+    refreshBooks()
 
     // Function to show return confirmation modal
     async function showConfirmationModal(button) {   
@@ -122,27 +123,44 @@
         confirmationModal.show();
     }
 
-    // Function to borrow book
-    async function borrowBook() {
+    // Function to return borrowed books by user
+    async function returnBook() {
+        var book = $('#book').val();
+        fetch(`{% url 'ordernborrow:return_book_member' 0 %}`.replace('0', book), {
+            method: "POST"
+        })
+        .then((response) => {
+            if (response.ok) {
+                refreshBooks()
+                showAlert("Successfully returned! Thank you for returning the book!")
+                makeBorrowHistory()
+            } else {
+                showAlert("Return failed. Please try again.");
+            }
+        })
+        .catch((error) => {
+            console.error("Error while returning book:", error);
+            showAlert("Return failed. Please try again.");
+        });
+    }
+
+      // Function to put book that has been returned in borrowed history
+      async function makeBorrowHistory() {
         var book = $('#book').val();
 
         $.ajax({
             type: "POST",
-            url: "{% url 'ordernborrow:borrow_book_member' %}",
+            url: "{% url 'ordernborrow:create_borrowed_history' %}",
             data: {
                 book: book,
                 csrfmiddlewaretoken: "{{ csrf_token }}"
             },
             success: function(data) {
-                refreshBooks()
-                showAlert("Borrowed successfully! Please don't forget to return your book.");
             },
             error: function(error) {
-                showAlert("Error borrowing book.");
             }
         });
     }
 
 </script>
-   
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends "menu.html" %}
 {% block title %}Order & Borrow{% endblock %}
 {% block content %}
-<!-- forms order modal -->
+<!-- Order form modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -29,7 +29,7 @@
     </div>
 </div>
 
-<!-- alert modal -->
+<!-- Alert modal -->
 <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -47,7 +47,7 @@
     </div>
 </div>
 
-<!-- card untuk display menu minuman -->
+<!-- Display drink menu in cards -->
 <div class="container mx-auto">
     <h1 class="text-4xl font-semibold mb-6 text-center">Drinks</h1>
     <div class="row">
@@ -71,13 +71,14 @@
 </div>
 
 <script>
-    // fungsi untuk ubah alert message
+    
+    // Function to display an alert modal and change its message.
     async function showAlert(message) {
         $("#alertMessage").text(message);
         $('#alertModal').modal('show');
     }
     
-    // fungsi untuk autofill nama makanan dan harga makanan di forms
+    // Function to autofill the drink name and price
     async function fillOrderFields(button) {
         var foodName = $(button).data('food-name');
         var foodPrice = $(button).data('food-price');
@@ -85,7 +86,7 @@
         $('#food_price').val(foodPrice);
     }
 
-    // fungsi untuk ambil data dari forms (order minuman)
+    //Function to place order
     async function placeOrder() {
         var amount = $('#amount').val();
         var foodName = $('#food_name').val();
