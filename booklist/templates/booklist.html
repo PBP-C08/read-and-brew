@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+
+{% block title %}Book List{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="container mx-auto">
+    <h1 class="text-4xl font-semibold mb-6 text-center">BOOKS</h1>
+    <div class="row mt-2">
+        <div class="col-md-3">
+            <select class="form-select" id="categories" onchange="filterBooks()">
+                <option value="">All Categories</option>
+                {% for category in categories %}
+                    <option value="{{ category }}">{{ category }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-6">
+            <input type="text" class="form-control" id="search" onkeyup="filterBooks()" placeholder="Search book title..">
+        </div>
+        <div class="col-md-3">
+            <select class="form-select" id="sorting" onchange="sortBooks()" >
+                <option value="">Sort by</option>
+                <option value="rating">Rating</option>
+                <option value="title">Title</option>
+            </select>
+        </div>
+    </div>
+    {% if user.is_authenticated %}
+    <div class="row mt-2">
+        <div class="col text-center">
+            {% if profile.status == 'E' %}
+            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Book</button>
+            {% else %}
+            <button class="btn btn-outline-primary">Request Book</button>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+    <div id="item_card" class="row mt-3"></div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add Book</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form" onsubmit="return false;">
+                    {% csrf_token %}
+                    {{ form.judul.label_tag }} {{ form.judul }}
+                    {{ form.gambar.label_tag }} {{ form.gambar }}
+                    {{ form.penulis.label_tag }} {{ form.penulis }}
+                    {{ form.kategori.label_tag }} {{ form.kategori }}
+                    <datalist id="kategorilist">
+                        {% for category in categories %}
+                            <option value="{{ category }}">{{ category }}</option>
+                        {% endfor %}
+                    </datalist>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline-primary" id="button_add" data-bs-dismiss="modal">Add Book</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+     .card-text{
+    font-size:13px;
+    }   
+</style>
+
+<script>
+function filterBooks(){
+    var categories, category, books, book, i, input, filter;
+    categories = document.getElementById("categories");
+    category = categories.options[categories.selectedIndex].value;
+    input = document.getElementById('search');
+    filter = input.value.toUpperCase();
+    books = document.getElementsByClassName("book");
+    for (i = 0; i < books.length; i++) {
+        book = books[i];
+        title = book.getElementsByClassName("card-title")[0];
+        txtValue = title.textContent || title.innerText;
+        if (category == "" || book.getElementsByClassName("card-text")[0].textContent.indexOf(category) > -1) {
+            if(txtValue.toUpperCase().indexOf(filter) > -1){
+                book.style.display = "";
+            } else {
+                book.style.display = "none";
+            }
+        } else {
+            book.style.display = "none";
+        }
+    }
+}
+
+function displayRating(){
+    var ratings = document.getElementsByClassName("rating");
+    for (var i = 0; i < ratings.length; i++) {
+        var rating = ratings[i];
+        var stars = rating.getElementsByTagName("span");
+        var ratingValue = parseInt(rating.parentNode.getElementsByClassName("larger-text")[0].textContent);
+        for (var j = 0; j < stars.length; j++) {
+            if (j < ratingValue) {
+                stars[j].classList.add("checked");
+            } else {
+                stars[j].classList.remove("checked");
+            }
+        }
+    }
+}
+
+function sortBooks() {
+  const sorting = document.getElementById("sorting");
+  const books = document.querySelectorAll(".book");
+  const sortBy = sorting.value;
+  if (sortBy === "rating") {
+    const sortedBooks = Array.from(books).sort((a, b) => {
+      const ratingA = parseFloat(a.querySelector(".larger-text").textContent);
+      const ratingB = parseFloat(b.querySelector(".larger-text").textContent);
+      return ratingB - ratingA;
+    });
+    sortedBooks.forEach((book) => {
+      book.parentNode.insertBefore(book, book.parentNode.firstChild);
+    });
+  } else if (sortBy === "title") {
+    const sortedBooks = Array.from(books).sort((a, b) => {
+      const titleA = a.querySelector(".card-title").textContent;
+      const titleB = b.querySelector(".card-title").textContent;
+      return titleB.localeCompare(titleA);
+    });
+    sortedBooks.forEach((book) => {
+      book.parentNode.insertBefore(book, book.parentNode.firstChild);
+    });
+  }
+}
+
+function addItem() {
+    fetch("{% url 'booklist:add_book_ajax' %}", {
+        method: "POST",
+        body: new FormData(document.querySelector('#form'))
+    }).then(refreshItems).then(filterBooks).then(sortBooks).then(displayRating)
+
+    document.getElementById("form").reset()
+    return false
+}
+document.getElementById("button_add").onclick = addItem
+
+async function getItems() {
+    return fetch("{% url 'booklist:get_books' %}").then((res) => res.json())
+}
+
+async function refreshItems() {
+    document.getElementById("item_card").innerHTML = ""
+    const items = await getItems()
+    let htmlString = ``
+    items.forEach((item) => {
+        htmlString += `\n
+        <div class="col-md-2 book">
+                <div class="card mb-4">
+                    <img class="card-img-top" src="${item.fields.Gambar}" alt="Book Image">
+                    <div class="card-body">
+                        <h5 class="card-title text-center pt-2 pb-2 h6 font-weight-bold">${item.fields.Judul}</h5>
+                        <hr class="hr" />
+                        <p class="card-text pt-2"><b>Kategori: </b>${item.fields.Kategori}</p>
+                        <p class="card-text"><b>Penulis: </b>${item.fields.Penulis}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li hidden class="list-group-item larger-text">${item.fields.Rating}</li>
+                        <li class="list-group-item text-center">
+                            <div class="rating">
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                            </div>
+                        </li>
+                        {% if profile.status == 'E' %}
+                        <li class="list-group-item text-center">
+                            <button class="btn btn-outline-danger" onclick="deleteItems(${item.pk})">Delete</button>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+                        ` 
+    })
+    document.getElementById("item_card").innerHTML = htmlString
+}
+
+async function deleteItems(id) {
+  let form = new FormData();
+  form.append("id", id);
+  await fetch("{% url 'booklist:delete_book_ajax' %}", {
+    method: "POST",
+    body: form,
+  }).then(refreshItems).then(filterBooks).then(sortBooks).then(displayRating)
+}
+
+refreshItems()
+displayRating()
+</script>
+{% endblock %}
