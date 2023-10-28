@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from ordernborrow.models import *
 from booklist.models import Buku
+from ordernborrow.forms import *
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
@@ -10,7 +11,9 @@ from django.core import serializers
 
 # For Guest (no login)
 def food_view(request):
+    form = OrderForm(request.POST or None)
     content = {
+        "forms": form,
         "food":{
             "Bagel with Cream Cheese": {
                 "price": 2.99,

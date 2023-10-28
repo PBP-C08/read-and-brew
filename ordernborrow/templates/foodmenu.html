@@ -14,16 +14,12 @@
                     {% csrf_token %}
                     <input type="hidden" id="food_name" name="food_name">
                     <input type="hidden" id="food_price" name="food_price">
-                    <div class="mb-3">
-                        <label for="amount" class="col-form-label">Amount:</label>
-                        <input type="number" class="form-control" id="amount" name="amount" min="1">
-                    </div>
+                    {{ forms.amount.label_tag }} {{ forms.amount }} <!-- Integrasi forms.py, models.py dengan sistem AJAX-->
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" style="background-color: #dc3545; color: #fff;" data-bs-dismiss="modal" onclick="clearOrderForm()">Close</button>
                 <button type="button" class="btn btn-success" style="background-color:#3A833A; color: #fff;" data-bs-dismiss="modal" onclick="placeOrder()">Place Order</button>
-
             </div>
         </div>
     </div>
