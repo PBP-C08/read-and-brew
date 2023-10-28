@@ -1,6 +1,8 @@
 {% extends 'menu.html' %}
 {% block title %}Order & Borrow{% endblock %}
 {% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <!-- Alert modal -->
 <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -87,22 +89,32 @@
 
                 if (!isBorrowed) {
                     const bookCard = `
-                    <div class="col-md-4 d-flex align-items-center justify-content-center">
-                        <div class="card" style="width: 400px;">
-                            <img src="${item.fields.Gambar}" class="card-img-top" alt="Book Image" style="width: 400px; height: 300px;">
-                            <div class="card-body text-center">
-                                <h5 class="card-title h4 font-weight-bold">${item.fields.Judul}</h5>
-                                <p class="card-text italic">Author: ${item.fields.Penulis}</p>
-                                <p class="card-text italic">Category: ${item.fields.Kategori}</p>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item larger-text">Rating: ${item.fields.Rating}</li>
-                                </ul>
+                    <div class="col-md-2 book">
+                        <div class="card mb-4">
+                            <img class="card-img-top" src="${item.fields.Gambar}" alt="Book Image">
+                            <div class="card-body">
+                                <h5 class="card-title text-center pt-2 pb-2 h6 font-weight-bold">${item.fields.Judul}</h5>
+                                <hr class="hr" />
+                                <p class="card-text pt-2"><b>Category: </b>${item.fields.Kategori}</p>
+                                <p class="card-text"><b>Author: </b>${item.fields.Penulis}</p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li hidden class="list-group-item larger-text">${item.fields.Rating}</li>
+                                <li class="list-group-item text-center">
+                                    <div class="rating">
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    </div>
+                                </li>
                                 <div class="d-grid">
                                     <button class="btn btn-success borrow-button" data-book="${bookId}" onclick="showConfirmationModal(this)" id="borrowButton">
                                         Borrow
                                     </button>
                                 </div>
-                            </div>
+                            </ul>
                         </div>
                     </div>`;
         
@@ -142,6 +154,24 @@
             }
         });
     }
+
+    function displayRating(){
+        var ratings = document.getElementsByClassName("rating");
+        for (var i = 0; i < ratings.length; i++) {
+            var rating = ratings[i];
+            var stars = rating.getElementsByTagName("span");
+            var ratingValue = parseInt(rating.parentNode.getElementsByClassName("larger-text")[0].textContent);
+            for (var j = 0; j < stars.length; j++) {
+                if (j < ratingValue) {
+                    stars[j].classList.add("checked");
+                } else {
+                    stars[j].classList.remove("checked");
+                }
+            }
+        }
+    }
+    
+    displayRating()
 
 </script>
    
