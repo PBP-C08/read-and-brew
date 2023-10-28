@@ -16,14 +16,14 @@
     </head>
 
     <body>
-        <nav class="border-b border-gray-200">
+        <nav class="border-b">
             <div class="max-w-6xl mx-auto px-4">
                 <div class="flex justify-between">
                     <div class="flex space-x-7">
                         <div>
 							<!-- Website Logo -->
 							<a href="/" class="flex items-center py-4 px-2">
-								<img src="{% static 'images/logo.png' %}" alt="Logo" class="h-8 w-8 mr-2">
+								<img src="{% static 'images/logo.png' %}" alt="Logo" class="h-12 w-12 mr-2">
 							</a>
 						</div>
                         <div class="hidden md:flex items-center space-x-1">
@@ -47,8 +47,8 @@
                         <a class="py-4 px-2 text-teal-500 font-semibold">Hi, {{ user.username }}!</a>
                         <a href="{% url 'main:logout' %}" class="py-2 px-2 font-medium bg-red-500 text-white rounded-xl hover:bg-red-700">Logout</a>
                         {% else %}
-                        <a href="{% url 'main:signup' %}" class="py-2 px-2 font-medium bg-teal-500 text-white rounded-xl hover:bg-teal-700">Sign up</a>
-                        <a href="{% url 'main:login' %}" class="py-2 px-2 font-medium bg-gray-500 text-white rounded-xl hover:bg-gray-700">Log in</a>
+                        <a href="{% url 'main:signup' %}" id="signupbutton" class="py-2 px-2 font-medium bg-teal-500 text-white rounded-xl hover:bg-teal-700">Sign up</a>
+                        <a href="{% url 'main:login' %}" id="loginbutton" class="py-2 px-2 font-medium bg-gray-500 text-white rounded-xl hover:bg-gray-700">Log in</a>
                         {% endif %}
 					</div>
                     <div class="md:hidden flex items-center">
@@ -96,8 +96,8 @@
                     {% if user.is_authenticated %}
                         <li><a href="{% url 'main:logout' %}" class="block text-sm px-2 py-4 font-semibold bg-red-500 text-white hover:bg-red-700">Logout</a></li>
                     {% else %}
-                        <li><a href="{% url 'main:signup' %}" class="block text-sm px-2 py-4 font-semibold bg-teal-500 text-white hover:bg-teal-700">Sign up</a></li>
-                        <li><a href="{% url 'main:login' %}" class="block text-sm px-2 py-4 font-semibold bg-gray-500 text-white hover:bg-gray-700">Log in</a></li>
+                        <li><a href="{% url 'main:signup' %}" id="signupbutton2" class="block text-sm px-2 py-4 font-semibold bg-teal-500 text-white hover:bg-teal-700">Sign up</a></li>
+                        <li><a href="{% url 'main:login' %}" id="loginbutton2" class="block text-sm px-2 py-4 font-semibold bg-gray-500 text-white hover:bg-gray-700">Log in</a></li>
                     {% endif %}
 				</ul>
 			</div>
@@ -120,7 +120,7 @@
             <div class="w-2/3 pr-10">
                 <h3 class="mb-5 font-semibold text-gray-400">About</h3>
 
-                <p class="text-lg text-gray-500">Lorem ipsum bla bla bla. Lorem ipsum bla bla bla. Lorem ipsum bla bla bla.</p>
+                <p class="text-lg text-gray-500">Read & Brew merupakan sebuah tempat yang memadukan kegemaran akan buku dengan kenyamanan sebuah kafe. Kami memiilih kafe sebagai sarana untuk meningkatkan tingkat literasi karena adanya peningkatan yang signifikan terkait dengan tingkat pengunjung kafe di kalangan anak muda. Kami memiliki harapan bahwa kafe tidak hanya bisa menjadi tempat untuk bersantai, tetapi juga menjadi sarana untuk meningkatkan literasi dari kalangan muda yang mayoritasnya masih memiliki tingkat literasi yang rendah.</p>
             </div>
 
             <div class="w-1/3">

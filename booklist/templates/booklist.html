@@ -7,7 +7,7 @@
 <div class="container mx-auto">
     <h1 class="text-4xl font-semibold mb-6 text-center">BOOKS</h1>
     <div class="row mt-2">
-        <div class="col-md-3">
+        <div class="col-md-3 mt-2">
             <select class="form-select" id="categories" onchange="filterBooks()">
                 <option value="">All Categories</option>
                 {% for category in categories %}
@@ -15,10 +15,10 @@
                 {% endfor %}
             </select>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 mt-2">
             <input type="text" class="form-control" id="search" onkeyup="filterBooks()" placeholder="Search book title..">
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 mt-2">
             <select class="form-select" id="sorting" onchange="sortBooks()" >
                 <option value="">Sort by</option>
                 <option value="rating">Rating</option>
@@ -72,7 +72,10 @@
 <style>
      .card-text{
     font-size:13px;
-    }   
+    }
+    .checked {
+    color: orange;
+    }
 </style>
 
 <script>
@@ -99,20 +102,19 @@ function filterBooks(){
     }
 }
 
-function displayRating(){
-    var ratings = document.getElementsByClassName("rating");
-    for (var i = 0; i < ratings.length; i++) {
-        var rating = ratings[i];
-        var stars = rating.getElementsByTagName("span");
-        var ratingValue = parseInt(rating.parentNode.getElementsByClassName("larger-text")[0].textContent);
-        for (var j = 0; j < stars.length; j++) {
-            if (j < ratingValue) {
-                stars[j].classList.add("checked");
-            } else {
-                stars[j].classList.remove("checked");
-            }
-        }
+async function displayRating() {
+  const books = document.querySelectorAll(".book");
+  books.forEach((book) => {
+    const rating = parseInt(book.querySelector(".larger-text").textContent);
+    const stars = book.querySelectorAll(".fa-star");
+    for (let i = 0; i < stars.length; i++) {
+      if (i < rating) {
+        stars[i].classList.add("checked");
+      } else {
+        stars[i].classList.remove("checked");
+      }
     }
+  });
 }
 
 function sortBooks() {
@@ -123,7 +125,7 @@ function sortBooks() {
     const sortedBooks = Array.from(books).sort((a, b) => {
       const ratingA = parseFloat(a.querySelector(".larger-text").textContent);
       const ratingB = parseFloat(b.querySelector(".larger-text").textContent);
-      return ratingB - ratingA;
+      return ratingA - ratingB;
     });
     sortedBooks.forEach((book) => {
       book.parentNode.insertBefore(book, book.parentNode.firstChild);
@@ -144,7 +146,7 @@ function addItem() {
     fetch("{% url 'booklist:add_book_ajax' %}", {
         method: "POST",
         body: new FormData(document.querySelector('#form'))
-    }).then(refreshItems).then(filterBooks).then(sortBooks).then(displayRating)
+    }).then(refreshItems).then(filterBooks).then(sortBooks)
 
     document.getElementById("form").reset()
     return false
@@ -192,6 +194,7 @@ async function refreshItems() {
                         ` 
     })
     document.getElementById("item_card").innerHTML = htmlString
+    displayRating()
 }
 
 async function deleteItems(id) {
@@ -200,10 +203,9 @@ async function deleteItems(id) {
   await fetch("{% url 'booklist:delete_book_ajax' %}", {
     method: "POST",
     body: form,
-  }).then(refreshItems).then(filterBooks).then(sortBooks).then(displayRating)
+  }).then(refreshItems).then(filterBooks).then(sortBooks)
 }
 
 refreshItems()
-displayRating()
 </script>
 {% endblock %}
