@@ -45,6 +45,12 @@
     <!-- Display books borrowed by user in cards -->
 </div>
 
+<style>
+    .checked {
+        color: orange;
+        }
+</style>
+
 <script>
     
     // Function to get all books from the dataset
@@ -122,6 +128,7 @@
                 }
             });
         }
+        displayRating()
     }
     refreshBooks()
 
@@ -172,23 +179,20 @@
         });
     }
 
-    function displayRating(){
-        var ratings = document.getElementsByClassName("rating");
-        for (var i = 0; i < ratings.length; i++) {
-            var rating = ratings[i];
-            var stars = rating.getElementsByTagName("span");
-            var ratingValue = parseInt(rating.parentNode.getElementsByClassName("larger-text")[0].textContent);
-            for (var j = 0; j < stars.length; j++) {
-                if (j < ratingValue) {
-                    stars[j].classList.add("checked");
-                } else {
-                    stars[j].classList.remove("checked");
-                }
+    async function displayRating() {
+        const books = document.querySelectorAll(".book");
+        books.forEach((book) => {
+            const rating = parseInt(book.querySelector(".larger-text").textContent);
+            const stars = book.querySelectorAll(".fa-star");
+            for (let i = 0; i < stars.length; i++) {
+            if (i < rating) {
+                stars[i].classList.add("checked");
+            } else {
+                stars[i].classList.remove("checked");
             }
-        }
+            }
+        });
     }
-    
-    displayRating()
 
 </script>
 {% endblock %}
