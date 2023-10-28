@@ -1,0 +1,16 @@
+{% extends 'tracker_planner.html' %}
+{% block title %}Book Tracker & Planner{% endblock %}
+{% block content %}
+
+    {% if user.is_authenticated %}
+        <div class="mb-4">
+            <h3 class="fs-3 fw-semibold mb-4">You are currently reading {{ books_read }} book{% if books_read > 1 %}s{% endif %}.</h3>
+            <a href="{% url 'trackernplanner:show_tracker' %}" class="px-4 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Track Your Book</a>
+        </div>
+    {% else %}
+        <div class="mb-4">
+            <h3 class="fs-3 fw-semibold mb-4">You are currently reading {{ books_read }} book{% if books_read > 1 %}s{% endif %}.</h3>
+            <a href="{% url 'trackernplanner:show_tracker_guest' %}" class="px-4 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">Track Your Book</a>
+        </div>
+    {% endif %}
+{% endblock content %}
