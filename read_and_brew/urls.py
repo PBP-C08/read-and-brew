@@ -22,5 +22,6 @@ urlpatterns = [
     path('booklist/', include('booklist.urls')),
     path('ordernborrow/', include('ordernborrow.urls')),
     path('reviewmodul/', include('reviewmodul.urls')),
+    path('trackernplanner/', include('trackernplanner.urls')),
     path('', include('main.urls')),
 ]

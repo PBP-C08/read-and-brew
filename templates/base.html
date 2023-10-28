@@ -30,7 +30,7 @@
                 {% else %}
                     <a href="{% url 'ordernborrow:food_menu' %}" class="text-lg font-semibold hover:text-gray-500">Order & Borrow</a>
                 {% endif %}
-                <a href="#" class="text-lg font-semibold hover:text-gray-500">Book Tracker & Planner</a>
+                <a href="{% url 'trackernplanner:show_tracker_planner' %}" class="text-lg font-semibold hover:text-gray-500">Book Tracker & Planner</a>
                 <a href="{% url 'reviewmodul:show_review' %}" class="text-lg font-semibold hover:text-gray-500">Review Forum</a>
                 <a href="#" class="text-lg font-semibold hover:text-gray-500">Book Request</a>
                 {% if user.is_authenticated %}        
