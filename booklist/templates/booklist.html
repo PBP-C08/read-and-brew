@@ -42,7 +42,7 @@
             {% if profile.status == 'E' %}
             <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Book</button>
             {% else %}
-            <button class="btn btn-outline-primary">Request Book</button>
+            <a href="{% url 'bookrequest:show_request' %}"><button class="btn btn-outline-primary">Request Book</button></a>
             {% endif %}
         </div>
     </div>
