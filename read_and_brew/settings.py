@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'booklist',
     'ordernborrow',
     'reviewmodul',
+    'trackernplanner',
     'bookrequest',
 ]
 

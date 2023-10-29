@@ -1,9 +1,9 @@
+#pylint: disable=E1101
 from django.shortcuts import render
 from ordernborrow.models import *
 from booklist.models import Buku
 from ordernborrow.forms import *
-from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.urls import reverse
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
