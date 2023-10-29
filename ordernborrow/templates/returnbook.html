@@ -1,6 +1,8 @@
 {% extends 'menu.html' %}
 {% block title %}Order & Borrow{% endblock %}
 {% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <!-- Alert modal -->
 <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -42,6 +44,12 @@
 <div class="row row-cols-1 row-cols-md-3 row-cols-sm-2 row-cols-xs-1 g-4">
     <!-- Display books borrowed by user in cards -->
 </div>
+
+<style>
+    .checked {
+        color: orange;
+        }
+</style>
 
 <script>
     
@@ -88,22 +96,30 @@
 
                 if (isBorrowed) {
                     const bookCard = `
-                    <div class="col-md-4 d-flex align-items-center justify-content-center">
-                        <div class="card" style="width: 400px;">
-                            <img src="${item.fields.Gambar}" class="card-img-top" alt="Book Image" style="width: 400px; height: 300px;">
-                            <div class="card-body text-center">
-                                <h5 class="card-title h4 font-weight-bold">${item.fields.Judul}</h5>
-                                <p class="card-text italic">Author: ${item.fields.Penulis}</p>
-                                <p class="card-text italic">Category: ${item.fields.Kategori}</p>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item larger-text">Rating: ${item.fields.Rating}</li>
-                                </ul>
-                                <div class="d-grid">
-                                    <button class="btn btn-danger" onclick="showConfirmationModal(this)" data-book="${bookId}">
-                                        Return
-                                    </button>
-                                </div>
+                    <div class="col-md-2 book">
+                        <div class="card mb-4">
+                            <img class="card-img-top" src="${item.fields.Gambar}" alt="Book Image">
+                            <div class="card-body">
+                                <h5 class="card-title text-center pt-2 pb-2 h6 font-weight-bold">${item.fields.Judul}</h5>
+                                <hr class="hr" />
+                                <p class="card-text pt-2"><b>Kategori: </b>${item.fields.Kategori}</p>
+                                <p class="card-text"><b>Penulis: </b>${item.fields.Penulis}</p>
                             </div>
+                            <ul class="list-group list-group-flush">
+                                <li hidden class="list-group-item larger-text">${item.fields.Rating}</li>
+                                <li class="list-group-item text-center">
+                                    <div class="rating">
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    </div>
+                                </li>
+                                <button class="btn btn-danger" onclick="showConfirmationModal(this)" data-book="${bookId}">
+                                    Return
+                                </button>
+                            </ul>
                         </div>
                     </div>`;
 
@@ -112,6 +128,7 @@
                 }
             });
         }
+        displayRating()
     }
     refreshBooks()
 
@@ -158,6 +175,21 @@
             success: function(data) {
             },
             error: function(error) {
+            }
+        });
+    }
+
+    async function displayRating() {
+        const books = document.querySelectorAll(".book");
+        books.forEach((book) => {
+            const rating = parseInt(book.querySelector(".larger-text").textContent);
+            const stars = book.querySelectorAll(".fa-star");
+            for (let i = 0; i < stars.length; i++) {
+            if (i < rating) {
+                stars[i].classList.add("checked");
+            } else {
+                stars[i].classList.remove("checked");
+            }
             }
         });
     }
