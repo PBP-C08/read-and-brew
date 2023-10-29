@@ -86,6 +86,7 @@
                                 <select class="form-select" id="sorting" onchange="sortReview()">
                                     <option value="">Sort by</option>
                                     <option value="Bookname">Book Name</option>
+                                    <option value="Rating">Rating</option>
                                     <option value="Username">Username</option>
                                 </select>
                             </div>
@@ -116,7 +117,7 @@
                                                 <span class="itemname">${item.fields.book_name}</span>
                                             </div>
                                         </div>
-                                        <div class="rating">${item.fields.rating}/5</div>
+                                        <div class="itemrating">${item.fields.rating}/5</div>
                                     </div>
                                     <div class="comment">
                                         <p>${item.fields.review}</p>
@@ -152,6 +153,7 @@
                                     <select class="form-select" id="sorting" onchange="sortReview()" >
                                         <option value="">Sort by</option>
                                         <option value="Bookname">Book Name</option>
+                                        <option value="Rating">Rating</option>
                                     </select>
                                 </div>
                             </div>
@@ -180,7 +182,7 @@
                                                 <span class="itemname">${thing.fields.book_name}</span>
                                             </div>
                                         </div>
-                                        <div class="rating">${thing.fields.rating}/5</div>
+                                        <div class="itemrating">${thing.fields.rating}/5</div>
                                     </div>
                                     <div class="comment">
                                         <p>${thing.fields.review}</p>
@@ -252,6 +254,15 @@
             sortedReviews.forEach((review) => {
                 review.parentNode.insertBefore(review, review.parentNode.firstChild)
             })
+        } else if (sortBy === "Rating") {
+            const sortedReviews = Array.from(review).sort((a, b) => {
+                const ratingA = parseFloat(a.querySelector(".itemrating").textContent)
+                const ratingB = parseFloat(b.querySelector(".itemrating").textContent)
+                return ratingA - ratingB
+            });
+            sortedReviews.forEach((review) => {
+                review.parentNode.insertBefore(review, review.parentNode.firstChild)
+            });
         } else if (sortBy === "Username") {
             const sortedReviews = Array.from(review).sort((a, b) => {
                 const usernameA = a.querySelector(".itemusername").textContent
