@@ -10,8 +10,3 @@ class BookTrackerMemberForm(ModelForm):
     class Meta:
         model = BookTrackerMember
         fields = ["book", "page", "progress", "status"]
-
-class BookPlannerForm(ModelForm):
-    class Meta:
-        model = BookPlanner
-        fields = ["books", "title", "description"]
