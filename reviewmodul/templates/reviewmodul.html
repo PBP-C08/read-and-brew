@@ -91,6 +91,9 @@
                                     <option value="Username">Username</option>
                                 </select>
                             </div>
+                            <div class="col-md-8 mt-2">
+                                <input type="text" class="form-control" id="search" onkeyup="filterReview()" placeholder="Search book title..">
+                            </div>
                         </div>
                         <div id="item_card" class="row mt-3"></div>
                     </div>
@@ -156,6 +159,9 @@
                                         <option value="Bookname">Book Name</option>
                                         <option value="Rating">Rating</option>
                                     </select>
+                                </div>
+                                <div class="col-md-8 mt-2">
+                                    <input type="text" class="form-control" id="search" onkeyup="filterReview()" placeholder="Search book title..">
                                 </div>
                             </div>
                             <div id="item_card" class="row mt-3"></div>
@@ -273,6 +279,23 @@
             sortedReviews.forEach((review) => {
                 review.parentNode.insertBefore(review, review.parentNode.firstChild);
             })
+        }
+    }
+    
+    function filterReview(){
+        var  reviews, review, i, input, filter;
+        input = document.getElementById('search');
+        filter = input.value.toUpperCase();
+        reviews = document.getElementsByClassName("reviews-box");
+        for (i = 0; i < reviews.length; i++) {
+            review = reviews[i];
+            title = review.getElementsByClassName("itemname")[0];
+            txtValue = title.textContent || title.innerText;
+            if(txtValue.toUpperCase().indexOf(filter) > -1){
+                review.style.display = "";
+            } else {
+                review.style.display = "none";
+            }
         }
     }
 
