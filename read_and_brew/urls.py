@@ -23,5 +23,6 @@ urlpatterns = [
     path('ordernborrow/', include('ordernborrow.urls')),
     path('reviewmodul/', include('reviewmodul.urls')),
     path('trackernplanner/', include('trackernplanner.urls')),
+    path('bookrequest/', include('bookrequest.urls')),
     path('', include('main.urls')),
 ]

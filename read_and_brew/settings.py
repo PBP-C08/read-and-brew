@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'booklist',
     'ordernborrow',
     'reviewmodul',
-    'trackernplanner',
+    'trackernplanner',,
+    'bookrequest',
 ]
 
 MIDDLEWARE = [
