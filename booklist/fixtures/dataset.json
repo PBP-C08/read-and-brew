@@ -1054,5 +1054,49 @@
       "Kategori": "Travel",
       "Rating": 0
     }
+  },
+  {
+    "pk": 97,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/61Ta%2BCKbxXL.jpg",
+      "Judul": "Audubon Nature Wall Calendar 2016",
+      "Penulis": "National Audubon Society",
+      "Kategori": "Calendars",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 98,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/613oAXQdGkL.jpg",
+      "Judul": "New Lone Wolf and Cub Volume 3 (New Lone Wolf & Cub)",
+      "Penulis": "Kazuo Koike",
+      "Kategori": "Comics & Graphic Novels",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 99,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/51xesQsewvL.jpg",
+      "Judul": "Old Filth",
+      "Penulis": "Jane Gardam",
+      "Kategori": "Mystery, Thriller & Suspense",
+      "Rating": 0
+    }
+  },
+  {
+    "pk": 100,
+    "model": "booklist.Buku",
+    "fields": {
+      "Gambar": "http://ecx.images-amazon.com/images/I/5175zN2T7EL.jpg",
+      "Judul": "A Knight of the Seven Kingdoms (A Song of Ice and Fire)",
+      "Penulis": "George R. R. Martin",
+      "Kategori": "Science Fiction & Fantasy",
+      "Rating": 0
+    }
   }
 ]
