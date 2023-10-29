@@ -116,11 +116,11 @@
                         {% endif %}
                     </li>
                     <hr class="hr" />
-					<li><a href="#" class="block text-sm px-2 py-4 font-semibold hover:text-gray-500">Book Tracker & Planner</a></li>
+					<li><a href="{% url 'trackernplanner:show_tracker_planner' %}" class="block text-sm px-2 py-4 font-semibold hover:text-gray-500">Book Tracker & Planner</a></li>
                     <hr class="hr" />
 					<li><a href="{% url 'reviewmodul:show_review' %}" class="block text-sm px-2 py-4 font-semibold">Review Forum</a></li>
                     <hr class="hr" />
-                    <li><a href="#" class="block text-sm px-2 py-4 font-semibold">Book Request</a></li>
+                    <li><a href="{% url 'bookrequest:show_request' %}" class="block text-sm px-2 py-4 font-semibold">Book Request</a></li>
                     <hr class="hr" />
                     {% if user.is_authenticated %}
                         <li><a href="{% url 'main:logout' %}" class="block text-sm px-2 py-4 font-semibold bg-red-500 text-white hover:bg-red-700">Logout</a></li>

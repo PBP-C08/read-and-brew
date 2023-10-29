@@ -4,11 +4,11 @@
 
 {% block content %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<div class="container mx-auto">
-    <h1 class="text-4xl font-semibold mb-6 text-center mt-3">BOOKS</h1>
+<div id="booklistpage" class="container mx-auto">
+    <h1 class="text-4xl font-semibold text-center pt-3" style="color: #513C1E;">BOOKS</h1>
     <div class="row mt-2">
         <div class="col-md-3 mt-2">
-            <select class="form-select" id="categories" onchange="filterBooks()">
+            <select style="border: 1px solid #513C1E;color: #513C1E;background-color: #FDFCF8;" class="form-select" id="categories" onchange="filterBooks()">
                 <option value="">All Categories</option>
                 {% for category in categories %}
                     <option value="{{ category }}">{{ category }}</option>
@@ -16,10 +16,10 @@
             </select>
         </div>
         <div class="col-md-6 mt-2">
-            <input type="text" class="form-control" id="search" onkeyup="filterBooks()" placeholder="Search book title..">
+            <input style="border: 1px solid #513C1E;color: #513C1E;background-color: #FDFCF8;" type="text" class="form-control" id="search" onkeyup="filterBooks()" placeholder="Search book title..">
         </div>
         <div class="col-md-3 mt-2">
-            <select class="form-select" id="sorting" onchange="sortBooks()" >
+            <select style="border: 1px solid #513C1E;color: #513C1E;background-color: #FDFCF8;" class="form-select" id="sorting" onchange="sortBooks()" >
                 <option value="">Sort by</option>
                 <option value="rating">Rating</option>
                 <option value="title">Title</option>
@@ -27,12 +27,12 @@
         </div>
     </div>
     <div id="radiobutsort" style="display:none" class="text-center mt-3">
-        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="Ascending" onchange="sortBooks()" checked>
-        <label class="form-check-label" for="flexRadioDefault1">
+        <input style="color: #513C1E;" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="Ascending" onchange="sortBooks()" checked>
+        <label style="color: #513C1E;" class="form-check-label" for="flexRadioDefault1">
             Ascending
         </label><br>
-        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="Descending" onchange="sortBooks()">
-        <label class="form-check-label" for="flexRadioDefault2">
+        <input style="color: #513C1E;" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="Descending" onchange="sortBooks()">
+        <label style="color: #513C1E;" class="form-check-label" for="flexRadioDefault2">
             Descending
         </label>
     </div>
@@ -52,10 +52,9 @@
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div style="background-color: #FDFCF8;" class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Add Book</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h1 style="color: #513C1E;" class="modal-title fs-5" id="exampleModalLabel">Add Book</h1>
             </div>
             <div class="modal-body">
                 <form id="form" onsubmit="return false;">
@@ -91,6 +90,19 @@
     height: 200px;
     object-fit: cover;
     }
+    #booklistpage {
+        background-color: #FDFCF8;
+    }
+    .card{
+        background-color: #EAEFD3;
+        border:1px solid #513C1E;
+
+    }
+    .list-group-item{
+        background-color: #EAEFD3;
+        border: solid #513C1E;
+    }
+
 </style>
 
 <script>
@@ -190,10 +202,10 @@ async function refreshItems() {
                 <div class="card mb-4">
                     <img class="card-img-top" src="${item.fields.Gambar}" alt="Book Image">
                     <div class="card-body">
-                        <h5 class="card-title text-center pt-2 pb-2 h6 font-weight-bold">${item.fields.Judul}</h5>
-                        <hr class="hr" />
-                        <p class="card-text pt-2"><b>Kategori: </b>${item.fields.Kategori}</p>
-                        <p class="card-text"><b>Penulis: </b>${item.fields.Penulis}</p>
+                        <h5 style="color: #513C1E;" class="card-title text-center pt-2 pb-2 h6 font-weight-bold">${item.fields.Judul}</h5>
+                        <hr style="color: #513C1E;" class="hr" />
+                        <p style="color: #513C1E;" class="card-text pt-2"><b>Kategori: </b>${item.fields.Kategori}</p>
+                        <p style="color: #513C1E;" class="card-text"><b>Penulis: </b>${item.fields.Penulis}</p>
                     </div>
                     <ul class="list-group list-group-flush">
                         <li hidden class="list-group-item larger-text">${item.fields.Rating}</li>
