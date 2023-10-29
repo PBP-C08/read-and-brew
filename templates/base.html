@@ -66,15 +66,9 @@
                             {% else %}
                                 <a href="{% url 'ordernborrow:food_menu' %}" class="py-4 px-2 font-semibold">Order & Borrow</a>
                             {% endif %}
-<<<<<<< HEAD
-                            <a href="#" class="py-4 px-2 font-semibold hover:text-gray-500">Book Tracker & Planner</a>
+                            <a href="{% url 'trackernplanner:show_tracker_planner' %}" class="py-4 px-2 font-semibold hover:text-gray-500">Book Tracker & Planner</a>
                             <a href="{% url 'reviewmodul:show_review' %}" class="py-4 px-2 font-semibold hover:text-gray-500">Review Forum</a>
                             <a href="{% url 'bookrequest:show_request' %}" class="py-4 px-2 font-semibold hover:text-gray-500">Book Request</a>
-=======
-                            <a href="#" class="py-4 px-2 font-semibold">Book Tracker & Planner</a>
-                            <a href="{% url 'reviewmodul:show_review' %}" class="py-4 px-2 font-semibold">Review Forum</a>
-                            <a href="#" class="py-4 px-2 font-semibold">Book Request</a>
->>>>>>> 9b5be2f7ef75e85386cd4f2ef5dbe37666b0d6f7
                         </div>
                     </div>
                     <div class="hidden md:flex items-center space-x-3 ">
@@ -122,11 +116,11 @@
                         {% endif %}
                     </li>
                     <hr class="hr" />
-					<li><a href="#" class="block text-sm px-2 py-4 font-semibold hover:text-gray-500">Book Tracker & Planner</a></li>
+					<li><a href="{% url 'trackernplanner:show_tracker_planner' %}" class="block text-sm px-2 py-4 font-semibold hover:text-gray-500">Book Tracker & Planner</a></li>
                     <hr class="hr" />
 					<li><a href="{% url 'reviewmodul:show_review' %}" class="block text-sm px-2 py-4 font-semibold">Review Forum</a></li>
                     <hr class="hr" />
-                    <li><a href="#" class="block text-sm px-2 py-4 font-semibold">Book Request</a></li>
+                    <li><a href="{% url 'bookrequest:show_request' %}" class="block text-sm px-2 py-4 font-semibold">Book Request</a></li>
                     <hr class="hr" />
                     {% if user.is_authenticated %}
                         <li><a href="{% url 'main:logout' %}" class="block text-sm px-2 py-4 font-semibold bg-red-500 text-white hover:bg-red-700">Logout</a></li>
