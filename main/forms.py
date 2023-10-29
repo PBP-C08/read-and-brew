@@ -7,38 +7,48 @@ from main.models import *
 class LoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
         'placeholder': 'Your username',
-        'class': 'w-full py-4 px-6 rounded-xl'
+        'class': 'w-full py-4 px-6 rounded-xl',
+        'style': 'background-color: #FDFCF8;'
     }))
     password = forms.CharField(widget=forms.PasswordInput(attrs={
         'placeholder': 'Your password',
-        'class': 'w-full py-4 px-6 rounded-xl'
+        'class': 'w-full py-4 px-6 rounded-xl',
+        'style': 'background-color: #FDFCF8;'
     }))
 
 class SignUpForm(UserCreationForm):
     STATUS_CHOICES = [('M', 'Member'), ('E', 'Employee')]
     status = forms.ChoiceField(
         required=True,
-        choices=STATUS_CHOICES
+        choices=STATUS_CHOICES,
+        widget=forms.Select(attrs={
+            'style': 'background-color: #FDFCF8;'
+        })
     )
     full_name = forms.CharField(widget=forms.TextInput(attrs={
         'placeholder': 'Your username',
-        'class': 'w-full py-4 px-6 rounded-xl'
+        'class': 'w-full py-4 px-6 rounded-xl',
+        'style': 'background-color: #FDFCF8;'
     }))
     username = forms.CharField(widget=forms.TextInput(attrs={
         'placeholder': 'Your username',
-        'class': 'w-full py-4 px-6 rounded-xl'
+        'class': 'w-full py-4 px-6 rounded-xl',
+        'style': 'background-color: #FDFCF8;'
     }))
     email = forms.CharField(widget=forms.EmailInput(attrs={
         'placeholder': 'Your email address',
-        'class': 'w-full py-4 px-6 rounded-xl'
+        'class': 'w-full py-4 px-6 rounded-xl',
+        'style': 'background-color: #FDFCF8;'
     }))
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={
         'placeholder': 'Your password',
-        'class': 'w-full py-4 px-6 rounded-xl'
+        'class': 'w-full py-4 px-6 rounded-xl',
+        'style': 'background-color: #FDFCF8;'
     }))
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={
         'placeholder': 'Repeat password',
-        'class': 'w-full py-4 px-6 rounded-xl'
+        'class': 'w-full py-4 px-6 rounded-xl',
+        'style': 'background-color: #FDFCF8;'
     }))
     class Meta:
         model = User
