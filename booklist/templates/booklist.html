@@ -5,7 +5,7 @@
 {% block content %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="container mx-auto">
-    <h1 class="text-4xl font-semibold mb-6 text-center">BOOKS</h1>
+    <h1 class="text-4xl font-semibold mb-6 text-center mt-3">BOOKS</h1>
     <div class="row mt-2">
         <div class="col-md-3 mt-2">
             <select class="form-select" id="categories" onchange="filterBooks()">
@@ -26,8 +26,18 @@
             </select>
         </div>
     </div>
+    <div id="radiobutsort" style="display:none" class="text-center mt-3">
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="Ascending" onchange="sortBooks()" checked>
+        <label class="form-check-label" for="flexRadioDefault1">
+            Ascending
+        </label><br>
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="Descending" onchange="sortBooks()">
+        <label class="form-check-label" for="flexRadioDefault2">
+            Descending
+        </label>
+    </div>
     {% if user.is_authenticated %}
-    <div class="row mt-2">
+    <div class="row mt-3">
         <div class="col text-center">
             {% if profile.status == 'E' %}
             <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Book</button>
@@ -76,6 +86,11 @@
     .checked {
     color: orange;
     }
+    .card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    }
 </style>
 
 <script>
@@ -117,28 +132,36 @@ async function displayRating() {
   });
 }
 
+
 function sortBooks() {
   const sorting = document.getElementById("sorting");
   const books = document.querySelectorAll(".book");
   const sortBy = sorting.value;
+  const order = document.querySelector('input[name="flexRadioDefault"]:checked').value;
   if (sortBy === "rating") {
+    $("#radiobutsort").show();
     const sortedBooks = Array.from(books).sort((a, b) => {
       const ratingA = parseFloat(a.querySelector(".larger-text").textContent);
       const ratingB = parseFloat(b.querySelector(".larger-text").textContent);
-      return ratingA - ratingB;
+      if (order === "Ascending") return ratingB - ratingA;
+      else return ratingA - ratingB;
     });
     sortedBooks.forEach((book) => {
       book.parentNode.insertBefore(book, book.parentNode.firstChild);
     });
   } else if (sortBy === "title") {
+    $("#radiobutsort").show();
     const sortedBooks = Array.from(books).sort((a, b) => {
       const titleA = a.querySelector(".card-title").textContent;
       const titleB = b.querySelector(".card-title").textContent;
-      return titleB.localeCompare(titleA);
+      if (order === "Descending") return titleA.localeCompare(titleB);
+      else return titleB.localeCompare(titleA);
     });
     sortedBooks.forEach((book) => {
       book.parentNode.insertBefore(book, book.parentNode.firstChild);
     });
+  } else {
+    $("#radiobutsort").hide();
   }
 }
 
@@ -195,6 +218,23 @@ async function refreshItems() {
     })
     document.getElementById("item_card").innerHTML = htmlString
     displayRating()
+    setMaxHeight()
+}
+
+function setMaxHeight() {
+    var cards = document.getElementsByClassName("card mb-4");
+    var maxHeight = 0;
+
+    for (var i = 0; i < cards.length; i++) {
+    var cardHeight = cards[i].clientHeight;
+    if (cardHeight > maxHeight) {
+        maxHeight = cardHeight;
+    }
+    }
+    maxHeight += 1;
+    for (var i = 0; i < cards.length; i++) {
+    cards[i].style.height = maxHeight + "px";
+    }
 }
 
 async function deleteItems(id) {
