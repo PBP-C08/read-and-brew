@@ -107,23 +107,40 @@
             {% endblock %}
         </div>
 
-        <footer class="mt-auto py-6 px-6 flex justify-between bg-[#272928]">
+        <footer class="py-6 px-6 flex justify-between">
             <div class="w-2/3 pr-10">
-                <h3 class="mb-5 font-semibold text-gray-400">About</h3>
+                <h3 id="About" class="mb-2 font-bold">About</h3>
 
-                <p class="text-lg text-gray-500">Read & Brew merupakan sebuah tempat yang memadukan kegemaran akan buku dengan kenyamanan sebuah kafe. Kami memiilih kafe sebagai sarana untuk meningkatkan tingkat literasi karena adanya peningkatan yang signifikan terkait dengan tingkat pengunjung kafe di kalangan anak muda. Kami memiliki harapan bahwa kafe tidak hanya bisa menjadi tempat untuk bersantai, tetapi juga menjadi sarana untuk meningkatkan literasi dari kalangan muda yang mayoritasnya masih memiliki tingkat literasi yang rendah.</p>
+                <p id="AboutText" class="text-sm">Read & Brew merupakan sebuah tempat yang memadukan kegemaran akan buku dengan kenyamanan sebuah kafe. Kami memiilih kafe sebagai sarana untuk meningkatkan tingkat literasi karena adanya peningkatan yang signifikan terkait dengan tingkat pengunjung kafe di kalangan anak muda. Kami memiliki harapan bahwa kafe tidak hanya bisa menjadi tempat untuk bersantai, tetapi juga menjadi sarana untuk meningkatkan literasi dari kalangan muda yang mayoritasnya masih memiliki tingkat literasi yang rendah.</p>
             </div>
 
             <div class="w-1/3">
-                <h3 class="mb-5 font-semibold text-gray-400">Menu</h3>
+                <h3 class="mb-2 font-semibold text-gray-400"></h3>
 
                 <ul class="space-y-2">
-                    <li><a href="#" class="text-lg text-teal-500 hover:text-teal-700">About</a></li>
-                    <li><a href="#" class="text-lg text-teal-500 hover:text-teal-700">Contact</a></li>
-                    <li><a href="#" class="text-lg text-teal-500 hover:text-teal-700">Privacy policy</a></li>
-                    <li><a href="#" class="text-lg text-teal-500 hover:text-teal-700">Term of use</a></li>
+                    <li><a href="#" class="text-sm">About</a></li>
+                    <li><a href="#" class="text-sm">Contact</a></li>
+                    <li><a href="#" class="text-sm">Privacy policy</a></li>
+                    <li><a href="#" class="text-sm">Term of use</a></li>
                 </ul>
             </div>
         </footer>
     </body>
+    <style>
+        footer{
+            background-color: #513C1E;
+        }
+        footer > div> ul > li > a {
+            color: #bab28e;
+        }
+        footer > div> ul > li > a:hover {
+            color: #868065;
+        }
+        #About{
+            color: #bab28e;
+        }
+        #AboutText{
+            color: #FDFCF8;
+        }
+    </style>
 </html>
