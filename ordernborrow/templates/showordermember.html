@@ -243,9 +243,9 @@
                 showAlert("Order updated successfully!");
             },
             error: function(error) {
-                showAlert("Error updating order.");
             }
         });
+        document.getElementById("editOrderForm").reset()
     }
 
     // Function to show edit modal
