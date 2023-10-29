@@ -12,4 +12,6 @@ urlpatterns = [
     path('member/book-planner', show_planner, name='show_planner'),
 
     path('member/json/', show_json, name='show_json'),
+
+    path('member/show-json-borrowedbooks/', show_json_borrowedbooks, name='show_json_borrowedbooks'),
 ]
