@@ -12,52 +12,7 @@ from django.core import serializers
 
 # Create your views here.
 def show_review(request):
-    content = {
-        "list_review": {
-            "Zhongli":{
-                'book_name': "Hand Job: A Catalog of Type",
-                'rating': 4,
-                'review': "Lorem ipsum bla bla bla. Lorem ipsum bla bla bla. Lorem ipsum bla bla bla."
-            },
-            "Jean":{
-                'book_name': "Jacob A. Riis: Revealing New York's Other Half: A Complete Catalogue of His Photographs",
-                'rating': 5,
-                'review': "Lorem ipsum bla bla bla. Lorem ipsum bla bla bla. Lorem ipsum bla bla bla."
-            },
-            "Wriothesley":{
-                'book_name': "Dynamic Wrinkles and Drapery: Solutions for Drawing the Clothed Figure",
-                'rating': 3,
-                'review': "Lorem ipsum bla bla bla. Lorem ipsum bla bla bla. Lorem ipsum bla bla bla."
-            },
-            "Chlorinde":{
-                'book_name': "Baryshnikov: In Black and White",
-                'rating': 3,
-                'review': "Lorem ipsum bla bla bla. Lorem ipsum bla bla bla. Lorem ipsum bla bla bla."
-            },
-            "Navia":{
-                'book_name': "The Bundy Murders: A Comprehensive History",
-                'rating': 5,
-                'review': "Lorem ipsum bla bla bla. Lorem ipsum bla bla bla. Lorem ipsum bla bla bla."
-            },
-            "Neuvillette":{
-                'book_name': "Kiss, Bow, Or Shake Hands: The Bestselling Guide to Doing Business in More Than 60 Countries",
-                'rating': 4,
-                'review': "Lorem ipsum bla bla bla. Lorem ipsum bla bla bla. Lorem ipsum bla bla bla."
-            }
-        },
-    }
-    return render(request, "reviewmodul.html", content)
-
-@login_required(login_url='/login/')
-def show_review_member(request):
-    review = ReviewMember.objects.filter(user=request.user)
-
-    content = {
-        'username': request.user.username,
-        'myreview': review,
-    }
-
-    return render(request, "reviewmodul.html", content)
+    return render(request, "reviewmodul.html")
 
 def get_review_json(request):
     review_item = ReviewMember.objects.all()
@@ -83,7 +38,7 @@ def add_review_ajax(request):
         new_review = ReviewMember(username=username, book_name = book_name, rating=rating, review=review, user=user)
         jumlahReview = JumlahReview.objects.filter(book__Judul=book_name).first()
         buku = Buku.objects.filter(Judul=book_name).first()
-        
+       
         if(jumlahReview == None):
             jumlahReview = JumlahReview(book=buku, jumlah = 0)
         
@@ -94,11 +49,11 @@ def add_review_ajax(request):
             buku.Rating = int((buku.Rating + int(rating))/jumlahReview.jumlah)
             buku.save()
             new_review.save()
-        
+            
             return HttpResponse(b"CREATED", status=201)
         else:
             messages.error(request, "Invalid Rating!")
-
+    
     return HttpResponseNotFound()
 
 @csrf_exempt
