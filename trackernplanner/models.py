@@ -23,7 +23,7 @@ class BookTrackerMember(models.Model):
     )
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    book = models.ForeignKey(BorrowedBook, on_delete=models.CASCADE)
+    book = models.ForeignKey(Buku, on_delete=models.CASCADE)
     page = models.PositiveIntegerField()
     progress = models.PositiveIntegerField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='in_progress')
