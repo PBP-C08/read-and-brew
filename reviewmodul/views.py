@@ -1,3 +1,4 @@
+#pylint: disable=E1101
 from django.shortcuts import render
 from reviewmodul.models import ReviewMember, JumlahReview
 from ordernborrow.models import BorrowedHistory
