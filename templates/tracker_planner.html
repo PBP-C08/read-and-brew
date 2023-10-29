@@ -187,6 +187,23 @@
             {% block content %}
             {% endblock %}
 
+            <div class="col-md-3 mt-2 mb-4">
+                <select style="border: 1px solid #513C1E;color: #513C1E;background-color: #FDFCF8;" class="form-select" id="sorting" onchange="sortBooks()" >
+                    <option value="">Sort by</option>
+                    <option value="title">Title</option>
+                </select>
+            </div>
+            <div id="radiobutsort" style="display:none" class="text-center mt-3 mb-4">
+                <input style="color: #513C1E;" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="Ascending" onchange="sortBooks()" checked>
+                <label style="color: #513C1E;" class="form-check-label" for="flexRadioDefault1">
+                    Ascending
+                </label><br>
+                <input style="color: #513C1E;" class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="Descending" onchange="sortBooks()">
+                <label style="color: #513C1E;" class="form-check-label" for="flexRadioDefault2">
+                    Descending
+                </label>
+            </div>
+
             <div class="row row-cols-1 row-cols-md-3 row-cols-sm-2 row-cols-xs-1 g-4" id="booktracker">
                 <!-- Display all books that can be borrowed -->
             </div>
@@ -286,48 +303,87 @@
                 return fetch("{% url 'trackernplanner:show_json_trackermember' %}").then((res) => res.json())
             }
 
+            async function getBukuById(bookId) {
+                const response = await fetch(`get-book-details/${bookId}`);
+                const buku = await response.json();
+                return buku;
+            }
+
             async function refreshTracker() {
-                const content = document.getElementById("booktracker")
-                content.innerHTML = ""
+                const content = document.getElementById("booktracker");
+                content.innerHTML = "";
 
-                const books = await getBooks();
                 const trackedBooks = await getTrackedBooks();
-                console.log(trackedBooks)
 
-                trackedBooks.forEach((item, index) => {
-                    const statusLabels = {
-                        'in-progress': 'In Progress',
-                        'finished': 'Finished',
-                    };
+                // Create an array to store related Buku objects
+                const relatedBukus = [];
 
-                    const bookCard = `
-                    <div class="col-md-2 book">
+                for (const item of trackedBooks) {
+                    // Retrieve the book ID from the tracked item
+                    const bookId = item.fields.book;
+
+                    // Fetch the related Buku object based on the book ID
+                    const buku = await getBukuById(bookId);
+                    console.log(buku)
+
+                    if (buku) {
+                        relatedBukus.push(buku);
+
+                        const statusLabels = {
+                            'in-progress': 'In Progress',
+                            'finished': 'Finished',
+                        };
+
+                        const bookCard = `
+                        <div class="col-md-2 book">
                         <div class="card mb-4">
-                            <img class="card-img-top" src="${item.fields.book.Gambar}" alt="Book Image">
+                            <img class="card-img-top" src="${buku.Gambar}" alt="Book Image">
                             <div class="card-body">
-                                <h5 class="card-title text-center pt-2 pb-2 h6 font-weight-bold">${item.fields.book.Judul}</h5>
-                                <hr class="hr" />
-                                <p class="card-text pt-2"><b>Status: </b>${statusLabels[item.fields.status]}</p>
-                                <p class="card-text pt-2"><b>Pages Read: </b>${item.fields.progress}/${item.fields.page}</p>
+                                <h5 style="color: #513C1E;" class="card-title text-center pt-2 pb-2 h6 font-weight-bold">${buku.Judul}</h5>
+                                <hr style="color: #513C1E;" class="hr" />
+                                <p style="color: #513C1E;" class="card-text pt-2"><b>Status: </b>${statusLabels[item.fields.status]}</p>
+                                <p style="color: #513C1E;" class="card-text pt-2"><b>Pages Read: </b>${item.fields.progress}/${item.fields.page}</p>
                             </div>
                             <ul class="list-group list-group-flush">
-                                <div class="d-grid">
-                                    <button class="btn btn-success edit-button" data-book-id="${item.pk}" data-bs-toggle="modal" data-bs-target="#editModal">
-                                        Edit
-                                    </button>
-                                </div>
-                            </ul>
+                                    <div class="d-grid">
+                                        <button class="btn btn-success edit-button" data-book-id="${item.pk}" data-bs-toggle="modal" data-bs-target="#editModal">
+                                            Edit
+                                        </button>
+                                    </div>
+                                </ul>
                         </div>
-                    </div>`;
+                        </div>`;
 
-                    content.innerHTML += bookCard;
-                });
+                        content.innerHTML += bookCard;
+                    }
+                }
             }
 
             refreshTracker();
 
             async function updateProgress() {
                 const formData = new FormData(document.querySelector('#formProgress'));
+            }
+
+            function sortBooks() {
+                const sorting = document.getElementById("sorting");
+                const books = document.querySelectorAll(".book");
+                const sortBy = sorting.value;
+                const order = document.querySelector('input[name="flexRadioDefault"]:checked').value;
+                if (sortBy === "title") {
+                    $("#radiobutsort").show();
+                    const sortedBooks = Array.from(books).sort((a, b) => {
+                    const titleA = a.querySelector(".card-title").textContent;
+                    const titleB = b.querySelector(".card-title").textContent;
+                    if (order === "Descending") return titleA.localeCompare(titleB);
+                    else return titleB.localeCompare(titleA);
+                    });
+                    sortedBooks.forEach((book) => {
+                    book.parentNode.insertBefore(book, book.parentNode.firstChild);
+                    });
+                } else {
+                    $("#radiobutsort").hide();
+                }
             }
         </script>
         {% else %}
@@ -388,46 +444,87 @@
                 return fetch("{% url 'trackernplanner:show_json_tracker' %}").then((res) => res.json())
             }
 
+            async function getBukuById(bookId) {
+                const response = await fetch(`get-book-details/${bookId}`);
+                const buku = await response.json();
+                return buku;
+            }
+
             async function refreshTracker() {
-                const content = document.getElementById("booktracker")
-                content.innerHTML = ""
+                const content = document.getElementById("booktracker");
+                content.innerHTML = "";
 
                 const trackedBooks = await getTrackedBooks();
-                
-                trackedBooks.forEach((item, index) => {
-                    const statusLabels = {
-                        'in-progress': 'In Progress',
-                        'finished': 'Finished',
-                    };
 
-                    const bookCard = `
-                    <div class="col-md-2 book">
+                // Create an array to store related Buku objects
+                const relatedBukus = [];
+
+                for (const item of trackedBooks) {
+                    // Retrieve the book ID from the tracked item
+                    const bookId = item.fields.book;
+
+                    // Fetch the related Buku object based on the book ID
+                    const buku = await getBukuById(bookId);
+                    console.log(buku)
+
+                    if (buku) {
+                        relatedBukus.push(buku);
+
+                        const statusLabels = {
+                            'in-progress': 'In Progress',
+                            'finished': 'Finished',
+                        };
+
+                        const bookCard = `
+                        <div class="col-md-2 book">
                         <div class="card mb-4">
-                            <img class="card-img-top" src="${item.fields.book.Gambar}" alt="Book Image">
+                            <img class="card-img-top" src="${buku.Gambar}" alt="Book Image">
                             <div class="card-body">
-                                <h5 class="card-title text-center pt-2 pb-2 h6 font-weight-bold">${item.fields.book.Judul}</h5>
-                                <hr class="hr" />
-                                <p class="card-text pt-2"><b>Status: </b>${statusLabels[item.fields.status]}</p>
-                                <p class="card-text pt-2"><b>Pages Read: </b>${item.fields.progress}/${item.fields.page}</p>
+                                <h5 style="color: #513C1E;" class="card-title text-center pt-2 pb-2 h6 font-weight-bold">${buku.Judul}</h5>
+                                <hr style="color: #513C1E;" class="hr" />
+                                <p style="color: #513C1E;" class="card-text pt-2"><b>Status: </b>${statusLabels[item.fields.status]}</p>
+                                <p style="color: #513C1E;" class="card-text pt-2"><b>Pages Read: </b>${item.fields.progress}/${item.fields.page}</p>
                             </div>
                             <ul class="list-group list-group-flush">
-                                <div class="d-grid">
-                                    <button class="btn btn-success edit-button" data-book-id="${item.pk}" data-bs-toggle="modal" data-bs-target="#editModal">
-                                        Edit
-                                    </button>
-                                </div>
-                            </ul>
+                                    <div class="d-grid">
+                                        <button class="btn btn-success edit-button" data-book-id="${item.pk}" data-bs-toggle="modal" data-bs-target="#editModal">
+                                            Edit
+                                        </button>
+                                    </div>
+                                </ul>
                         </div>
-                    </div>`;
+                        </div>`;
 
-                    content.innerHTML += bookCard;
-                });
+                        content.innerHTML += bookCard;
+                    }
+                }
             }
 
             refreshTracker();
 
             async function updateProgress() {
                 const formData = new FormData(document.querySelector('#formProgress'));
+            }
+
+            function sortBooks() {
+                const sorting = document.getElementById("sorting");
+                const books = document.querySelectorAll(".book");
+                const sortBy = sorting.value;
+                const order = document.querySelector('input[name="flexRadioDefault"]:checked').value;
+                if (sortBy === "title") {
+                    $("#radiobutsort").show();
+                    const sortedBooks = Array.from(books).sort((a, b) => {
+                    const titleA = a.querySelector(".card-title").textContent;
+                    const titleB = b.querySelector(".card-title").textContent;
+                    if (order === "Descending") return titleA.localeCompare(titleB);
+                    else return titleB.localeCompare(titleA);
+                    });
+                    sortedBooks.forEach((book) => {
+                    book.parentNode.insertBefore(book, book.parentNode.firstChild);
+                    });
+                } else {
+                    $("#radiobutsort").hide();
+                }
             }
         </script>
         {% endif %}

@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 def show_tracker_planner(request):
     is_member = False
-    books_read, latest_planner = 0, None
+    books_read = 0
 
     if request.user.is_authenticated:
         user = request.user
@@ -87,23 +87,28 @@ def show_json_borrowedbooks(request):
     return HttpResponse(serializers.serialize('json', borrowed_books))
 
 def get_book_details(request, book_id):
-    book = Buku.objects.get(id=book_id)
+    if request.method == "GET":
+        book = Buku.objects.get(id=book_id)
 
-    book_data = {
-        'Gambar': book.Gambar,
-        'Judul': book.Judul,
-        'Kategori': book.Kategori,
-        'Penulis': book.Penulis,
-        'Rating': book.Rating,
-    }
+        book_data = {
+            'Gambar': book.Gambar,
+            'Judul': book.Judul,
+            'Kategori': book.Kategori,
+            'Penulis': book.Penulis,
+            'Rating': book.Rating,
+        }
 
-    return JsonResponse(book_data)
+        return JsonResponse(book_data)
     
 def update_progress(request, book_id):
     if request.method == "POST":
         new_progress = request.POST.get("progress")
         book = BookTrackerMember.objects.get(pk=book_id)
         book.progress = new_progress
+
+        if book.progress == book.page:
+            book.status = 'finished'
+            
         book.save()
 
         return HttpResponse(b"CREATED", status=201)
