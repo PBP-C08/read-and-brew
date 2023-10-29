@@ -94,10 +94,10 @@
                         <div class="card mb-4">
                             <img class="card-img-top" src="${item.fields.Gambar}" alt="Book Image">
                             <div class="card-body">
-                                <h5 class="card-title text-center pt-2 pb-2 h6 font-weight-bold">${item.fields.Judul}</h5>
-                                <hr class="hr" />
-                                <p class="card-text pt-2"><b>Kategori: </b>${item.fields.Kategori}</p>
-                                <p class="card-text"><b>Penulis: </b>${item.fields.Penulis}</p>
+                                <h5 style="color: #513C1E;" class="card-title text-center pt-2 pb-2 h6 font-weight-bold">${item.fields.Judul}</h5>
+                                <hr style="color: #513C1E;" class="hr" />
+                                <p style="color: #513C1E;" class="card-text pt-2"><b>Kategori: </b>${item.fields.Kategori}</p>
+                                <p style="color: #513C1E;" class="card-text"><b>Penulis: </b>${item.fields.Penulis}</p>
                             </div>
                             <ul class="list-group list-group-flush">
                                 <li hidden class="list-group-item larger-text">${item.fields.Rating}</li>
@@ -110,11 +110,6 @@
                                         <span class="fa fa-star"></span>
                                     </div>
                                 </li>
-                                {% if profile.status == 'E' %}
-                                <li class="list-group-item text-center">
-                                    <button class="btn btn-outline-danger" onclick="deleteItems(${item.pk})">Delete</button>
-                                </li>
-                                {% endif %}
                             </ul>
                         </div>
                     </div>`;
@@ -124,9 +119,9 @@
                 }
             });
         }
+        setMaxHeight()
         displayRating()
     }
-    refreshBooks()
 
     async function displayRating() {
         const books = document.querySelectorAll(".book");
@@ -142,6 +137,23 @@
             }
         });
     }
+
+    function setMaxHeight() {
+        var cards = document.getElementsByClassName("card mb-4");
+        var maxHeight = 0;
+
+        for (var i = 0; i < cards.length; i++) {
+        var cardHeight = cards[i].clientHeight;
+        if (cardHeight > maxHeight) {
+            maxHeight = cardHeight;
+        }
+        }
+        maxHeight += 1;
+        for (var i = 0; i < cards.length; i++) {
+        cards[i].style.height = maxHeight + "px";
+        }
+    }
+    refreshBooks()
     
 </script>
 {% endblock %}
