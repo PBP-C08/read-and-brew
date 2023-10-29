@@ -183,6 +183,7 @@
             </div>
         </footer>
 
+        {% if user.is_authenticated %} 
         <script>
             async function getBooks(){
                 return fetch("{% url 'booklist:get_books' %}").then((res) => res.json())
@@ -262,6 +263,7 @@
                 content.innerHTML = ""
 
                 const trackedBooks = await getTrackedBooks();
+                console.log(trackedBooks)
                 
                 trackedBooks.forEach((item, index) => {
                     const statusLabels = {
@@ -299,5 +301,8 @@
                 const formData = new FormData(document.querySelector('#formProgress'));
             }
         </script>
+        {% else %}
+        
+        {% endif %}
     </body>
 </html>
