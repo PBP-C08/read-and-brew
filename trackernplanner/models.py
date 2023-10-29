@@ -29,8 +29,8 @@ class BookTrackerMember(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='in_progress')
 
 # Planner model for Member
-class BookPlanner(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    books = models.ManyToManyField(Buku)
-    title = models.CharField(max_length=255)
-    description = models.TextField(blank=True)
+# class BookPlanner(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+#     books = models.ManyToManyField(Buku)
+#     title = models.CharField(max_length=255)
+#     description = models.TextField(blank=True)

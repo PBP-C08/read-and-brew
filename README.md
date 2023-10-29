@@ -19,12 +19,12 @@ Berisi daftar buku-buku yang diambil dari dataset. Setiap data buku pada dataset
 | Member (Login)  | Employee  | Guest |
 | ------------- | ------------- | ------------- |
 | Dapat melihat daftar buku-buku beserta ratingnya.  | Dapat menambahkan buku baru.  | Dapat melihat daftar buku-buku tapi tidak dapat melihat rating yang telah diberikan pada buku tersebut.  |
-### 2. Book Tracker & Planner (Bulan Athaillah Permata Wijaya)
-Buku yang sedang dipinjam dapat di-_track progressnya_ dengan menandai sudah sejauh mana buku dibaca. Selain itu, pengguna dapat mengelompokkan buku-buku yang ingin dibaca ke dalam _book planner_ sesuai dengan preferensinya.
+### 2. Book Tracker (Bulan Athaillah Permata Wijaya)
+Buku yang sedang dipinjam dapat di-_track progressnya_ dengan menandai sudah sejauh mana buku dibaca.
 #### Peran Role Pengguna
 | Member (Login)  | Guest |
 | ------------- | ------------- |
-| Dapat melakukan _tracking progress_ buku bacaan yang dipinjam dan dapat menggunakan fitur _book planner_. | Dapat melakukan _tracking progress_ disaat berkunjung saja serta tidak dapat menggunakan fitur _book planner_. |
+| Dapat melakukan _tracking progress_ buku bacaan yang dipinjam. | Dapat melakukan _tracking progress_ disaat berkunjung saja. |
 ### 3. Forum Review (Fikri Dhiya Ramadhana)
 Pengguna dapat me-review buku yang sudah dipinjam dan membagikan pengalaman saat menggunakan aplikasi Read&Brew. Digunakan sistem rating untuk setiap pengalaman user. 
 #### Peran Role Pengguna

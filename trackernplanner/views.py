@@ -16,18 +16,15 @@ def show_tracker_planner(request):
         user = request.user
         is_member = True
         books_read = BookTrackerMember.objects.filter(user=user).count()
-        latest_planner = BookPlanner.objects.filter(user=user).order_by('-id').first()
     else:
         guest_id = request.session.get('guest_id', None)
 
         if guest_id is not None:
             books_read = BookTracker.objects.filter(guest_id=guest_id).count()
-            latest_planner = None
 
     context = {
         'is_member': is_member,
         'books_read': books_read,
-        'latest_planner': latest_planner,
     }
     return render(request, 'trackernplanner.html', context)
 
@@ -55,8 +52,34 @@ def track_book(request):
         return HttpResponse(b"CREATED", status=201)
     return HttpResponseNotFound()
 
+@csrf_exempt
+def track_book_guest(request):
+    if request.method == "POST":
+        book_id = request.POST.get("book")
+        page = request.POST.get("page")
+        progress = request.POST.get("progress")
+        status = request.POST.get("status")
+
+        #get the instance of the book
+        book = get_object_or_404(Buku, pk=book_id)
+
+        new_booktrack = BookTracker(
+            book=book,
+            page=page,
+            progress=progress,
+            status=status
+        )
+        new_booktrack.save()
+
+        return HttpResponse(b"CREATED", status=201)
+    return HttpResponseNotFound()
+
 def show_json_trackermember(request):
     data = BookTrackerMember.objects.all()
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+def show_json_tracker(request):
+    data = BookTracker.objects.all()
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
 def show_json_borrowedbooks(request):
@@ -85,14 +108,3 @@ def update_progress(request, book_id):
 
         return HttpResponse(b"CREATED", status=201)
     return HttpResponseNotFound()
-    
-def show_tracker_guest(request):
-    return render(request, 'booktrackerguest.html')
-
-@login_required
-def show_tracker(request):
-    return render(request, 'booktracker.html')
-    
-@login_required
-def show_planner(request):
-    return render(request, 'bookplanner.html')
