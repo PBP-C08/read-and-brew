@@ -63,7 +63,6 @@ def show_json_borrowedbooks(request):
     borrowed_books = BorrowedBook.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize('json', borrowed_books))
 
-
 def get_book_details(request, book_id):
     book = Buku.objects.get(id=book_id)
 
