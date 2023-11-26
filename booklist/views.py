@@ -1,5 +1,6 @@
+import json
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
 from django.core import serializers
 from booklist.models import Buku
 from main.models import Profile
@@ -51,3 +52,29 @@ def delete_book_ajax(request):
         Buku.objects.filter(pk=book_id).delete()
         return HttpResponse(b"DELETED", status=201)
     return HttpResponseNotFound()
+
+@csrf_exempt
+def create_book_flutter(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        new_book = Buku.objects.create(
+            Judul = data['judul'],
+            Gambar = data['gambar'],
+            Penulis = data['penulis'],
+            Kategori = data['kategori'],
+            Rating = 0
+        )
+        new_book.save()
+
+        return JsonResponse({"status": "success", "messages":"Berhasil menambahkan item!"}, status=200)
+    else:
+        return JsonResponse({"status": "error", "messages":"Gagal menambahkan item!"}, status=401)
+    
+@csrf_exempt
+def delete_book_flutter(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        Buku.objects.filter(pk=int(data['id'])).delete()
+        return JsonResponse({"status": "success", "messages":"Berhasil menghapus item!"}, status=200)
+    else:
+        return JsonResponse({"status": "error", "messages":"Gagal menghapus item!"}, status=401)
