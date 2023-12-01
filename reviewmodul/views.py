@@ -1,4 +1,5 @@
 #pylint: disable=E1101
+import json
 from django.shortcuts import render
 from reviewmodul.models import ReviewMember, JumlahReview
 from ordernborrow.models import BorrowedHistory
@@ -18,6 +19,14 @@ def show_review(request):
 def get_review_json(request):
     review_item = ReviewMember.objects.all()
     return HttpResponse(serializers.serialize('json', review_item))
+
+def show_json(request):
+    data = ReviewMember.objects.all()
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+def show_json_jumlah_review(request):
+    data = JumlahReview.objects.all()
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
 def get_review_json_member(request):
     review_item = ReviewMember.objects.filter(user=request.user)
@@ -78,3 +87,39 @@ def delete_review(request, id):
         return HttpResponse(b"DELETED", status=200)
 
     return HttpResponseNotFound()
+
+@csrf_exempt
+def add_review_flutter(request):
+    if request.method == "POST":
+        input = json.loads(request.body)
+
+        username = input['username']
+        book_name = input['bookname']
+        rating = input['rating']
+        review = input['review']
+        user = request.user
+
+        new_review = ReviewMember(username=username, book_name = book_name, rating=rating, review=review, user=user)
+        jumlahReview = JumlahReview.objects.filter(book__Judul=book_name).first()
+        buku = Buku.objects.filter(Judul=book_name).first()
+       
+        if(jumlahReview == None):
+            jumlahReview = JumlahReview(book=buku, jumlah = 0)
+        
+        jumlahReview.jumlah += 1
+
+        if int(rating)>0 and int(rating) <= 5:
+            jumlahReview.save()
+            buku.Rating = int((buku.Rating + int(rating))/jumlahReview.jumlah)
+            buku.save()
+            new_review.save()
+            
+            return JsonResponse({
+                "status": True,
+                "message": "Success!"
+            }, status=200)
+
+        else:
+            return JsonResponse({"status": False, "message": "Invalid Rating!"}, status=400)
+    
+    return JsonResponse({"status": False, "message": "Failed!"}, status=400)
