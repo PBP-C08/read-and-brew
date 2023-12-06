@@ -104,6 +104,23 @@ def like_request_ajax(request):
     return HttpResponseNotFound()
 
 @csrf_exempt
+def create_request_flutter(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        new_request = RequestBuku.objects.create(
+            Judul = data['judul'],
+            Gambar = data['gambar'],
+            Penulis = data['penulis'],
+            Kategori = data['kategori'],
+            Like = 0
+        )
+        new_request.save()
+
+        return JsonResponse({"status": "success", "messages":"Berhasil menambahkan item!"}, status=200)
+    else:
+        return JsonResponse({"status": "error", "messages":"Gagal menambahkan item!"}, status=401)
+
+@csrf_exempt
 def delete_request_flutter(request):
     if request.method == "POST":
         data = json.loads(request.body)
