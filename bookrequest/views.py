@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseNotFound, HttpResponseRedirect, HttpResponse, HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -100,4 +101,39 @@ def like_request_ajax(request):
         book.Like += 1
         book.save()
         return HttpResponse(b"LIKED", status=201)
+    return HttpResponseNotFound()
+
+@csrf_exempt
+def delete_request_flutter(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        RequestBuku.objects.filter(pk=int(data['id'])).delete()
+        return JsonResponse({"status": "success", "messages":"Berhasil menghapus request!"}, status=200)
+    else:
+        return JsonResponse({"status": "error", "messages":"Gagal menghapus request!"}, status=401)
+    
+@csrf_exempt
+def like_request_flutter(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        book = RequestBuku.objects.filter(pk=int(data['id']))
+        book.Like += 1
+        return JsonResponse({"status": "success", "messages":"Berhasil menambah like!"}, status=200)
+    else:
+        return JsonResponse({"status": "error", "messages":"Gagal menambah like!"}, status=401)
+    
+@csrf_exempt
+def approve_request_flutter(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        request_buku = RequestBuku.objects.filter(pk=int(data['id']))
+        request_buku.Status = "Approved"
+        request_buku.save()
+        judul = request_buku.Judul
+        kategori = request_buku.Kategori
+        gambar = request_buku.Gambar
+        penulis = request_buku.Penulis
+        buku = Buku(Judul=judul, Kategori=kategori, Gambar=gambar, Penulis=penulis, Rating=0)
+        buku.save()
+        return HttpResponse(b"APPROVED", status=201)
     return HttpResponseNotFound()
