@@ -27,3 +27,13 @@ class BorrowedBook(models.Model):
 class BorrowedHistory(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     book = models.ForeignKey(Buku, on_delete=models.CASCADE)
+
+class Food(models.Model):
+    name = models.CharField(max_length=255)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+    description = models.CharField(max_length=255)
+
+class Drink(models.Model):
+    name = models.CharField(max_length=255)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+    description = models.CharField(max_length=255)
