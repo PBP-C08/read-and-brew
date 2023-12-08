@@ -33,4 +33,12 @@ urlpatterns = [
     path('member/create-borrowed-history/', create_borrowed_history, name='create_borrowed_history'),
 
     path('employee/supplies-equipment/', supplies_and_equipment_view, name='supplies_and_equipment_view'),
+
+    path('guest/api/get-food/', get_food, name="get_food"),
+    path('guest/api/get-drink/', get_drink, name="get_drink"),
+    path('guest/order-drink-flutter/', create_order_flutter, name="order_drink"),
+    path('guest/order-food-flutter/', create_order_flutter, name="order_food"),
+    path('guest/delete-all-order-flutter/', delete_allorder_flutter, name='delete_allorder_flutter'),
+    path('guest/edit-order-flutter/<int:id>/', edit_order_flutter, name='edit_order_flutter'),
+    path('guest/delete-order-flutter/<int:id>/', delete_order_flutter, name='delete_order_flutter'),
 ]

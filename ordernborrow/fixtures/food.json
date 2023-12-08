@@ -1,0 +1,137 @@
+[
+    {
+        "pk": 1,
+        "model": "ordernborrow.Food",
+        "fields": {
+            "name": "Bagel with Cream Cheese",
+            "price": 2.99,
+            "description": "A freshly baked bagel served with a generous portion of cream cheese."
+        }
+    },
+    {
+        "pk": 2,
+        "model": "ordernborrow.Food",
+        "fields": {
+            "name": "Egg and Cheese Sandwich",
+            "price": 4.49,
+            "description": "A breakfast classic - scrambled eggs and melted cheese on a toasted bun."
+        }
+    },
+    {
+        "pk": 3,
+        "model": "ordernborrow.Food",
+        "fields": {
+            "name": "Cinnamon Roll",
+            "price": 3.49,
+            "description": "A sweet and gooey cinnamon roll with icing on top."
+        }
+    },
+    {
+        "pk": 4,
+        "model": "ordernborrow.Food",
+        "fields": {
+            "name": "Chocolate Croissant",
+            "price": 2.99,
+            "description": "A buttery and flaky croissant mixed with chocolate, perfect with your coffee."
+        }
+    },
+    {
+        "pk": 5,
+        "model": "ordernborrow.Food",
+        "fields": {
+            "name": "New York Style Pizza",
+            "price": 9.99,
+            "description": "A classic thin-crust pizza with your choice of toppings, just like in the Big Apple."
+        }
+    },
+    {
+        "pk": 6,
+        "model": "ordernborrow.Food",
+        "fields": {
+            "name": "Chicago Deep Dish Pizza",
+            "price": 12.99,
+            "description": "A thick and cheesy deep-dish pizza, a Windy City specialty."
+        }
+    },
+    {
+        "pk": 7,
+        "model": "ordernborrow.Food",
+        "fields": {
+            "name": "Caprese Panini",
+            "price": 7.99,
+            "description": "Fresh mozzarella, ripe tomatoes, and basil pesto on grilled ciabatta bread."
+        }
+    },
+    {
+        "pk": 8,
+        "model": "ordernborrow.Food",
+        "fields": {
+            "name": "Chicken Quesadilla",
+            "price": 8.49,
+            "description": "Sliced chicken, cheese, and vegetables folded in a tortilla and grilled."
+        }
+    },
+    {
+        "pk": 9,
+        "model": "ordernborrow.Food",
+        "fields": {
+            "name": "Spinach and Feta Quiche",
+            "price": 6.99,
+            "description": "A savory pastry filled with spinach, feta cheese, and eggs."
+        }
+    },
+    {
+        "pk": 10,
+        "model": "ordernborrow.Food",
+        "fields": {
+            "name": "Avocado Toast",
+            "price": 5.99,
+            "description": "Sliced avocado on toasted artisan bread, topped with seasoning."
+        }
+    },
+    {
+        "pk": 11,
+        "model": "ordernborrow.Food",
+        "fields": {
+            "name": "Muffin",
+            "price": 2.49,
+            "description": "A freshly baked muffin in your choice of flavor."
+        }
+    },
+    {
+        "pk": 12,
+        "model": "ordernborrow.Food",
+        "fields": {
+            "name": "Blueberry Scone",
+            "price": 2.79,
+            "description": "A tender and crumbly scone filled with juicy blueberries."
+        }
+    },
+    {
+        "pk": 13,
+        "model": "ordernborrow.Food",
+        "fields": {
+            "name": "Breakfast Burrito",
+            "price": 6.49,
+            "description": "A hearty breakfast burrito filled with eggs, sausage, cheese, and vegetables."
+        }
+    },
+    {
+        "pk": 14,
+        "model": "ordernborrow.Food",
+        "fields": {
+            "name": "Fruit Parfait",
+            "price": 4.99,
+            "description": "A delicious parfait made with yogurt, granola, and a mix of fresh fruits."
+        }
+    },
+    {
+        "pk": 15,
+        "model": "ordernborrow.Food",
+        "fields": {
+            "name": "Quiche Lorraine",
+            "price": 6.99,
+            "description": "A classic quiche filled with bacon, Swiss cheese, and a savory custard."
+        }
+    }    
+]
