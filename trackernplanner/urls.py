@@ -12,4 +12,5 @@ urlpatterns = [
     path('show-json-tracker', show_json_tracker, name='show_json_tracker'),
     path('get-book-details/<int:book_id>', get_book_details, name='get_book_details'),
     path('update-progress/<int:book_id>', update_progress, name='update_progress'),
+    path('update-progress-member/<int:book_id>', update_progress_member, name='update_progress_member'),
 ]

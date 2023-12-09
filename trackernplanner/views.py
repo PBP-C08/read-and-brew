@@ -75,7 +75,7 @@ def track_book_guest(request):
     return HttpResponseNotFound()
 
 def show_json_trackermember(request):
-    data = BookTrackerMember.objects.all()
+    data = BookTrackerMember.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
 def show_json_tracker(request):
@@ -99,16 +99,36 @@ def get_book_details(request, book_id):
         }
 
         return JsonResponse(book_data)
-    
+
+@csrf_exempt
 def update_progress(request, book_id):
+    if request.method == "POST":
+        new_progress = request.POST.get("progress")
+        book = BookTracker.objects.get(pk=book_id)
+        book.progress = new_progress
+
+        if int(book.progress) == int(book.page):
+            book.status = 'finished' 
+        else:
+            book.status = 'in-progress'
+
+        book.save()
+
+        return HttpResponse(b"CREATED", status=201)
+    return HttpResponseNotFound()
+
+@csrf_exempt
+def update_progress_member(request, book_id):
     if request.method == "POST":
         new_progress = request.POST.get("progress")
         book = BookTrackerMember.objects.get(pk=book_id)
         book.progress = new_progress
 
-        if book.progress == book.page:
-            book.status = 'finished'
-            
+        if int(book.progress) == int(book.page):
+            book.status = 'finished' 
+        else:
+            book.status = 'in-progress'
+
         book.save()
 
         return HttpResponse(b"CREATED", status=201)
