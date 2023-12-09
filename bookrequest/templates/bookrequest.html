@@ -397,9 +397,9 @@
                 });
             } else if (sortBy === "status") {
                 const sortedBooks = Array.from(books).sort((a, b) => {
-                const titleA = a.querySelector(".status").textContent;
-                const titleB = b.querySelector(".status").textContent;
-                return titleB.localeCompare(titleA);
+                const statusA = a.querySelector(".status").textContent;
+                const statusB = b.querySelector(".status").textContent;
+                return statusB.localeCompare(statusA);
                 });
                 sortedBooks.forEach((book) => {
                 book.parentNode.insertBefore(book, book.parentNode.firstChild);

@@ -108,11 +108,13 @@ def create_request_flutter(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         new_request = RequestBuku.objects.create(
+            user = int(data['user']),
             Judul = data['judul'],
             Gambar = data['gambar'],
             Penulis = data['penulis'],
             Kategori = data['kategori'],
-            Like = 0
+            Like = 0,
+            Status = "Waiting For Approval"
         )
         new_request.save()
 
