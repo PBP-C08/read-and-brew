@@ -1,0 +1,137 @@
+[
+    {
+        "pk": 1,
+        "model": "ordernborrow.Drink",
+        "fields": {
+            "name": "Latte",
+            "price": 3.99,
+            "description": "Espresso with creamy steamed milk and a hint of vanilla."
+        }
+    },
+    {
+        "pk": 2,
+        "model": "ordernborrow.Drink",
+        "fields": {
+            "name": "Cappuccino",
+            "price": 4.49,
+            "description": "Espresso topped with frothy milk and a sprinkle of cocoa."
+        }
+    },
+    {
+        "pk": 3,
+        "model": "ordernborrow.Drink",
+        "fields": {
+            "name": "Mocha",
+            "price": 4.99,
+            "description": "Rich espresso with velvety steamed milk, cocoa, and whipped cream."
+        }
+    },
+    {
+        "pk": 4,
+        "model": "ordernborrow.Drink",
+        "fields": {
+            "name": "Iced Coffee",
+            "price": 3.49,
+            "description": "Chilled coffee brewed to perfection, served with ice cubes."
+        }
+    },
+    {
+        "pk": 5,
+        "model": "ordernborrow.Drink",
+        "fields": {
+            "name": "Espresso",
+            "price": 2.49,
+            "description": "A shot of intense, concentrated coffee to awaken your senses."
+        }
+    },
+    {
+        "pk": 6,
+        "model": "ordernborrow.Drink",
+        "fields": {
+            "name": "Chai Latte",
+            "price": 4.99,
+            "description": "Spiced black tea combined with frothy milk for a delightful balance."
+        }
+    },
+    {
+        "pk": 7,
+        "model": "ordernborrow.Drink",
+        "fields": {
+            "name": "Caramel Macchiato",
+            "price": 4.99,
+            "description": "Espresso with steamed milk, caramel, and a caramel drizzle."
+        }
+    },
+    {
+        "pk": 8,
+        "model": "ordernborrow.Drink",
+        "fields": {
+            "name": "Iced Tea",
+            "price": 3.29,
+            "description": "Chilled tea infused with fruit essence, served over ice."
+        }
+    },
+    {
+        "pk": 9,
+        "model": "ordernborrow.Drink",
+        "fields": {
+            "name": "Hot Chocolate",
+            "price": 3.99,
+            "description": "Silky hot cocoa topped with whipped cream and chocolate shavings."
+        }
+    },
+    {
+        "pk": 10,
+        "model": "ordernborrow.Drink",
+        "fields": {
+            "name": "Fruit Smoothie",
+            "price": 4.49,
+            "description": "A refreshing blend of fresh fruits, yogurt, and ice."
+        }
+    },
+    {
+        "pk": 11,
+        "model": "ordernborrow.Drink",
+        "fields": {
+            "name": "Café Americano",
+            "price": 2.99,
+            "description": "Espresso with hot water, delivering a bold and robust flavor."
+        }
+    },
+    {
+        "pk": 12,
+        "model": "ordernborrow.Drink",
+        "fields": {
+            "name": "Matcha Latte",
+            "price": 4.99,
+            "description": "Green tea powder mixed with creamy steamed milk, for a vibrant experience."
+        }
+    },
+    {
+        "pk": 13,
+        "model": "ordernborrow.Drink",
+        "fields": {
+            "name": "Iced Latte",
+            "price": 4.29,
+            "description": "Chilled espresso and milk served over ice, the perfect cool-down."
+        }
+    },
+    {
+        "pk": 14,
+        "model": "ordernborrow.Drink",
+        "fields": {
+            "name": "White Chocolate Mocha",
+            "price": 4.99,
+            "description": "Espresso with white chocolate and whipped cream, pure indulgence."
+        }
+    },
+    {
+        "pk": 15,
+        "model": "ordernborrow.Drink",
+        "fields": {
+            "name": "Decaf Coffee",
+            "price": 3.49,
+            "description": "A soothing cup of coffee with minimal caffeine content."
+        }
+    }
+]
