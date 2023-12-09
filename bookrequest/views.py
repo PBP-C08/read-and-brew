@@ -113,8 +113,7 @@ def create_request_flutter(request):
             Gambar = data['gambar'],
             Penulis = data['penulis'],
             Kategori = data['kategori'],
-            Like = 0,
-            Status = "Waiting For Approval"
+            Like = 0
         )
         new_request.save()
 
