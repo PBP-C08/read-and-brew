@@ -34,11 +34,18 @@ urlpatterns = [
 
     path('employee/supplies-equipment/', supplies_and_equipment_view, name='supplies_and_equipment_view'),
 
-    path('guest/api/get-food/', get_food, name="get_food"),
-    path('guest/api/get-drink/', get_drink, name="get_drink"),
+    path('api/get-food/', get_food, name="get_food"),
+    path('api/get-drink/', get_drink, name="get_drink"),
     path('guest/order-drink-flutter/', create_order_flutter, name="order_drink"),
     path('guest/order-food-flutter/', create_order_flutter, name="order_food"),
     path('guest/delete-all-order-flutter/', delete_allorder_flutter, name='delete_allorder_flutter'),
     path('guest/edit-order-flutter/<int:id>/', edit_order_flutter, name='edit_order_flutter'),
     path('guest/delete-order-flutter/<int:id>/', delete_order_flutter, name='delete_order_flutter'),
+
+    path('member/order-drink-flutter/', create_order_member_flutter, name="order_drink_member"),
+    path('member/order-food-flutter/', create_order_member_flutter, name="order_food_member"),
+    path('member/get-product-flutter/', get_product_flutter_member, name="get_product_flutter_member"),
+    path('member/delete-all-order-flutter/', delete_allorder_member_flutter, name="delete_allorder_member_flutter"),
+    path('member/edit-order-flutter/<int:id>/', edit_order_member_flutter, name="edit_order_member_flutter"),
+    path('member/delete-order-flutter/<int:id>/', delete_order_member_flutter, name="delete_order_member_flutter"),
 ]
