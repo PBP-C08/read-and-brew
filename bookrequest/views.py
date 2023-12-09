@@ -108,7 +108,7 @@ def create_request_flutter(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         new_request = RequestBuku.objects.create(
-            user_id = int(data['user']),
+            user = request.user,
             Judul = data['judul'],
             Gambar = data['gambar'],
             Penulis = data['penulis'],
