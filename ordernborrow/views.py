@@ -758,7 +758,7 @@ def show_borrowed_history(request):
     }
     return render(request, "borrowedhistory.html", content)
 
-# FLUTTER
+# GUEST FLUTTER
 def get_food(request):
     data = Food.objects.all()
     return HttpResponse(serializers.serialize('json', data), content_type="application/json")
@@ -829,6 +829,83 @@ def delete_order_flutter(request, id):
     if request.method == 'POST':
         try:
             order = Order.objects.get(pk = id)
+            order.delete()
+            return JsonResponse({"status": "success"})
+        except Exception as e:
+            return JsonResponse({"status": "error", "error_message": str(e)}, status=500)
+        
+    else:
+        return JsonResponse({"status": "error", "error_message": "Invalid request method"}, status=400)
+    
+# MEMBER FLUTTER
+@csrf_exempt
+def create_order_member_flutter(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            user = request.user
+            food_name = data["food_name"]
+            food_price = float(data["food_price"])
+            amount = int(data["amount"])
+
+            existing_order = OrderMember.objects.filter(user=request.user).filter(food_name=food_name).first()
+
+            if existing_order:
+                existing_order.amount += amount
+                existing_order.save()
+            else:
+                new_order = OrderMember.objects.create(
+                    user=user,
+                    food_name=food_name,
+                    food_price=food_price,
+                    amount=amount,
+                )
+                new_order.save()
+
+            return JsonResponse({"status": "success"}, status=200)
+        except Exception as e:
+            return JsonResponse({"status": "error", "error_message": str(e)}, status=500)
+    else:
+        return HttpResponse(status=400)
+    
+def get_product_flutter_member(request):
+    order_items = OrderMember.objects.all()
+    return HttpResponse(serializers.serialize('json', order_items))
+
+@csrf_exempt
+def delete_allorder_member_flutter(request):
+    if request.method == 'POST':
+        try:
+            OrderMember.objects.all().delete()
+            return JsonResponse({"status": "success"})
+        except Exception as e:
+            return JsonResponse({"status": "error", "error_message": str(e)}, status=500)
+    else:
+        return JsonResponse({"status": "error", "error_message": "Invalid request method"}, status=400)
+    
+@csrf_exempt
+def edit_order_member_flutter(request, id):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            order = OrderMember.objects.get(pk=id)
+            amount = int(data["amount"])
+            order.amount = amount
+            order.save()
+            return JsonResponse({"status": "success", "message": "Order updated successfully"}, status=200)
+           
+            
+        except Exception as e:
+            return JsonResponse({"status": "error", "error_message": str(e)}, status=500)
+
+    return JsonResponse({"status": "error", "error_message": "Invalid request method"}, status=405)
+
+
+@csrf_exempt
+def delete_order_member_flutter(request, id):
+    if request.method == 'POST':
+        try:
+            order = OrderMember.objects.get(pk = id)
             order.delete()
             return JsonResponse({"status": "success"})
         except Exception as e:
