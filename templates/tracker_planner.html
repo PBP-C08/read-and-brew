@@ -177,7 +177,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color: #6c757d; color: #fff;">Close</button>
-                        <button type="button" class="btn btn-primary" id="button-add" data-bs-dismiss="modal" style="background-color:#007bff; color: #fff;">Edit Progress</button>
+                        <button type="button" class="btn btn-primary" id="button-edit" data-bs-dismiss="modal" style="background-color:#007bff; color: #fff;">Edit Progress</button>
                     </div>
                 </div>
             </div>
@@ -191,6 +191,7 @@
                 <select style="border: 1px solid #513C1E;color: #513C1E;background-color: #FDFCF8;" class="form-select" id="sorting" onchange="sortBooks()" >
                     <option value="">Sort by</option>
                     <option value="title">Title</option>
+                    <option value="status">Status</option>
                 </select>
             </div>
             <div id="radiobutsort" style="display:none" class="text-center mt-3 mb-4">
@@ -243,23 +244,23 @@
                 let book = ``
                 const books = await getBooks()
                 const borrowedBooks = await getBorrowedBooks()
+                const trackedBooks = await getTrackedBooks() // Fetch the tracked books
 
-                const userBorrowedBooks = books.filter((item, index) => {
-                    const bookId = item.pk;
-                    return borrowedBooks.some(book => book.fields.book == bookId);
+                // Filter out books that are currently being tracked with a status of "in progress"
+                const availableBooks = books.filter(book => {
+                    const bookId = book.pk;
+                    const isBorrowed = borrowedBooks.some(borrowedBook => borrowedBook.fields.book == bookId);
+                    const isInProgress = trackedBooks.some(trackedBook => trackedBook.fields.book == bookId && trackedBook.fields.status === 'in-progress');
+                    console.log(`Book ID: ${bookId}, Borrowed: ${isBorrowed}, In Progress: ${isInProgress}`);
+                    return isBorrowed && !isInProgress;
                 });
 
-                if(userBorrowedBooks.length == 0){
+                if(availableBooks.length == 0){
                     book += `<option selected="selected" disabled="disabled">---You Haven't Borrow Any Books---</option>`
-                    
                 } else {
                     book += `<option selected="selected" disabled="disabled">---Select Book---</option>`
-                    books.forEach((item, index) => {
-                        const bookId = item.pk
-                        const isBorrowed = borrowedBooks.some(book => book.fields.book == bookId)
-                        if (isBorrowed){
-                            book += `<option value="${item.fields.Judul}" data-book-id="${item.pk}">${item.fields.Judul}</option>`;
-                        }
+                    availableBooks.forEach((item, index) => {
+                        book += `<option value="${item.fields.Judul}" data-book-id="${item.pk}">${item.fields.Judul}</option>`;
                     })
                 }
                 document.getElementById("book").innerHTML = book            
@@ -284,6 +285,8 @@
                 .then(response => {
                     if (response.ok) {
                         refreshTracker();
+                        refreshBookTracker();
+                        document.getElementById("form").reset();
                     } else {
                         console.error("Failed to add tracker:", response.status);
                     }
@@ -315,71 +318,138 @@
 
                 const trackedBooks = await getTrackedBooks();
 
-                // Create an array to store related Buku objects
-                const relatedBukus = [];
-
                 for (const item of trackedBooks) {
-                    // Retrieve the book ID from the tracked item
                     const bookId = item.fields.book;
-
-                    // Fetch the related Buku object based on the book ID
                     const buku = await getBukuById(bookId);
-                    console.log(buku)
 
                     if (buku) {
-                        relatedBukus.push(buku);
-
                         const statusLabels = {
                             'in-progress': 'In Progress',
                             'finished': 'Finished',
                         };
 
-                        const bookCard = `
-                        <div class="col-md-2 book">
-                        <div class="card mb-4">
-                            <img class="card-img-top" src="${buku.Gambar}" alt="Book Image">
-                            <div class="card-body">
-                                <h5 style="color: #513C1E;" class="card-title text-center pt-2 pb-2 h6 font-weight-bold">${buku.Judul}</h5>
-                                <hr style="color: #513C1E;" class="hr" />
-                                <p style="color: #513C1E;" class="card-text pt-2"><b>Status: </b>${statusLabels[item.fields.status]}</p>
-                                <p style="color: #513C1E;" class="card-text pt-2"><b>Pages Read: </b>${item.fields.progress}/${item.fields.page}</p>
-                            </div>
-                            <ul class="list-group list-group-flush">
+                        // Create the card element
+                        const card = document.createElement('div');
+                        card.className = 'col-md-2 book';
+                        card.innerHTML = `
+                            <div class="card mb-4">
+                                <img class="card-img-top" src="${buku.Gambar}" alt="Book Image">
+                                <div class="card-body">
+                                    <h5 style="color: #513C1E;" class="card-title text-center pt-2 pb-2 h6 font-weight-bold">${buku.Judul}</h5>
+                                    <hr style="color: #513C1E;" class="hr" />
+                                    <p style="color: #513C1E;" class="card-text pt-2"><b>Status: </b>${statusLabels[item.fields.status]}</p>
+                                    <p style="color: #513C1E;" class="card-text pt-2"><b>Pages Read: </b>${item.fields.progress}/${item.fields.page}</p>
+                                </div>
+                                <ul class="list-group list-group-flush">
                                     <div class="d-grid">
                                         <button class="btn btn-success edit-button" data-book-id="${item.pk}" data-bs-toggle="modal" data-bs-target="#editModal">
                                             Edit
                                         </button>
                                     </div>
                                 </ul>
-                        </div>
-                        </div>`;
+                            </div>`;
 
-                        content.innerHTML += bookCard;
+                        // Append the new card to the content
+                        content.appendChild(card);
                     }
                 }
+
+                // Reattach event listeners after all cards have been created
+                addEditButtonListeners();
             }
 
-            refreshTracker();
+            // Variable to store the currently edited book ID
+            let currentlyEditedBookMemberId;
 
+            // Function to set the currently edited book ID
+            function setCurrentlyEditedBookId(bookId) {
+                currentlyEditedBookMemberId = bookId;
+            }
+ 
+            // Function to add event listeners to "Edit" buttons
+            function addEditButtonListeners() {
+                const editButtons = document.querySelectorAll('.edit-button');
+                editButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const bookId = this.getAttribute('data-book-id');
+                        currentlyEditedBookMemberId = bookId; // Directly set the currently edited book ID
+                        console.log('Editing book with ID:', currentlyEditedBookMemberId); // Log to verify the ID is set correctly
+                    });
+                });
+            }
+            
+            // Function to refresh the tracker and add event listeners
+            async function refreshTrackerWithListeners() {
+                await refreshTracker();
+                addEditButtonListeners();
+            }
+            
+            refreshTrackerWithListeners();
+            
             async function updateProgress() {
                 const formData = new FormData(document.querySelector('#formProgress'));
+                const totalPagesInput = document.getElementById('secondProgress').value;
+                formData.append('progress', totalPagesInput);
+
+                const bookId = currentlyEditedBookMemberId;
+                formData.append('book_id', bookId);
+
+                fetch(`update-progress-member/${bookId}`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': formData.get('csrfmiddlewaretoken'),
+                    },
+                    body: formData,
+                })
+                .then(response => {
+                    if (response.ok) {
+                        refreshTracker();
+                        document.getElementById("formProgress").reset();
+                    } else {
+                        console.error('Failed to update progress:', response.status);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+
+                const editModal = new bootstrap.Modal(document.getElementById('editModal'));
+                editModal.hide();
             }
+
+            document.getElementById("button-edit").onclick = updateProgress
 
             function sortBooks() {
                 const sorting = document.getElementById("sorting");
                 const books = document.querySelectorAll(".book");
                 const sortBy = sorting.value;
                 const order = document.querySelector('input[name="flexRadioDefault"]:checked').value;
+
                 if (sortBy === "title") {
                     $("#radiobutsort").show();
                     const sortedBooks = Array.from(books).sort((a, b) => {
-                    const titleA = a.querySelector(".card-title").textContent;
-                    const titleB = b.querySelector(".card-title").textContent;
-                    if (order === "Descending") return titleA.localeCompare(titleB);
-                    else return titleB.localeCompare(titleA);
+                        const titleA = a.querySelector(".card-title").textContent;
+                        const titleB = b.querySelector(".card-title").textContent;
+                        return order === "Descending" ? titleA.localeCompare(titleB) : titleB.localeCompare(titleA);
                     });
                     sortedBooks.forEach((book) => {
-                    book.parentNode.insertBefore(book, book.parentNode.firstChild);
+                        book.parentNode.insertBefore(book, book.parentNode.firstChild);
+                    });
+                } else if (sortBy === "status") {
+                    const sortedBooks = Array.from(books).sort((a, b) => {
+                        const statusA = a.querySelector(".card-text").textContent.includes('Finished') ? 'finished' : 'in-progress';
+                        const statusB = b.querySelector(".card-text").textContent.includes('Finished') ? 'finished' : 'in-progress';
+                        if (statusA === statusB) {
+                            return 0; 
+                        }
+                        if (order === "Descending") {
+                            return statusA === 'finished' ? -1 : 1;
+                        } else {
+                            return statusA === 'finished' ? 1 : -1;
+                        }
+                    });
+                    sortedBooks.forEach((book) => {
+                        book.parentNode.insertBefore(book, book.parentNode.firstChild);
                     });
                 } else {
                     $("#radiobutsort").hide();
@@ -396,13 +466,25 @@
                 document.getElementById("book").innerHTML=""
                 let book = ``
                 const books = await getBooks()
+                const trackedBooks = await getTrackedBooks()
 
-                book += `<option selected="selected" disabled="disabled">---Select Book---</option>`
-                books.forEach((item, index) => {
-                    const bookId = item.pk
-                    book += `<option value="${item.fields.Judul}" data-book-id="${item.pk}">${item.fields.Judul}</option>`;
-                })
+                const availableBooks = books.filter(bookItem => {
+                    const bookId = bookItem.pk;
+                    const isInProgress = trackedBooks.some(trackedBook => 
+                        trackedBook.fields.book == bookId && 
+                        trackedBook.fields.status === 'in-progress'
+                    );
+                    return !isInProgress;
+                });
 
+                if(availableBooks.length == 0){
+                    book += `<option selected="selected" disabled="disabled">---No Available Books---</option>`
+                } else {
+                    book += `<option selected="selected" disabled="disabled">---Select Book---</option>`
+                    availableBooks.forEach((item, index) => {
+                        book += `<option value="${item.fields.Judul}" data-book-id="${item.pk}">${item.fields.Judul}</option>`;
+                    })
+                }
                 document.getElementById("book").innerHTML = book            
             }
 
@@ -425,6 +507,7 @@
                 .then(response => {
                     if (response.ok) {
                         refreshTracker();
+                        document.getElementById("form").reset();
                     } else {
                         console.error("Failed to add tracker:", response.status);
                     }
@@ -456,71 +539,138 @@
 
                 const trackedBooks = await getTrackedBooks();
 
-                // Create an array to store related Buku objects
-                const relatedBukus = [];
-
                 for (const item of trackedBooks) {
-                    // Retrieve the book ID from the tracked item
                     const bookId = item.fields.book;
-
-                    // Fetch the related Buku object based on the book ID
                     const buku = await getBukuById(bookId);
-                    console.log(buku)
 
                     if (buku) {
-                        relatedBukus.push(buku);
-
                         const statusLabels = {
                             'in-progress': 'In Progress',
                             'finished': 'Finished',
                         };
 
-                        const bookCard = `
-                        <div class="col-md-2 book">
-                        <div class="card mb-4">
-                            <img class="card-img-top" src="${buku.Gambar}" alt="Book Image">
-                            <div class="card-body">
-                                <h5 style="color: #513C1E;" class="card-title text-center pt-2 pb-2 h6 font-weight-bold">${buku.Judul}</h5>
-                                <hr style="color: #513C1E;" class="hr" />
-                                <p style="color: #513C1E;" class="card-text pt-2"><b>Status: </b>${statusLabels[item.fields.status]}</p>
-                                <p style="color: #513C1E;" class="card-text pt-2"><b>Pages Read: </b>${item.fields.progress}/${item.fields.page}</p>
-                            </div>
-                            <ul class="list-group list-group-flush">
+                        // Create the card element
+                        const card = document.createElement('div');
+                        card.className = 'col-md-2 book';
+                        card.innerHTML = `
+                            <div class="card mb-4">
+                                <img class="card-img-top" src="${buku.Gambar}" alt="Book Image">
+                                <div class="card-body">
+                                    <h5 style="color: #513C1E;" class="card-title text-center pt-2 pb-2 h6 font-weight-bold">${buku.Judul}</h5>
+                                    <hr style="color: #513C1E;" class="hr" />
+                                    <p style="color: #513C1E;" class="card-text pt-2"><b>Status: </b>${statusLabels[item.fields.status]}</p>
+                                    <p style="color: #513C1E;" class="card-text pt-2"><b>Pages Read: </b>${item.fields.progress}/${item.fields.page}</p>
+                                </div>
+                                <ul class="list-group list-group-flush">
                                     <div class="d-grid">
                                         <button class="btn btn-success edit-button" data-book-id="${item.pk}" data-bs-toggle="modal" data-bs-target="#editModal">
                                             Edit
                                         </button>
                                     </div>
                                 </ul>
-                        </div>
-                        </div>`;
+                            </div>`;
 
-                        content.innerHTML += bookCard;
+                        // Append the new card to the content
+                        content.appendChild(card);
                     }
                 }
+
+                // Reattach event listeners after all cards have been created
+                addEditButtonListeners();
             }
 
-            refreshTracker();
+            // Variable to store the currently edited book ID
+            let currentlyEditedBookId;
 
+            // Function to set the currently edited book ID
+            function setCurrentlyEditedBookId(bookId) {
+                currentlyEditedBookId = bookId;
+            }
+ 
+            // Function to add event listeners to "Edit" buttons
+            function addEditButtonListeners() {
+                const editButtons = document.querySelectorAll('.edit-button');
+                editButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const bookId = this.getAttribute('data-book-id');
+                        currentlyEditedBookId = bookId; // Directly set the currently edited book ID
+                        console.log('Editing book with ID:', currentlyEditedBookId); // Log to verify the ID is set correctly
+                    });
+                });
+            }
+            
+            // Function to refresh the tracker and add event listeners
+            async function refreshTrackerWithListeners() {
+                await refreshTracker();
+                addEditButtonListeners();
+            }
+            
+            refreshTrackerWithListeners();
+            
             async function updateProgress() {
                 const formData = new FormData(document.querySelector('#formProgress'));
+                const totalPagesInput = document.getElementById('secondProgress').value;
+                formData.append('progress', totalPagesInput);
+
+                const bookId = currentlyEditedBookId;
+                formData.append('book_id', bookId);
+
+                fetch(`update-progress/${bookId}`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': formData.get('csrfmiddlewaretoken'),
+                    },
+                    body: formData,
+                })
+                .then(response => {
+                    if (response.ok) {
+                        refreshTracker();
+                        document.getElementById("formProgress").reset();
+                    } else {
+                        console.error('Failed to update progress:', response.status);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+
+                const editModal = new bootstrap.Modal(document.getElementById('editModal'));
+                editModal.hide();
             }
+
+            document.getElementById("button-edit").onclick = updateProgress
 
             function sortBooks() {
                 const sorting = document.getElementById("sorting");
                 const books = document.querySelectorAll(".book");
                 const sortBy = sorting.value;
                 const order = document.querySelector('input[name="flexRadioDefault"]:checked').value;
+
                 if (sortBy === "title") {
                     $("#radiobutsort").show();
                     const sortedBooks = Array.from(books).sort((a, b) => {
-                    const titleA = a.querySelector(".card-title").textContent;
-                    const titleB = b.querySelector(".card-title").textContent;
-                    if (order === "Descending") return titleA.localeCompare(titleB);
-                    else return titleB.localeCompare(titleA);
+                        const titleA = a.querySelector(".card-title").textContent;
+                        const titleB = b.querySelector(".card-title").textContent;
+                        return order === "Descending" ? titleA.localeCompare(titleB) : titleB.localeCompare(titleA);
                     });
                     sortedBooks.forEach((book) => {
-                    book.parentNode.insertBefore(book, book.parentNode.firstChild);
+                        book.parentNode.insertBefore(book, book.parentNode.firstChild);
+                    });
+                } else if (sortBy === "status") {
+                    const sortedBooks = Array.from(books).sort((a, b) => {
+                        const statusA = a.querySelector(".card-text").textContent.includes('Finished') ? 'finished' : 'in-progress';
+                        const statusB = b.querySelector(".card-text").textContent.includes('Finished') ? 'finished' : 'in-progress';
+                        if (statusA === statusB) {
+                            return 0; 
+                        }
+                        if (order === "Descending") {
+                            return statusA === 'finished' ? -1 : 1;
+                        } else {
+                            return statusA === 'finished' ? 1 : -1;
+                        }
+                    });
+                    sortedBooks.forEach((book) => {
+                        book.parentNode.insertBefore(book, book.parentNode.firstChild);
                     });
                 } else {
                     $("#radiobutsort").hide();
