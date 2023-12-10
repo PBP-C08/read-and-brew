@@ -140,8 +140,10 @@ def track_book_guest_flutter(request):
     if request.method == "POST":
         data = json.loads(request.body)
 
+        book_instance = Buku.objects.get(pk=data["book"])
+
         new_product = BookTracker.objects.create(
-            book = data["book"],
+            book = book_instance,
             page = int(data["page"]),
             progress = int(data["progress"]),
             status = data["status"]
@@ -158,9 +160,11 @@ def track_book_flutter(request):
     if request.method == "POST":
         data = json.loads(request.body)
 
+        book_instance = BorrowedBook.objects.get(pk=data["book"])
+
         new_product = BookTrackerMember.objects.create(
             user = request.user,
-            book = data["book"],
+            book = book_instance,
             page = int(data["page"]),
             progress = int(data["progress"]),
             status = data["status"]
