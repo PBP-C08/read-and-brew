@@ -24,7 +24,6 @@ def get_books_individual(request):
 
 def get_books(request):
     data = RequestBuku.objects.all()
-    print(data)
     return HttpResponse(serializers.serialize('json', data), content_type="application/json")
 
 @csrf_exempt
@@ -147,7 +146,7 @@ def like_request_flutter(request):
 def approve_request_flutter(request):
     if request.method == "POST":
         data = json.loads(request.body)
-        request_buku = RequestBuku.objects.filter(pk=int(data['id']))
+        request_buku = RequestBuku.objects.get(pk=int(data['id']))
         request_buku.Status = "Approved"
         request_buku.save()
         judul = request_buku.Judul
@@ -156,5 +155,11 @@ def approve_request_flutter(request):
         penulis = request_buku.Penulis
         buku = Buku(Judul=judul, Kategori=kategori, Gambar=gambar, Penulis=penulis, Rating=0)
         buku.save()
-        return HttpResponse(b"APPROVED", status=201)
-    return HttpResponseNotFound()
+        return JsonResponse({"status": "success", "messages":"Berhasil approve request!"}, status=200)
+
+@csrf_exempt
+def get_books_individual_flutter(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        buku = RequestBuku.objects.filter(user=data['id'])
+        return HttpResponse(serializers.serialize('json', buku), content_type="application/json")
