@@ -1,8 +1,9 @@
 from django.urls import path
-from bookrequest.views import get_books, add_books, show_request, approve_request, get_books_individual, delete_request_ajax_individual, like_request_ajax, delete_request_ajax, delete_request_flutter, like_request_flutter, approve_request_flutter, create_request_flutter
+from bookrequest.views import get_books, add_books, show_request, approve_request, get_books_individual, delete_request_ajax_individual, like_request_ajax, delete_request_ajax, delete_request_flutter, like_request_flutter, approve_request_flutter, create_request_flutter, get_books_individual_flutter
 app_name = 'bookrequest'
 
 urlpatterns = [
+    path('get_books_individual_flutter', get_books_individual_flutter, name='get_books_individual_flutter'),
     path('create_request_flutter', create_request_flutter, name='create_request_flutter'),
     path('approve_request_flutter', approve_request_flutter, name='approve_request_flutter'),
     path('like_request_flutter', like_request_flutter, name='like_request_flutter'),
