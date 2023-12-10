@@ -134,8 +134,11 @@ def delete_request_flutter(request):
 def like_request_flutter(request):
     if request.method == "POST":
         data = json.loads(request.body)
-        book = RequestBuku.objects.filter(pk=int(data['id']))
+        print(data['id'])
+        book = RequestBuku.objects.get(pk=int(data['id']))
         book.Like += 1
+        print(book.Like)
+        book.save()
         return JsonResponse({"status": "success", "messages":"Berhasil menambah like!"}, status=200)
     else:
         return JsonResponse({"status": "error", "messages":"Gagal menambah like!"}, status=401)
