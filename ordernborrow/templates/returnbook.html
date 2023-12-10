@@ -46,9 +46,30 @@
 </div>
 
 <style>
-    .checked {
-        color: orange;
-        }
+    .card-text{
+   font-size:13px;
+   }
+   .checked {
+   color: orange;
+   }
+   .card-img-top {
+   width: 100%;
+   height: 200px;
+   object-fit: cover;
+   }
+   #booklistpage {
+       background-color: #FDFCF8;
+   }
+   .card{
+       background-color: #EAEFD3;
+       border:1px solid #513C1E;
+
+   }
+   .list-group-item{
+       background-color: #EAEFD3;
+       border: solid #513C1E;
+   }
+
 </style>
 
 <script>
@@ -101,9 +122,9 @@
                             <img class="card-img-top" src="${item.fields.Gambar}" alt="Book Image">
                             <div class="card-body">
                                 <h5 style="color: #513C1E;" class="card-title text-center pt-2 pb-2 h6 font-weight-bold">${item.fields.Judul}</h5>
-                                <hr style="color: #513C1E;"class="hr" />
+                                <hr style="color: #513C1E;" class="hr" />
                                 <p style="color: #513C1E;" class="card-text pt-2"><b>Kategori: </b>${item.fields.Kategori}</p>
-                                <p style="color: #513C1E;"class="card-text"><b>Penulis: </b>${item.fields.Penulis}</p>
+                                <p style="color: #513C1E;" class="card-text"><b>Penulis: </b>${item.fields.Penulis}</p>
                             </div>
                             <ul class="list-group list-group-flush">
                                 <li hidden class="list-group-item larger-text">${item.fields.Rating}</li>

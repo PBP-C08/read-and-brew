@@ -48,4 +48,7 @@ urlpatterns = [
     path('member/delete-all-order-flutter/', delete_allorder_member_flutter, name="delete_allorder_member_flutter"),
     path('member/edit-order-flutter/<int:id>/', edit_order_member_flutter, name="edit_order_member_flutter"),
     path('member/delete-order-flutter/<int:id>/', delete_order_member_flutter, name="delete_order_member_flutter"),
+
+    path('member/borrow-book-flutter/', borrow_book_flutter, name='borrow_book_flutter'),
+    path('member/return-book-flutter/', return_book_flutter, name='return_book_flutter'),
 ]
