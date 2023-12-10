@@ -144,7 +144,7 @@ def track_book_guest_flutter(request):
             book = data["book"],
             page = data["page"],
             progress = data["progress"],
-            status = int(data["status"])
+            status = data["status"]
         )
 
         new_product.save()
@@ -163,7 +163,7 @@ def track_book_flutter(request):
             book = data["book"],
             page = data["page"],
             progress = data["progress"],
-            status = int(data["status"])
+            status = data["status"]
         )
 
         new_product.save()
