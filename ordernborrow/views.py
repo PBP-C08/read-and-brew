@@ -913,3 +913,47 @@ def delete_order_member_flutter(request, id):
         
     else:
         return JsonResponse({"status": "error", "error_message": "Invalid request method"}, status=400)
+
+
+# For Member (login)
+@csrf_exempt
+def borrow_book_flutter(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        user = request.user
+        id = int(data["id"])
+        book = Buku.objects.get(pk=id)
+
+        new_borrowed_book = BorrowedBook.objects.create(
+            user=user,
+            book=book,
+            borrowed=True,
+        )
+        new_borrowed_book.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return  JsonResponse({"status": "error", "error_message": "Invalid request method"}, status=400)
+    
+@csrf_exempt
+def return_book_flutter(request):
+    if request.method == "POST":
+        user = request.user
+        data = json.loads(request.body)
+        id = int(data['id'])
+        book = Buku.objects.get(pk=id)
+        borrowed = BorrowedBook.objects.filter(book=book)
+        borrowed.delete()
+
+        existing_entry = BorrowedHistory.objects.filter(user=user, book__Judul=book.Judul).first()
+        
+        if existing_entry:
+            existing_entry.book = book
+            existing_entry.save()
+        else:
+            new_history = BorrowedHistory(user=user, book=book)
+            new_history.save()
+
+        return JsonResponse({"status": "success", "messages":"Successfully returned the book!"}, status=200)
+    else:
+        return JsonResponse({"status": "error", "messages":"Failed to return the book!"}, status=401)
