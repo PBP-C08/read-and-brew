@@ -142,8 +142,8 @@ def track_book_guest_flutter(request):
 
         new_product = BookTracker.objects.create(
             book = data["book"],
-            page = data["page"],
-            progress = data["progress"],
+            page = int(data["page"]),
+            progress = int(data["progress"]),
             status = data["status"]
         )
 
@@ -158,11 +158,11 @@ def track_book_flutter(request):
     if request.method == "POST":
         data = json.loads(request.body)
 
-        new_product = BookTracker.objects.create(
+        new_product = BookTrackerMember.objects.create(
             user = request.user,
             book = data["book"],
-            page = data["page"],
-            progress = data["progress"],
+            page = int(data["page"]),
+            progress = int(data["progress"]),
             status = data["status"]
         )
 
