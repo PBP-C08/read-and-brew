@@ -1,4 +1,5 @@
 #pylint: disable=E1101
+import json
 from django.shortcuts import get_object_or_404, render, redirect
 from trackernplanner.models import *
 from booklist.models import Buku
@@ -133,3 +134,84 @@ def update_progress_member(request, book_id):
 
         return HttpResponse(b"CREATED", status=201)
     return HttpResponseNotFound()
+
+@csrf_exempt
+def track_book_guest_flutter(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+
+        book_instance = Buku.objects.get(pk=data["book"])
+
+        new_product = BookTracker.objects.create(
+            book = book_instance,
+            page = int(data["page"]),
+            progress = int(data["progress"]),
+            status = data["status"]
+        )
+
+        new_product.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
+    
+@csrf_exempt
+def track_book_flutter(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+
+        book_instance = BorrowedBook.objects.get(pk=data["book"])
+
+        new_product = BookTrackerMember.objects.create(
+            user = request.user,
+            book = book_instance,
+            page = int(data["page"]),
+            progress = int(data["progress"]),
+            status = data["status"]
+        )
+
+        new_product.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
+    
+@csrf_exempt
+def update_progress_flutter(request, book_id):
+    if request.method == "POST":
+        data = json.loads(request.body)
+
+        new_progress = int(data["progress"])
+        book = BookTracker.objects.get(book=int(book_id))
+        book.progress = new_progress
+
+        if int(book.progress) == int(book.page):
+            book.status = 'finished' 
+        else:
+            book.status = 'in-progress'
+
+        book.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
+    
+@csrf_exempt
+def update_progress_member_flutter(request, book_id):
+    if request.method == "POST":
+        data = json.loads(request.body)
+
+        new_progress = int(data["progress"])
+        book = BookTrackerMember.objects.get(book=int(book_id))
+        book.progress = new_progress
+
+        if int(book.progress) == int(book.page):
+            book.status = 'finished' 
+        else:
+            book.status = 'in-progress'
+
+        book.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
