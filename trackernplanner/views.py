@@ -175,3 +175,43 @@ def track_book_flutter(request):
         return JsonResponse({"status": "success"}, status=200)
     else:
         return JsonResponse({"status": "error"}, status=401)
+    
+@csrf_exempt
+def update_progress_flutter(request, book_id):
+    if request.method == "POST":
+        data = json.loads(request.body)
+
+        new_progress = int(data["progress"])
+        book = BookTracker.objects.get(book=int(book_id))
+        book.progress = new_progress
+
+        if int(book.progress) == int(book.page):
+            book.status = 'finished' 
+        else:
+            book.status = 'in-progress'
+
+        book.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
+    
+@csrf_exempt
+def update_progress_member_flutter(request, book_id):
+    if request.method == "POST":
+        data = json.loads(request.body)
+
+        new_progress = int(data["progress"])
+        book = BookTrackerMember.objects.get(book=int(book_id))
+        book.progress = new_progress
+
+        if int(book.progress) == int(book.page):
+            book.status = 'finished' 
+        else:
+            book.status = 'in-progress'
+
+        book.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)

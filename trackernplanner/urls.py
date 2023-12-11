@@ -14,5 +14,7 @@ urlpatterns = [
     path('update-progress/<int:book_id>', update_progress, name='update_progress'),
     path('update-progress-member/<int:book_id>', update_progress_member, name='update_progress_member'),
     path('track-book-flutter', track_book_flutter, name='track_book_flutter'),
-    path('track-book-guest-flutter', track_book_guest_flutter, name='track_book_guest_flutter')
+    path('track-book-guest-flutter', track_book_guest_flutter, name='track_book_guest_flutter'),
+    path('update-progress-flutter/<int:book_id>', update_progress_flutter, name='update_progress_flutter'),
+    path('update-progress-member-flutter/<int:book_id>', update_progress_member_flutter, name='update_progress_member_flutter')
 ]
