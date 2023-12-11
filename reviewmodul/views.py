@@ -95,31 +95,28 @@ def add_review_flutter(request):
 
         username = input['username']
         book_name = input['bookname']
-        rating = input['rating']
+        rating = int(input['rating'])
         review = input['review']
         user = request.user
 
         new_review = ReviewMember(username=username, book_name = book_name, rating=rating, review=review, user=user)
         jumlahReview = JumlahReview.objects.filter(book__Judul=book_name).first()
-        buku = Buku.objects.filter(Judul=book_name).first()
+        buku = Buku.objects.get(Judul=book_name)
        
         if(jumlahReview == None):
             jumlahReview = JumlahReview(book=buku, jumlah = 0)
-        
+
         jumlahReview.jumlah += 1
 
-        if int(rating)>0 and int(rating) <= 5:
+        if rating>0 and rating <= 5:
             jumlahReview.save()
             buku.Rating = int((buku.Rating + int(rating))/jumlahReview.jumlah)
             buku.save()
             new_review.save()
             
-            return JsonResponse({
-                "status": True,
-                "message": "Success!"
-            }, status=200)
+            return JsonResponse({"status": "success", "message": "Success!"}, status=200)
 
         else:
-            return JsonResponse({"status": False, "message": "Invalid Rating!"}, status=400)
+            return JsonResponse({"status": "failed", "message": "Invalid Rating!"}, status=400)
     
-    return JsonResponse({"status": False, "message": "Failed!"}, status=400)
+    return JsonResponse({"status": "success", "message": "Failed!"}, status=400)
