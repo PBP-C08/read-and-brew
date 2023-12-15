@@ -79,6 +79,10 @@ def show_json_trackermember(request):
     data = BookTrackerMember.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
+def show_json_trackermember_flutter(request):
+    data = BookTrackerMember.objects.filter()
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
 def show_json_tracker(request):
     data = BookTracker.objects.all()
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
