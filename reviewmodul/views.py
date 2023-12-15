@@ -120,3 +120,25 @@ def add_review_flutter(request):
             return JsonResponse({"status": "failed", "message": "Invalid Rating!"}, status=400)
     
     return JsonResponse({"status": "success", "message": "Failed!"}, status=400)
+
+@csrf_exempt
+def delete_review_flutter(request, id):
+    if request.method == "POST":
+        my_review = ReviewMember.objects.get(pk=id)
+        jumlahReview = JumlahReview.objects.filter(book__Judul=my_review.book_name).first()
+        buku = Buku.objects.filter(Judul=my_review.book_name).first()
+
+        try:
+            buku.Rating = int(((buku.Rating*jumlahReview.jumlah) - my_review.rating) / (jumlahReview.jumlah - 1))
+        except ZeroDivisionError:
+            buku.Rating = 0
+       
+        jumlahReview.jumlah -= 1
+        
+        jumlahReview.save()
+        buku.save()
+        my_review.delete()
+
+        return JsonResponse({"status": "success", "message": "Success!"}, status=200)
+
+    return JsonResponse({"status": "failed", "message": "Failed!"}, status=400)

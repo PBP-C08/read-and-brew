@@ -13,4 +13,5 @@ urlpatterns = [
     path('json/', show_json, name='show_json'),
     path('json_jumlah_review/', show_json_jumlah_review, name='show_json_jumlah_review'),
     path('add-review-flutter/',add_review_flutter, name='add_review_flutter'),
+    path('delete-review-flutter/<int:id>/', delete_review_flutter, name='delete_review_flutter'),
 ]
