@@ -13,6 +13,7 @@ class BookTracker(models.Model):
     page = models.PositiveIntegerField()
     progress = models.PositiveIntegerField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='in_progress')
+    tracked_at = models.DateTimeField(auto_now_add=True)
 
 # Tracker model for Member
 class BookTrackerMember(models.Model):
