@@ -576,10 +576,6 @@
                                         <button class="btn btn-success edit-button w-100" data-book-id="${item.pk}" data-bs-toggle="modal" data-bs-target="#editModal">
                                             Edit
                                         </button>
-                                        <div class="mx-2"></div> <!-- This is a spacer -->
-                                        <button class="btn btn-danger delete-button w-100" onclick="deleteItem(${item.pk})">
-                                            Delete
-                                        </button>
                                     </div>
                                 </ul>
                             </div>`;
@@ -689,14 +685,6 @@
                 } else {
                     $("#radiobutsort").hide();
                 }
-            }
-
-            function deleteItem(id) {
-            fetch(`delete-book/${id}`, {
-                method: "DELETE"
-            }).then(refreshTracker)
-
-            return false
             }
             
             // EKSPERIMEN

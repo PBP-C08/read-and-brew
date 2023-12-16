@@ -19,9 +19,7 @@ urlpatterns = [
     path('track-book-guest-flutter', track_book_guest_flutter, name='track_book_guest_flutter'),
     path('update-progress-flutter/<int:book_id>', update_progress_flutter, name='update_progress_flutter'),
     path('update-progress-member-flutter/<int:book_id>', update_progress_member_flutter, name='update_progress_member_flutter'),
-    path('delete-book/<int:id>', delete_book, name='delete_book'),
     path('delete-book-member/<int:id>', delete_book_member, name='delete_book_member'),
-    path('delete-book-flutter', delete_book_flutter, name='delete_book_flutter'),
     path('delete-book-member-flutter', delete_book_member_flutter, name='delete_book_member_flutter'),
     path('delete-old-books', delete_old_books, name='delete_old_books'),
 ]

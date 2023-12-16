@@ -169,7 +169,7 @@ def track_book_flutter(request):
     if request.method == "POST":
         data = json.loads(request.body)
 
-        book_instance = BorrowedBook.objects.get(pk=data["book"])
+        book_instance = Buku.objects.get(pk=data["book"])
 
         new_product = BookTrackerMember.objects.create(
             user = request.user,
@@ -224,14 +224,6 @@ def update_progress_member_flutter(request, book_id):
         return JsonResponse({"status": "success"}, status=200)
     else:
         return JsonResponse({"status": "error"}, status=401)
-    
-@csrf_exempt
-def delete_book(request, id):
-    if request.method == 'DELETE':
-        item = BookTracker.objects.get(pk=id)
-        item.delete()
-        return HttpResponse()
-    return HttpResponseNotFound()
 
 @csrf_exempt
 def delete_book_member(request, id):
@@ -241,19 +233,6 @@ def delete_book_member(request, id):
         return HttpResponse()
     return HttpResponseNotFound()
 
-@csrf_exempt
-def delete_book_flutter(request):
-    if request.method == 'POST':
-        data = json.loads(request.body)
-
-        book_id = data.get('id')
-        item = BookTracker.objects.get(book=int(book_id))
-        item.delete()
-
-        return JsonResponse({"status": "success"}, status=200)
-    else:
-        return JsonResponse({"status": "error"}, status=401)
-    
 @csrf_exempt
 def delete_book_member_flutter(request):
     if request.method == 'POST':
