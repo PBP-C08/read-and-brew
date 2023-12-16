@@ -238,8 +238,8 @@ def delete_book_member_flutter(request):
     if request.method == 'POST':
         data = json.loads(request.body)
 
-        book_id = data.get('id')
-        item = BookTracker.objects.get(book=int(book_id))
+        book_id = int(data["id"])
+        item = BookTrackerMember.objects.get(book=int(book_id))
         item.delete()
 
         return JsonResponse({"status": "success"}, status=200)
