@@ -340,10 +340,14 @@
                                     <p style="color: #513C1E;" class="card-text pt-2"><b>Status: </b>${statusLabels[item.fields.status]}</p>
                                     <p style="color: #513C1E;" class="card-text pt-2"><b>Pages Read: </b>${item.fields.progress}/${item.fields.page}</p>
                                 </div>
-                                <ul class="list-group list-group-flush">
-                                    <div class="d-grid">
-                                        <button class="btn btn-success edit-button" data-book-id="${item.pk}" data-bs-toggle="modal" data-bs-target="#editModal">
+                                <ul>
+                                    <div class="d-flex justify-content-between mx-3 mb-3">
+                                        <button class="btn btn-success edit-button w-100" data-book-id="${item.pk}" data-bs-toggle="modal" data-bs-target="#editModal">
                                             Edit
+                                        </button>
+                                        <div class="mx-2"></div> <!-- This is a spacer -->
+                                        <button class="btn btn-danger delete-button w-100" onclick="deleteItem(${item.pk})">
+                                            Delete
                                         </button>
                                     </div>
                                 </ul>
@@ -451,9 +455,15 @@
                     sortedBooks.forEach((book) => {
                         book.parentNode.insertBefore(book, book.parentNode.firstChild);
                     });
-                } else {
-                    $("#radiobutsort").hide();
-                }
+                } 
+            }
+
+            function deleteItem(id) {
+            fetch(`delete-book-member/${id}`, {
+                method: "DELETE"
+            }).then(refreshTracker)
+
+            return false
             }
         </script>
         {% else %}
@@ -561,10 +571,14 @@
                                     <p style="color: #513C1E;" class="card-text pt-2"><b>Status: </b>${statusLabels[item.fields.status]}</p>
                                     <p style="color: #513C1E;" class="card-text pt-2"><b>Pages Read: </b>${item.fields.progress}/${item.fields.page}</p>
                                 </div>
-                                <ul class="list-group list-group-flush">
-                                    <div class="d-grid">
-                                        <button class="btn btn-success edit-button" data-book-id="${item.pk}" data-bs-toggle="modal" data-bs-target="#editModal">
+                                <ul>
+                                    <div class="d-flex justify-content-between mx-3 mb-3">
+                                        <button class="btn btn-success edit-button w-100" data-book-id="${item.pk}" data-bs-toggle="modal" data-bs-target="#editModal">
                                             Edit
+                                        </button>
+                                        <div class="mx-2"></div> <!-- This is a spacer -->
+                                        <button class="btn btn-danger delete-button w-100" onclick="deleteItem(${item.pk})">
+                                            Delete
                                         </button>
                                     </div>
                                 </ul>
@@ -676,6 +690,19 @@
                     $("#radiobutsort").hide();
                 }
             }
+
+            function deleteItem(id) {
+            fetch(`delete-book/${id}`, {
+                method: "DELETE"
+            }).then(refreshTracker)
+
+            return false
+            }
+            
+            // EKSPERIMEN
+            window.addEventListener('beforeunload', function (e) {
+                navigator.sendBeacon('delete-old-books');
+            });
         </script>
         {% endif %}
     </body>

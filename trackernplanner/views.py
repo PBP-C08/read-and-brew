@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound, JsonResponse
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
+from django.utils import timezone
 
 def show_tracker_planner(request):
     is_member = False
@@ -80,7 +81,7 @@ def show_json_trackermember(request):
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
 def show_json_trackermember_flutter(request):
-    data = BookTrackerMember.objects.filter()
+    data = BookTrackerMember.objects.all()
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
 def show_json_tracker(request):
@@ -90,6 +91,10 @@ def show_json_tracker(request):
 def show_json_borrowedbooks(request):
     borrowed_books = BorrowedBook.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize('json', borrowed_books))
+
+def show_json_borrowedbooks_flutter(request):
+    borrowed_books = BorrowedBook.objects.all()
+    return HttpResponse(serializers.serialize("json", borrowed_books), content_type="application/json")
 
 def get_book_details(request, book_id):
     if request.method == "GET":
@@ -217,5 +222,59 @@ def update_progress_member_flutter(request, book_id):
         book.save()
 
         return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
+    
+@csrf_exempt
+def delete_book(request, id):
+    if request.method == 'DELETE':
+        item = BookTracker.objects.get(pk=id)
+        item.delete()
+        return HttpResponse()
+    return HttpResponseNotFound()
+
+@csrf_exempt
+def delete_book_member(request, id):
+    if request.method == 'DELETE':
+        item = BookTrackerMember.objects.get(pk=id)
+        item.delete()
+        return HttpResponse()
+    return HttpResponseNotFound()
+
+@csrf_exempt
+def delete_book_flutter(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+
+        book_id = data.get('id')
+        item = BookTracker.objects.get(book=int(book_id))
+        item.delete()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
+    
+@csrf_exempt
+def delete_book_member_flutter(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+
+        book_id = data.get('id')
+        item = BookTracker.objects.get(book=int(book_id))
+        item.delete()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
+    
+@csrf_exempt
+def delete_old_books(request):
+    if request.method == 'POST':
+        time_threshold = timezone.now() - timezone.timedelta(hours=48)
+        old_books = BookTracker.objects.filter(tracked_at__lt=time_threshold)
+        count = old_books.count()
+        old_books.delete()
+
+        return JsonResponse({"status": "success", "count": count}, status=200)
     else:
         return JsonResponse({"status": "error"}, status=401)
