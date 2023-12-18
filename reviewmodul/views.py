@@ -95,13 +95,18 @@ def add_review_flutter(request):
             input_data = json.loads(request.body)
             username = input_data.get('username', '')
             book_name = input_data.get('bookname', '')
-            rating = int(input_data.get('rating', ''))
+            rating = input_data.get('rating', '')
             review = input_data.get('review', '')
             
             if not (username and book_name and rating and review):
                 return JsonResponse({"status": "failed", "message": "Invalid data in request"}, status=400)
 
             user = request.user
+
+            try:
+                rating = int(rating)
+            except ValueError:
+                return JsonResponse({"status": "failed", "message": "Invalid Rating! Must be an integer."}, status=400)
 
             new_review = ReviewMember(username=username, book_name=book_name, rating=rating, review=review, user=user)
             jumlah_review = JumlahReview.objects.filter(book__Judul=book_name).first()
