@@ -95,7 +95,7 @@ def add_review_flutter(request):
             input_data = json.loads(request.body)
             username = input_data.get('username', '')
             book_name = input_data.get('bookname', '')
-            rating = int(input_data.get('rating', 0))
+            rating = int(input_data.get('rating', ''))
             review = input_data.get('review', '')
             
             if not (username and book_name and rating and review):
