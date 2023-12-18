@@ -91,35 +91,44 @@ def delete_review(request, id):
 @csrf_exempt
 def add_review_flutter(request):
     if request.method == "POST":
-        input = json.loads(request.body)
-
-        username = input['username']
-        book_name = input['bookname']
-        rating = int(input['rating'])
-        review = input['review']
-        user = request.user
-
-        new_review = ReviewMember(username=username, book_name = book_name, rating=rating, review=review, user=user)
-        jumlahReview = JumlahReview.objects.filter(book__Judul=book_name).first()
-        buku = Buku.objects.get(Judul=book_name)
-       
-        if(jumlahReview == None):
-            jumlahReview = JumlahReview(book=buku, jumlah = 0)
-
-        jumlahReview.jumlah += 1
-
-        if rating>0 and rating <= 5:
-            jumlahReview.save()
-            buku.Rating = int((buku.Rating + int(rating))/jumlahReview.jumlah)
-            buku.save()
-            new_review.save()
+        try:
+            input_data = json.loads(request.body)
+            username = input_data.get('username', '')
+            book_name = input_data.get('bookname', '')
+            rating = int(input_data.get('rating', 0))
+            review = input_data.get('review', '')
             
-            return JsonResponse({"status": "success", "message": "Success!"}, status=200)
+            if not (username and book_name and rating and review):
+                return JsonResponse({"status": "failed", "message": "Invalid data in request"}, status=400)
 
-        else:
-            return JsonResponse({"status": "failed", "message": "Invalid Rating!"}, status=400)
-    
-    return JsonResponse({"status": "success", "message": "Failed!"}, status=400)
+            user = request.user
+
+            new_review = ReviewMember(username=username, book_name=book_name, rating=rating, review=review, user=user)
+            jumlah_review = JumlahReview.objects.filter(book__Judul=book_name).first()
+            buku = Buku.objects.get(Judul=book_name)
+
+            if jumlah_review is None:
+                jumlah_review = JumlahReview(book=buku, jumlah=0)
+
+            jumlah_review.jumlah += 1
+
+            if 0 < rating <= 5:
+                jumlah_review.save()
+                buku.Rating = int((buku.Rating + int(rating)) / jumlah_review.jumlah)
+                buku.save()
+                new_review.save()
+
+                return JsonResponse({"status": "success", "message": "Success!"}, status=200)
+            else:
+                return JsonResponse({"status": "failed", "message": "Invalid Rating!"}, status=400)
+
+        except json.JSONDecodeError as e:
+            return JsonResponse({"status": "failed", "message": f"Invalid JSON in request: {str(e)}"}, status=400)
+
+        except Exception as e:
+            return JsonResponse({"status": "failed", "message": f"Internal Server Error: {str(e)}"}, status=500)
+
+    return JsonResponse({"status": "failed", "message": "Invalid request method"}, status=400)
 
 @csrf_exempt
 def delete_review_flutter(request, id):
