@@ -97,9 +97,6 @@ def add_review_flutter(request):
             book_name = input_data.get('bookname', '')
             rating = input_data.get('rating', '')
             review = input_data.get('review', '')
-            
-            if not (username and book_name and rating and review):
-                return JsonResponse({"status": "failed", "message": "Invalid data in request"}, status=400)
 
             user = request.user
 
