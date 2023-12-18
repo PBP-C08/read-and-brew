@@ -100,6 +100,9 @@ def add_review_flutter(request):
 
             user = request.user
 
+            if ReviewMember.objects.filter(username=username, book_name=book_name, user=user).exists():
+                return JsonResponse({"status": "failed", "message": "You're already reviewed this book!"}, status=400)
+
             try:
                 rating = int(rating)
             except ValueError:
